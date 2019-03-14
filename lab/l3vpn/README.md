@@ -1,5 +1,5 @@
 # L3VPN Lab Setup 
-The objective of this lab os to provide a platform to test L3VPN automation solutions for a Service provider network.
+The objective of this lab is to provide a platform to test L3VPN automation solutions for a service provider network.
 
 The lab consists of the following network devices:
 - IOS-XE 3.15.02 (CSR1000V)
