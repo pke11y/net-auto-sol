@@ -14,8 +14,8 @@ Ansible 2.7 is running on a network management host Ubuntu VM. Any other managem
 
 ## Physical
 
-[Physical Setup](l3vpn/physical.png)
+![Physical Diagram](l3vpn/physical.png)
 
 ## Logical
 
-(l3vpn/logical.png)
+![Logical Diagram](l3vpn/logical.png)
