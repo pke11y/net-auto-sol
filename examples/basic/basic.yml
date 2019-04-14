@@ -1,0 +1,13 @@
+---
+- hosts: csr
+  connection: local
+  tasks:
+  - template: src=csr/basic.j2 dest=configs/{{inventory_hostname}}.txt
+    name: create config for CSRs
+
+- hosts: catalyst
+  connection: local
+  tasks:
+  - template: src=catalyst/basic.j2 dest=configs/{{inventory_hostname}}.txt
+    name: create config for Catalyst
+  

@@ -1,0 +1,19 @@
+# CLI filter for "show ip arp" Cisco IOS command
+#
+---
+vars:
+  arpentry:
+    key: "{{item.ip}}"
+    values:
+      mac: "{{item.mac}}"
+      arptype: "{{item.arptype}}"
+      interface: "{{item.interface}}"
+
+keys:
+  arpentries:
+    type: list
+    value: "{{arpentry}}"
+    items: "^.*?(?P<ip>\\d+\\.\\d+\\.\\d+\\.\\d+).*?(?P<mac>\\d{4,4}\\.\\d{4,4}\\.\\d{4,4})\\s+(?P<arptype>\\S+)\\s+(?P<interface>\\S+)"
+#    items: "^.*?(?P<ip>\\d+\\.\\d+\\.\\d+\\.\\d+).*?(?P<mac>\\d{4,4}\\.\\d{4,4}\\.\\d{4,4})\\s+(?<type>\\S+)\\s+(?<interface>\\S+)"
+    
+

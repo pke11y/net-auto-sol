@@ -1,0 +1,15 @@
+# Show ARP for IOS
+---
+- hosts: csr
+  connection: network_cli
+  tasks:
+  - name: "Gather IOS Facts"
+    ios_facts:
+    register: ios_facts
+#  - debug: var=ios_facts
+  - name: "Execute show ARP"
+    ios_command:
+      commands: show arp
+    register: cmd_results
+  - debug: var=cmd_results
+

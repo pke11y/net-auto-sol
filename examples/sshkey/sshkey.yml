@@ -1,0 +1,28 @@
+# Get SSH keys from lab devices described in Ansible inventory
+#
+---
+- name: get SSH Keys
+  hosts: all
+  gather_facts: no
+  connection: local
+  vars:
+    - known_hosts: "~/.ssh/known_hosts"
+  tasks:
+    - name: scan and register
+      command: "ssh-keyscan {{ansible_host|default(inventory_hostname)}}"
+      register: "host_keys"
+      changed_when: false
+
+    - file: path={{known_hosts}} state=touch
+      run_once: true
+      changed_when: false
+
+    - blockinfile:
+        dest: "{{known_hosts}}"
+        marker: "{mark} This part managed by Ansible"
+        block: |
+          {% for myhost in groups['all'] if hostvars[myhost].host_keys is defined %}
+          {{ hostvars[myhost].host_keys.stdout }}
+          {% endfor %}
+      run_once: true
+

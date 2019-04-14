@@ -1,0 +1,23 @@
+# CLI filter for "show ip bgp summary" Cisco IOS command
+#
+---
+vars:
+  neighbor:
+    key: "{{item.ip}}"
+    values:
+      version: "{{item.version}}"
+      asn: "{{item.asn}}"
+      msgr: "{{item.msgr}}"
+      msgs: "{{item.msgs}}"
+      tblv: "{{item.tblv}}"
+      inq: "{{item.inq}}"
+      outq: "{{item.outq}}"
+      uptime: "{{item.uptime}}"
+      state_pfx: "{{item.state_pfx}}"
+
+keys:
+  neighbors:
+    type: list
+    value: "{{neighbor}}"
+    items: "^(?P<ip>\\d+\\.\\d+\\.\\d+\\.\\d+)\\s+(?P<version>\\d{1,1})\\s+(?P<asn>\\d+)\\s+(?P<msgr>\\d+)\\s+(?P<msgs>\\d+)\\s+(?P<tblv>\\d+)\\s+(?P<inq>\\d+)\\s+(?P<outq>\\d+)\\s+(?P<uptime>[0-9a-z]+)\\s+(?P<state_pfx>\\w+)"
+

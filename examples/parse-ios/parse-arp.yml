@@ -1,0 +1,15 @@
+# Parse ARP for IOS
+---
+- hosts: csr
+  connection: network_cli
+  tasks:
+  - name: "Gather IOS Facts"
+    ios_facts:
+    register: ios_facts
+  - name: "Execute show ARP"
+    ios_command:
+      commands: show arp
+    register: cmd_results
+  - name: "Parse the ARP table from IOS"
+    debug: msg={{cmd_results.stdout[0] | parse_cli('parse-ios/filter/ios_arp.yml')}} 
+

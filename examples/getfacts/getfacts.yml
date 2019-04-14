@@ -1,0 +1,21 @@
+# Gather Facts Multi OS
+---
+- hosts: all
+  connection: local
+  tasks:
+  - name: "Get SNMP device version and vendor info"
+    snmp_device_version:
+      host: '{{ansible_host}}'
+      version: 2c
+      community: public
+  - name: DEBUG the device_os fact set using the 'snmp_device_version' module
+    debug: var=ansible_facts['device_os']
+  - name: Gather IOS facts
+    action: "{{ ansible_facts['device_os'] + '_facts' }}"
+#    action: "{{ test }}"
+#  - name: "Get Generic SNMP Gather Facts"
+#    snmp_facts:
+#      host: '{{ansible_host}}'
+#      version: v2
+#      community: public
+

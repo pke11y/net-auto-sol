@@ -1,0 +1,18 @@
+# CLI filter for "show running-config" Cisco IOS command
+#
+---
+vars:
+  ospfcfg:
+    netwip: "{{item[0].netwip}}"
+    netwmask: "{{item[0].netwmask}}"
+    area: "{{item[0].area}}"
+
+keys:
+  ospfcfgs:
+    start_block: ".*?router\\sospf\\s\\d+"
+    end_block: "^!$"
+    type: list
+    value: "{{ ospfcfg }}"
+    items: 
+    - "^\\s+network\\s+(?P<netwip>\\d+\\.\\d+\\.\\d+\\.\\d+)"
+#    - "^ network (?P<netwip>\\d+\\.\\d+\\.\\d+\\.\\d+) (?P<netwmask>\\d+\\.\\d+\\.\\d+\\.\\d+) area (?P<area>\\d+)"

@@ -1,0 +1,12 @@
+# Parse 'show ip bgp neighbor' for IOS
+---
+- hosts: csr
+  connection: network_cli
+  tasks:
+  - name: "Execute show ip bgp neighbor"
+    ios_command:
+      commands: 
+      - "show ip bgp neighbors"
+    register: cmd_results
+  - name: "Parse the BGP neighbor table from IOS"
+    debug: msg={{cmd_results.stdout[0] | parse_cli('ip-bgp/filter/show-ip-bgp-neighbor.yml')}}

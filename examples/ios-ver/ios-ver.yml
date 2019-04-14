@@ -1,0 +1,17 @@
+# Show Version for IOS
+---
+- hosts: catalyst
+  connection: local
+  tasks:
+  - name: "Execute show version"
+    ios_command:
+      commands: show version
+    register: result
+#  - debug: msg="IOS VERSION {{iosversion}}"
+#  - fail: msg="Wrong Cisco IOS version"
+#    when: "'Version ' + iosversion not in result.stdout[0]"
+  - lineinfile:
+      dest: version_report.txt
+      regexp: "{{inventory_hostname}}"
+      line: "{{inventory_hostname}}: wrong IOS version"
+    when: "'Version ' + iosversion not in result.stdout[0]"

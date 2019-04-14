@@ -1,0 +1,3 @@
+# Group variables for Catalyst switches
+---
+iosversion: "15.2"

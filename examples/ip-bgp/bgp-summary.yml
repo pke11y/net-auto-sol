@@ -1,0 +1,11 @@
+# Parse IP BGP Summary for IOS
+---
+- hosts: csr
+  connection: network_cli
+  tasks:
+  - name: "Execute show ip bgp summary"
+    ios_command:
+      commands: show ip bgp summary
+    register: cmd_results
+  - name: "Parse the BGP table from IOS"
+    debug: msg={{cmd_results.stdout[0] | parse_cli('ip-bgp/filter/bgp-summ-filter.yml')}}

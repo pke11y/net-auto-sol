@@ -1,0 +1,10 @@
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname CSR2
+!
+logging buffered 4096
+logging host 10.0.0.52
+!
+no aaa new-model
