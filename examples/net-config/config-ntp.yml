@@ -1,0 +1,31 @@
+# Configure NTP servers based on list in all.yml
+# ipspace Building Automation Solutions 2019
+---
+- hosts: csr
+  connection: network_cli
+  tasks:
+  - name: "CONFIGURE NTP SERVERS"
+    ios_config:
+      lines: 
+      - "ntp server {{ item }}"
+    loop: "{{ ntp_servers }}"
+    register: output
+  - name: "CREATE DIR"
+    file: path={{playbook_dir}}/results state=directory
+  - name: "CREATE RESULT FILE"
+    copy: 
+      content: |
+        ******************************
+        Results on {{inventory_hostname}}
+        ******************************
+
+        Device updated: {{output['changed']}}
+        Attempted lines:
+        {% for line in output['results'] %}
+        {{ line['invocation']['module_args']['lines'] }}
+        {% endfor %}
+      dest: "{{playbook_dir}}/results/{{inventory_hostname}}.txt"
+  - name: "COMPILE RESULTS INTO ONE FILE"
+    assemble: src={{playbook_dir}}/results dest={{playbook_dir}}/results.txt
+    run_once: true
+

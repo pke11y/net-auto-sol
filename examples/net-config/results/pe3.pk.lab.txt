@@ -1,0 +1,8 @@
+******************************
+Results on pe3.pk.lab
+******************************
+
+Device updated: False
+Attempted lines:
+[u'ntp server 192.168.1.251']
+[u'ntp server 192.168.1.1']
