@@ -1,0 +1,26 @@
+# Configure BGP neighbor shutdown
+# ipspace Building Automation Solutions 2019
+---
+- hosts: csr
+  connection: network_cli
+  tasks:
+  - name: "EXECUTE 'SHOW IP BGP NEIGHBORS' - IOS"
+    ios_command:
+      :
+      - "show ip bgp neighbors"
+    register: cmd_results
+  - name: "PARSE BGP NEIGHBOR DETAILS - IOS"
+    set_fact: 
+      bgp_neighbors: "{{cmd_results.stdout[0] | parse_cli('ip-bgp/filter/show-ip-bgp-neighbor.yml')}}"
+  - name: "CONFIGURE BGP NEIGHBOR SHUTDOWN"
+    ios_config: |
+      src={{playbook_dir}}/templates/ios-snmp.j2 dest={{playbook_dir}}/results/{{inventory_hostname}$
+  
+
+- hosts: xr
+  connection: network_cli
+  tasks:
+  - name: "CREATE DIRECTORY"
+    file: path={{playbook_dir}}/results state=directory
+    run_once: true
+

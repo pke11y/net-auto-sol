@@ -1,0 +1,24 @@
+# CLI filter for "show bgp neighbor" Cisco IOS-XR command
+#
+---
+vars:
+  neighbor:
+    bgp_neighbor: "{{item[0].bgp_neighbor}}"
+    remote_asn: "{{item[1].remote_asn}}"
+    local_asn: "{{item[1].local_asn}}"
+    description: "{{item[2].desc}}"
+    remote_rid: "{{item[3].remote_rid}}"
+    state: "{{item[4].state}}"
+
+keys:
+  neighbors:    
+    start_block: "^BGP neighbor"
+    end_block: ".*NSR State"
+    type: list
+    value: "{{ neighbor }}"
+    items: 
+      - ".*?(?P<bgp_neighbor>\\d+\\.\\d+\\.\\d+\\.\\d+)
+      - .*?(?P<remote_asn>\\d+), (?P<local_asn>\\d+)"
+      - ".*Description: (?P<desc>.+)"
+      - ".*(?P<remote_rid>\\d+.\\d+.\\d+.\\d+)"
+      - ".*BGP state = (?P<state>[A-Za-z]+)"

@@ -1,0 +1,7 @@
+snmp-server community {{snmp['community']}} RO
+snmp-server location pk.lab
+snmp-server contact pk
+{% for snmp_server in snmp['servers'] %}
+snmp-server host {{snmp_server}} traps {{snmp['community']}}
+{% endfor %}
+snmp-server enable traps

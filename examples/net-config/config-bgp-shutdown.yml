@@ -1,0 +1,29 @@
+# Configure BGP neighbor shutdown using jinja2 templates
+# ipspace Building Automation Solutions 2019
+---
+- hosts: csr
+  connection: network_cli
+  tasks:
+  - name: "CREATE DIR FOR RESULTS"
+    file: path={{playbook_dir}}/results state=directory
+    run_once: true
+  - name: "EXECUTE SHOW IP BGP NEIGHBOR - IOS"
+    ios_command:
+      commands:
+      - "show ip bgp neighbors"
+    register: cmd_results
+  - name: "PARSE BGP NEIGHBOR RESULT - IOS"
+    set_fact:
+      bgp_neighbors: "{{cmd_results.stdout[0] | parse_cli('ip-bgp/filter/show-ip-bgp-neighbor.yml')}}"
+  - name: "CREATE BGP CONFIGURATION USING JINJA2 TEMPLATE- IOS"
+    template: |
+      src={{playbook_dir}}/templates/ios-bgp-shutdown.j2 dest={{playbook_dir}}/results/{{inventory_hostname}}.bgp.cfg
+  - name: "DEPLOY BGP CONFIGURATION - IOS"
+    ios_config:
+      src: "{{playbook_dir}}/results/{{inventory_hostname}}.bgp.cfg"
+    register: change
+#- hosts: xr
+#  connection: network_cli
+#  tasks:
+
+

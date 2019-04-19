@@ -1,0 +1,6 @@
+snmp-server traps fabric plane
+snmp-server host 192.168.0.3 traps version 2c public
+snmp-server host 192.168.0.4 traps version 2c public
+snmp-server community public RO SystemOwner
+snmp-server trap-timeout 3
+snmp-server trap-source Loopback0

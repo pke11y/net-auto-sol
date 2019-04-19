@@ -1,0 +1,30 @@
+# Configure SNMP servers based on list in all.yml using jinja2 templates
+# ipspace Building Automation Solutions 2019
+---
+- hosts: csr
+  connection: network_cli
+  tasks:
+  - name: "CREATE DIRECTORY"
+    file: path={{playbook_dir}}/results state=directory
+    run_once: true
+  - name: "CREATE SNMP CONFIGURATION USING JINJA2 TEMPLATE- IOS-XE"
+    template: |
+      src={{playbook_dir}}/templates/ios-snmp.j2 dest={{playbook_dir}}/results/{{inventory_hostname}}.snmp.cfg
+  - name: "DEPLOY CONFIGURATIONS - IOS-XE"
+    ios_config:
+      src: "{{playbook_dir}}/results/{{inventory_hostname}}.snmp.cfg"
+
+- hosts: xr
+  connection: network_cli
+  tasks:
+  - name: "CREATE DIRECTORY"
+    file: path={{playbook_dir}}/results state=directory
+    run_once: true
+  - name: "CREATE SNMP CONFIGURATION USING JINJA2 TEMPLATE- IOS-XR"
+    template: |
+      src={{playbook_dir}}/templates/iosxr-snmp.j2 dest={{playbook_dir}}/results/{{inventory_hostname}}.snmp.cfg
+  - name: "DEPLOY CONFIGURATIONS - IOS-XR"
+    iosxr_config:
+      src: "{{playbook_dir}}/results/{{inventory_hostname}}.snmp.cfg"
+    vars:
+      ansible_command_timeout: 30

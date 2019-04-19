@@ -1,0 +1,4 @@
+# Group variables for IOS-XR
+---
+ansible_user: admin
+ansible_ssh_pass: admin
