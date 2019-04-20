@@ -1,4 +1,4 @@
 router bgp 65001
 {% for neigh in bgp_neighbors %}
-neighbor {{neigh['bgp_neighbor']}} shutdown 
+ neighbor {{neigh['bgp_neighbor']}} shutdown 
 {% endfor %}

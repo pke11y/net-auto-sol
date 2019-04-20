@@ -3,6 +3,8 @@
 ---
 - hosts: csr
   connection: network_cli
+  vars:
+    - asn: 65001
   tasks:
   - name: "CREATE DIR FOR RESULTS"
     file: path={{playbook_dir}}/results state=directory
@@ -15,12 +17,17 @@
   - name: "PARSE BGP NEIGHBOR RESULT - IOS"
     set_fact:
       bgp_neighbors: "{{cmd_results.stdout[0] | parse_cli('ip-bgp/filter/show-ip-bgp-neighbor.yml')}}"
+  - debug: var=hostvars['{{inventory_hostname}}']
   - name: "CREATE BGP CONFIGURATION USING JINJA2 TEMPLATE- IOS"
     template: |
       src={{playbook_dir}}/templates/ios-bgp-shutdown.j2 dest={{playbook_dir}}/results/{{inventory_hostname}}.bgp.cfg
   - name: "DEPLOY BGP CONFIGURATION - IOS"
     ios_config:
+#      parents:
+#      - "router bgp {{asn}}"
       src: "{{playbook_dir}}/results/{{inventory_hostname}}.bgp.cfg"
+#      lines:
+#      - "neighbor {{}}
     register: change
 #- hosts: xr
 #  connection: network_cli
