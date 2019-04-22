@@ -1,0 +1,4 @@
+ipv4 access-list TEST-ACL
+{% for prefix in internal_prefixes %}
+ permit {{prefix|ipaddr('network')}} {{prefix|ipaddr('hostmask')}}
+{% endfor %}

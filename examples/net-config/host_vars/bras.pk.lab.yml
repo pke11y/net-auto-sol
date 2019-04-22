@@ -1,0 +1,6 @@
+ospf_interfaces
+- GigabitEthernet1
+- GigabitEthernet2
+- GigabitEthernet3
+- GigabitEthernet4
+- Loopback0

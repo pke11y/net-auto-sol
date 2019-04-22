@@ -1,0 +1,44 @@
+# Configure OSPF process using jinja2 templates with variables in host_vars + group_vars
+# ipspace Building Automation Solutions 2019
+# Ansible Version: 2.7
+# Linux Controller: Ubuntu 16.04
+---
+- hosts: csr
+  connection: network_cli
+  tasks:
+  - name: "CREATE DIR FOR RESULTS"
+    file: path={{playbook_dir}}/results state=directory
+    run_once: true
+  - name: "CREATE OSPF CONFIGURATION USING JINJA2 TEMPLATE - IOS"
+    template: |
+      src={{playbook_dir}}/templates/ios-ospf-intf.j2 dest={{playbook_dir}}/results/{{inventory_hostname}}.ospf.cfg
+#  - name: "DEPLOY OSPF CONFIGURATION - IOS"
+#    ios_config:
+#      src: "{{playbook_dir}}/results/{{inventory_hostname}}.ospf.cfg"
+#    register: change
+ - name: "DEPLOY OSPF CONFIGURATION NAPALM - IOS"
+   napalm_install_config:
+    hostname: '{{ inventory_hostname }}'
+    username: '{{ ansible_user }}'
+    dev_os: '{{ ansible_network_os }}'
+    password: '{{ ansible_ssh_pass }}'
+    config: '{{playbook_dir}}/results/{{inventory_hostname}}.ospf.cfg'
+    commit_changes: True
+    replace_config: False
+    get_diffs: True
+    diff_file: '/results/{{inventory_hostname}}.ospf.cfg.diff
+
+- hosts: xr
+  connection: network_cli
+  tasks:
+  - name: "CREATE DIR FOR RESULTS"
+    file: path={{playbook_dir}}/results state=directory
+    run_once: true
+  - name: "CREATE OSPF CONFIGURATION USING JINJA2 TEMPLATE - IOS-XR"
+    template: |
+      src={{playbook_dir}}/templates/iosxr-ospf-intf.j2 dest={{playbook_dir}}/results/{{inventory_hostname}}.ospf.cfg
+  - name: "DEPLOY OSPF CONFIGURATION - IOS-XR"
+    iosxr_config:
+      src: "{{playbook_dir}}/results/{{inventory_hostname}}.ospf.cfg"
+    register: change
+

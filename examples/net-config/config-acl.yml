@@ -1,0 +1,29 @@
+# Configure ACL with prefixes from 'group_vars/all.yml'
+# ipspace Building Automation Solutions 2019
+# Ansible 2.7
+# Ubuntu 16.04
+---
+- hosts: csr
+  connection: network_cli
+  tasks:
+  - name: "CREATE DIR FOR RESULTS"
+    file: path={{playbook_dir}}/results state=directory
+    run_once: true
+  - name: "CREATE ACL CONFIGURATION USING JINJA2 TEMPLATE- IOS"
+    template: |
+      src={{playbook_dir}}/templates/ios-create-acl.j2 dest={{playbook_dir}}/results/{{inventory_hostname}}.acl.cfg
+  - name: "DEPLOY BGP CONFIGURATION - IOS"
+    ios_config:
+      src: "{{playbook_dir}}/results/{{inventory_hostname}}.acl.cfg"
+    register: change
+- hosts: xr
+  connection: network_cli
+  tasks:
+  - name: "CREATE ACL CONFIGURATION USING JINJA2 TEMPLATE - IOS-XR"
+    template: |
+      src={{playbook_dir}}/templates/iosxr-create-acl.j2 dest={{playbook_dir}}/results/{{inventory_hostname}}.acl.cfg
+  - name: "DEPLOY BGP CONFIGURATION - IOS-XR"
+    iosxr_config:
+      src: "{{playbook_dir}}/results/{{inventory_hostname}}.acl.cfg"
+    register: change
+  - debug: var=change

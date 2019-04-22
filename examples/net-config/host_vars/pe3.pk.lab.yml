@@ -1,0 +1,10 @@
+---
+ospf:
+ 1: 
+  area: 0
+  interfaces:
+  - GigabitEthernet1
+  - GigabitEthernet2
+  - GigabitEthernet3
+  - GigabitEthernet4
+  - Loopback0

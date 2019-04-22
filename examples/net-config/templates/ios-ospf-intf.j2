@@ -1,0 +1,6 @@
+{% for process_id, ospf_vars in ospf.items() %}
+{% for intf in ospf_vars['interfaces'] %}
+interface {{intf}}
+ no ip ospf {{process_id}} area {{ospf_vars['area']}}
+{% endfor %}
+{% endfor %}

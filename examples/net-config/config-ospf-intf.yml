@@ -1,0 +1,39 @@
+# Configure OSPF process using jinja2 templates with variables in host_vars + group_vars
+# ipspace Building Automation Solutions 2019
+# Ansible Version: 2.7
+# Linux Controller: Ubuntu 16.04
+---
+- hosts: mpls
+  connection: network_cli
+  tasks:
+  - name: "CREATE DIR FOR RESULTS"
+    file: path={{playbook_dir}}/results state=directory
+    run_once: true
+  - name: "GET SNMP DEVICE VERSION AND VENDOR INFO INTO FACTS"
+    snmp_device_version:
+      host: '{{ansible_host}}'
+      version: 2c
+      community: public
+  - name: "CREATE OSPF CONFIGURATION USING JINJA2 TEMPLATE - IOS"
+    template: |
+      src={{playbook_dir}}/templates/{{ansible_facts['device_os'] | replace("-","")}}-ospf-intf.j2 dest={{playbook_dir}}/results/{{inventory_hostname}}.ospf.cfg
+  - name: "DEPLOY SCP CONFIGURATION FOR NAPALM - IOS"
+    ios_config:
+     lines:
+     - 'ip scp server enable'
+    when: ansible_facts['device_os'] == 'ios'
+  - name: "CREATE EMPTY DIFF FILE FOR NAPALM"
+    file: path={{playbook_dir}}/results/{{inventory_hostname}}.ospf.cfg.diff state=touch
+  - name: "DEPLOY OSPF CONFIGURATION NAPALM - IOS"
+    napalm_install_config:
+     hostname: "{{ ansible_host }}"
+     username: "{{ ansible_user }}"
+     dev_os: "{{ ansible_network_os }}"
+     password: "{{ ansible_ssh_pass }}"
+     config_file: "{{playbook_dir}}/results/{{inventory_hostname}}.ospf.cfg"
+     commit_changes: True
+     replace_config: False
+     get_diffs: True
+     diff_file: "{{playbook_dir}}/results/{{inventory_hostname}}.ospf.cfg.diff"
+    register: result
+  - debug: var=result
