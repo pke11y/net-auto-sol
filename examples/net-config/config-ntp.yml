@@ -15,8 +15,7 @@
       checkmode: "{{ansible_check_mode}}"
   - name: "CREATE DIR"
     file: path={{playbook_dir}}/results state=directory
-#    when: checkmode
-    check_mode: yes
+    check_mode: no
   - name: "CREATE RESULT FILE WHEN IN CHECK MODE - OVERRIDE CHECK MODE TO EXECUTE TASK"
     copy: 
       content: |
@@ -24,17 +23,16 @@
         Results on {{inventory_hostname}}
         ******************************
 
-        Device updated: {{output['changed']}}
+        Device updated: {{result['changed']}}
 
         Attempted lines:
         {% for line in output['results'] %}
         {{ line['invocation']['module_args']['lines'][0] }}
         {% endfor %}
       dest: "{{playbook_dir}}/results/{{inventory_hostname}}.txt"
- #   when: checkmode
-    check_mode: yes
+    check_mode: no
   - name: "COMPILE RESULTS INTO ONE FILE - OVERRIDE CHECK MODE TO EXECUTE TASK"
     assemble: src={{playbook_dir}}/results dest={{playbook_dir}}/results/results.txt
     run_once: true
 #    when: checkmode
-    check_mode: yes
+    check_mode: no
