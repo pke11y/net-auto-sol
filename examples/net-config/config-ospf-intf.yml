@@ -9,14 +9,16 @@
   - name: "CREATE DIR FOR RESULTS"
     file: path={{playbook_dir}}/results state=directory
     run_once: true
+    check_mode: no
   - name: "GET SNMP DEVICE VERSION AND VENDOR INFO INTO FACTS"
     snmp_device_version:
       host: '{{ansible_host}}'
       version: 2c
       community: public
+    check_mode: no
   - name: "CREATE OSPF CONFIGURATION USING JINJA2 TEMPLATE - IOS"
     template: |
-      src={{playbook_dir}}/templates/{{ansible_facts['device_os'] | replace("-","")}}-ospf-intf.j2 dest={{playbook_dir}}/results/{{inventory_hostname}}.ospf.cfg
+      src={{playbook_dir}}/templates/{{ansible_facts['device_os'] | replace("-","")}}-ospf-intf.j2 dest={{playbook_dir}}/results/{{inventory_hostname}}.ospf.cfg 
   - name: "DEPLOY SCP CONFIGURATION FOR NAPALM - IOS"
     ios_config:
      lines:
@@ -24,6 +26,14 @@
     when: ansible_facts['device_os'] == 'ios'
   - name: "CREATE EMPTY DIFF FILE FOR NAPALM"
     file: path={{playbook_dir}}/results/{{inventory_hostname}}.ospf.cfg.diff state=touch
+  - name: "CHECK IF GIT REPO ALREADY CLONDED LOCALLY"
+    git:
+      repo: 'https://github.com/pke11y/net-auto-sol.git'
+      dest: /home/pk/net-auto-sol
+      clone: no
+      update: no
+    register: git_clone
+  - debug: var=git_clone
   - name: "DEPLOY OSPF CONFIGURATION NAPALM - IOS"
     napalm_install_config:
      hostname: "{{ ansible_host }}"
@@ -35,5 +45,32 @@
      replace_config: False
      get_diffs: True
      diff_file: "{{playbook_dir}}/results/{{inventory_hostname}}.ospf.cfg.diff"
+     archive_file: "{{playbook_dir}}/results/{{inventory_hostname}}.conf"
     register: result
-  - debug: var=result
+  - name: "REPORT CHANGES WHEN IN CHECK MODE" 
+    copy:
+      content: |
+        ******************************
+        Results on {{inventory_hostname}}
+        ******************************
+        Device Change Status: {{result['changed']}}
+        Diff against active config:
+        {{ result['msg'] }}
+      dest: "{{playbook_dir}}/results/{{inventory_hostname}}_report.txt"
+    when: ansible_check_mode
+    check_mode: no
+  - name: "SENDING AN E-MAIL USING SMTP"
+    mail:
+      host: smtp.gmail.com
+      port: 587
+      username: xxxx@gmail.com
+      password: xxxx
+      to: xxxx@bt.com
+      subject: Ansible-report
+      body: System {{ inventory_hostname }} has been successfully provisioned.
+    when: ansible_check_mode
+  - name: "REPORT TO SCREEN IOS DIFF CONF (use args: --check --diff)"
+    ios_config:
+      diff_against: intended
+      intended_config: "{{playbook_dir}}/results/{{inventory_hostname}}.ospf.cfg"
+    when: ansible_facts['device_os'] == 'ios' 
