@@ -1,0 +1,12 @@
+# Parse OSPF from IOS and IOS-XR
+---
+- hosts: csr
+  connection: network_cli
+  tasks:
+  - name: "Execute show running-config on IOS"
+    ios_command:
+      commands: show running-config
+    register: cmd_results
+  - name: "Parse the running config on IOS"
+    debug: msg={{cmd_results.stdout[0] | parse_cli('parse-ospf-cfg/filter/ios_ospf_cfg.yml')}}
+

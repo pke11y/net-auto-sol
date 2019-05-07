@@ -1,0 +1,24 @@
+# Parse OSPF neighbor from IOS
+---
+- hosts: csr
+  connection: network_cli
+  tasks:
+  - name: "Execute show ip ospf neighbor command on IOS"
+    ios_command:
+      commands: show ip ospf neighbor
+    register: cmd_results
+  - name: "Parse the ip ospf neighbor command on IOS"
+    set_fact: 
+      ospf: "{{cmd_results.stdout[0] | parse_cli('dyn-ospf-uptime/filter/ios_ospf_neighbor.yml')}}"
+  - name: "Get SNMP uptime for ospf neighbors"
+    snmp_facts:
+      host: "{{ansible_host}}"
+      version: v2
+      community: public
+  - name: "Print the uptime for each host"
+    shell: seconds={{hostvars[inventory_hostname].ansible_sysuptime}}; echo $((seconds/100/86400))" days "$(date -d "1970-01-01 + $seconds seconds" "+%H hours %M minutes %S seconds")
+#    shell: print datetime.timedelta(seconds={{hostvars['inventory_hostname']['ansible_sysuptime']}}/100) 
+    args:
+      executable: /bin/bash
+    register: output
+  - debug: var=output.stdout
