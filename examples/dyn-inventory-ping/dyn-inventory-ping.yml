@@ -1,0 +1,23 @@
+# Get dynamic inventory
+# usage: ansible-playbook -i inventory_test.py dyn-inventory-ping.yml --limit p1.pk.lab
+---
+- hosts: csr
+  connection: network_cli
+  tasks:
+  - name: "Execute show ip ospf neighbor command on IOS"
+    ios_command:
+      commands: show ip ospf neighbor
+    register: cmd_results
+  - name: "Parse the ip ospf neighbor command on IOS"
+    set_fact: 
+      ospf: "{{cmd_results.stdout[0] | parse_cli('dyn-ospf-uptime/filter/ios_ospf_neighbor.yml')}}"
+  - name: "Print the uptime for each host"
+    napalm-ping: 
+      hostname: "{{ ansible_host }}"
+      username: "{{ ansible_user }}"
+      password: "{{ ansible_ssh_pass }}"
+      dev_os: "{{ ansible_network_os }}"
+      destination: "{{item}}"
+      count: 3
+    loop: {{hostvars[inventory_hostname]['neighbors']}}
+  - debug: var=output.stdout
