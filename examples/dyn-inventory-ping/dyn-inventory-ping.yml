@@ -8,16 +8,18 @@
     ios_command:
       commands: show ip ospf neighbor
     register: cmd_results
-  - name: "Parse the ip ospf neighbor command on IOS"
+  - name: "Parse the ip ospf neighbor command on IOS to get neighbors"
     set_fact: 
       ospf: "{{cmd_results.stdout[0] | parse_cli('dyn-ospf-uptime/filter/ios_ospf_neighbor.yml')}}"
-  - name: "Print the uptime for each host"
-    napalm-ping: 
+#  - debug: var=vars
+  - name: "Ping each OSPF neighbor"
+    napalm_ping: 
       hostname: "{{ ansible_host }}"
       username: "{{ ansible_user }}"
       password: "{{ ansible_ssh_pass }}"
       dev_os: "{{ ansible_network_os }}"
       destination: "{{item}}"
       count: 3
-    loop: {{hostvars[inventory_hostname]['neighbors']}}
-  - debug: var=output.stdout
+    with_items: "{{hostvars[inventory_hostname]['ospf']['neighbors']}}"
+    register: result
+  - debug: var=result.results
