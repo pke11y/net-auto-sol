@@ -1,0 +1,16 @@
+# create a playbook that fails and calls the json callback to print playbook execution statistics 
+# ansible.cfg
+#  callback_whitelist = json, set_stats, dense, callback_onfail
+#  stdout_callback = callback_onfail
+# callback_plugins folder
+#  callback_onfail.py  
+---
+- hosts: csr
+  connection: network_cli
+  tasks:
+    - ios_command:
+       commands: show version
+      register: result
+    - debug: var=vars
+    - fail: msg="Wrong IOS version"
+      when: "not ('Version 12.0' in result.stdout[0])"
