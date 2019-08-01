@@ -1,0 +1,21 @@
+# CLI filter for "show ip bgp vpnv4" Cisco IOS command
+#
+---
+vars:
+  neighbor:
+    bgp_neighbor: "{{item[0].bgp_neighbor}}"
+    remote_asn: "{{item[0].remote_asn}}"
+    description: "{{item[1].desc}}"
+    version: "{{item[2].version}}"
+    remote_rid: "{{item[2].remote_rid}}"
+
+keys:
+  neighbors:    
+    start_block: "^Route Distinguisher"
+    end_block: "^$"
+    type: list
+    value: "{{ neighbor }}"
+    items: 
+      - ".*?(?P<bgp_neighbor>\\d+\\.\\d+\\.\\d+\\.\\d+).*?(?P<remote_asn>\\d+)"
+      - ".*Description: (?P<desc>.+)"
+      - ".*BGP version (?P<version>\\d+).*?(?P<remote_rid>\\d+.\\d+.\\d+.\\d+)"

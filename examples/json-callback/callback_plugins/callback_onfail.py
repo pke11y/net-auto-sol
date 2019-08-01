@@ -22,4 +22,4 @@ class CallbackModule(CallbackBase):
         failed = result._result.get("failed")
         # sys.stdout.write(result)
         #self._display.display(to_text(task))
-        self._display.display("%s | FAILED! => %s \nTASK NAME: '%s'" % (result._host.get_name(), self._dump_results(result._result, indent=4), result._task.get_name()))
+        self._display.display("%s | FAILED! => %s \nTASK NAME: '%s'" % (host, self._dump_results(result._result, indent=4), task))
