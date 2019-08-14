@@ -1,7 +1,8 @@
 ---
 vrfs:
-  - name: 'VRF_ACME'
+  - name: "VRF_ACME"
     description: "TEST VRF"
+    type: "vpnv4"
     rd: "100"
     rt_import:
       - "65001:100"

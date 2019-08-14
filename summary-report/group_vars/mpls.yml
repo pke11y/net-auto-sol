@@ -1,0 +1,10 @@
+---
+  ## using 'pe: {node_name1{}, node_name2{}, ..}' allows loopback0 IP to be retrieved without looping through a list of PE's
+nodes:
+  pe:
+    "pe1.pk.lab": 
+        routerid: "10.10.10.1"
+    "pe2.pk.lab": 
+        routerid: "10.10.10.2"
+    "pe3.pk.lab": 
+        routerid: "10.10.10.3"
