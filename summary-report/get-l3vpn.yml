@@ -5,20 +5,14 @@
   roles:
     - ansible-pyats
   tasks:
-    # - pyats_parse_command:
-    #     command: show ip route bgp
-    #   register: output
-    # - debug:
-    #     var: vars
-        #var: hostvars['{{inventory_hostname}}']['vrfs'][0]['name']
-    - name: Set variables
+    - name: Set local variables
       set_fact:
         vrf_name: "{{hostvars[inventory_hostname]['vrfs'][0]['name']}}"
         vrf_type: "{{hostvars[inventory_hostname]['vrfs'][0]['type']}}"
         router_id: "{{hostvars[inventory_hostname]['nodes']['pe'][inventory_hostname]['routerid']}}"
         rd: "{{hostvars[inventory_hostname]['vrfs'][0]['rd']}}"
         cacheable: yes
-    - name: Run command
+    - name: Run command to get VPNV4 data
       cli_command:
         command: sh ip bgp vpnv4 vrf {{vrf_name}}
       register: cli_output
@@ -29,13 +23,16 @@
     # - name: Print variable
       # debug: var=parsed_output['vrf']['{{vrf_name}}']['address_family']['vpnv4 RD 10.10.10.2:100']['routes']['10.0.3.0/30']['index'][1]['next_hop']
       # var=parsed_output['vrf']['{{vrf_name}}']['address_family']['{{vrf_type}} RD {{router_id}}:{{rd}}']['routes']
-    - name: Print variable
+    - name: Set VPNV4 routes variable
       set_fact:
         routes: "{{parsed_output['vrf'][vrf_name]['address_family'][rd_cli]['routes']}}"
         #prefix: routes.keys()
-    - name: Loop through routes
+    - name: Run command to get VPNV4 data
+      cli_command:
+        command: sh ip bgp vpnv4 vrf {{vrf_name}} neighbors
+      register: cmd_output
+    - name: Parsing BGP Neighbor output
       set_fact:
-        nexthops: "{{item.value.index.1.next_hop|list}}"
-      loop: "{{routes|dict2items}}"
-    - name: Print nexthops
-      debug: var=nexthops
+        bgp_neigh_output: "{{ cmd_output.stdout | pyats_parser('show ip bgp vpnv4 vrf {{vrf_name}} neighbors', 'iosxe') }}"
+    - name: debug all
+      debug: var=vars

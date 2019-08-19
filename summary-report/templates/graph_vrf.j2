@@ -1,0 +1,34 @@
+# get next hops in VRF - 'sh ip bgp vpnv4 <VRF>' or 'sh ip bgp vpnv4 vrf <VRF> nexthops'
+#     - how do we map RID back to node name - hostvars??
+# get intf int in VRF per node - 'sh ip int vrf <VRF_NAME>'
+# get CPE neighbor BGP - 'sh ip bgp vpnv4 vrf VRF_ACME summary'
+#     - need IP address within /30 
+#     - is CPE RID same as mgmt IP?
+
+# PE - get 'network' and 'nexthops' in VRF - 'sh ip bgp vpnv4 <VRF>'
+
+# use 'nexthop' to get PE node, use 'network' to check if BGP neighbor is within the network
+# On PE get CPE from neighbor BGP - 'sh ip bgp vpnv4 vrf VRF_ACME neighbors'
+
+# print vrf_name
+# print all nodes
+   # pe routerid is in vpnv4 routes
+   # cpe routerid is in bgp neighbor parse
+# print top pe's to vrf
+# print bottom pe's to vrf
+# print cpe's to pe's
+
+
+graph network {
+   vrf [label="{{vrf_name}}"];
+{% set routes = parsed_output['vrf'][vrf_name]['address_family'][rd_cli]['routes'] %}
+{% set routers = [] %}
+{% for prefix, route_d in routes.items() %}
+{%    set nexthop = route_d['index'][1]['next_hop'] %}
+{%    routers.add(hostvars[inventory_hostname]['mgmt'][nexthop]) %}
+{% endfor %}
+## add CPE names from BGP neighbor bgp_neigh_output
+{% for neighbor in bgp_neigh_output['vrf'][vrf_name]['neighbor'].keys() %}
+{%  set cpe_routerid = neighbor in bgp_neigh_output['vrf'][vrf_name]['neighbor'][neighbor]['router_id'] %}
+{%  routers.add(hostvars[inventory_hostname]['mgmt'][cpe_routerid]) %}
+{% endfor %}

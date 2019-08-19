@@ -1,0 +1,15 @@
+graph network {
+    vrf [label="VRF_ACME"];
+    pe1 [shape="box"];
+    pe2 [shape="box"];
+    pe3 [shape="box"];
+    cpe1 [shape="box"];
+    cpe2 [shape="box"];
+    cpe3 [shape="box"]; 
+    pe1 -- vrf;
+    vrf -- pe2;
+    vrf -- pe3;
+    cpe1 -- pe1;
+    cpe2 -- pe2;
+    cpe3 --pe3;
+}
