@@ -8,8 +8,6 @@
   - name: "Read in genie role"
     include_role:
       name: clay584.parse_genie
-  - name: "debug"
-    debug: var=vars 
   - name: "Execute sh ip bgp vpnv4"
     ios_command:
       commands: sh ip bgp vpnv4 vrf VRF_ACME
