@@ -1,0 +1,26 @@
+---
+galaxy_info:
+  role_name: parse_genie
+  author: Clay Curtis
+  description: Filter plugin for network CLI parsing using Cisco's Genie/pyATS
+  company: Presidio
+
+  license: license (GPLv3)
+
+  min_ansible_version: 2.7
+
+  platforms:
+    - name: Ubuntu
+      versions:
+        - trusty
+        - xenial
+        - bionic
+
+  galaxy_tags:
+    - networking
+    - cisco
+    - parse
+    - genie
+    - pyats
+
+dependencies: []

@@ -1,0 +1,47 @@
+---
+
+- hosts: localhost
+  connection: local
+  vars:
+    out_iosxe: |
+      NAME: "Chassis", DESCR: "Cisco CSR1000V Chassis"
+      PID: CSR1000V          , VID: V00  , SN: 95G6BQT00TI
+
+      NAME: "module R0", DESCR: "Cisco CSR1000V Route Processor"
+      PID: CSR1000V          , VID: V00  , SN: JAB1303001C
+
+      NAME: "module F0", DESCR: "Cisco CSR1000V Embedded Services Processor"
+      PID: CSR1000V          , VID:      , SN:
+
+    out_ios: |
+      NAME: "3640 chassis", DESCR: "3640 chassis"
+      PID:                   , VID: 0xFF, SN: FF1045C5
+
+      NAME: "One port Fastethernet TX", DESCR: "One port Fastethernet TX"
+      PID: NM-1FE-TX=        , VID: 1.0, SN: 7720321
+
+      NAME: "One port Fastethernet TX", DESCR: "One port Fastethernet TX"
+      PID: NM-1FE-TX=        , VID: 1.0, SN: 7720321
+
+      NAME: "One port Fastethernet TX", DESCR: "One port Fastethernet TX"
+      PID: NM-1FE-TX=        , VID: 1.0, SN: 7720321
+
+
+  tasks:
+    - name: Include Parse Genie Role
+      include_role:
+        name: parse_genie
+    - name: Test Genie Filter for IOS-XE output using IOS as OS
+      debug:
+        msg: "{{ out_iosxe | parse_genie(command='show inventory', os='ios') }}"  # yamllint disable-line rule:line-length
+      delegate_to: localhost
+
+    - name: Test Genie Filter for IOS-XE output using IOS-XE as OS
+      debug:
+        msg: "{{ out_iosxe | parse_genie(command='show inventory', os='iosxe') }}"  # yamllint disable-line rule:line-length
+      delegate_to: localhost
+
+    - name: Test Genie Filter for IOS output using IOS as OS
+      debug:
+        msg: "{{ out_ios | parse_genie(command='show inventory', os='ios') }}"  # yamllint disable-line rule:line-length
+      delegate_to: localhost
