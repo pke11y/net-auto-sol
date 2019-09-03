@@ -10,12 +10,19 @@ pe1.pk.lab ansible_host=10.0.0.51
 [catalyst]
 sw1.pk.lab ansible_host=10.0.0.252
 
+[ios_pe]
+pe2.pk.lab ansible_host=10.0.0.52
+pe3.pk.lab ansible_host=10.0.0.53
+
 [mpls:children]
 ios
 xr
 
 [ios:children]
 csr
+
+[csr:children]
+ios_pe
 
 [csr:vars]
 ansible_network_os=ios

@@ -2,14 +2,15 @@
 # 
 #
 ---
-- include: "get-l3vpn.yml"
-  name: Read data
+- name: "Read data"
+  import_playbook: "get-l3vpn.yml"
 
-- name: Create report.
+- name: "Generate Report"
   hosts: pe2.pk.lab
-  vars:
-  - results: "{{inventory_dir}}/results"
+  connection: network_cli
+  # vars:
+  # - results: "{{inventory_dir}}/results"
   tasks:
-  - name:
-    template: |
-      src={{playbook_dir}}/templates/graph-vrf.j2 dest={{playbook_dir}}/results/{{vrfs.name}}.dot
+  - name: "Generate DOT file"
+    template: src={{playbook_dir}}/templates/graph_vrf.j2 dest={{playbook_dir}}/{{inventory_dir}}/results/TEST.dot
+       

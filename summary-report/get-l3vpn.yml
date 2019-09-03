@@ -11,7 +11,6 @@
         vrf_type: "{{hostvars[inventory_hostname]['vrfs'][0]['type']}}"
         router_id: "{{hostvars[inventory_hostname]['nodes']['pe'][inventory_hostname]['routerid']}}"
         rd: "{{hostvars[inventory_hostname]['vrfs'][0]['rd']}}"
-        cacheable: yes
     - name: Run command to get VPNV4 data
       cli_command:
         command: sh ip bgp vpnv4 vrf {{vrf_name}}
@@ -27,12 +26,19 @@
       set_fact:
         routes: "{{parsed_output['vrf'][vrf_name]['address_family'][rd_cli]['routes']}}"
         #prefix: routes.keys()
-    - name: Run command to get VPNV4 data
+
+- hosts: ios_pe
+  connection: network_cli
+  gather_facts: no
+  roles:
+    - ansible-pyats
+  tasks:   
+    # - set_fact:
+    #     vrf_name: "{{hostvars[inventory_hostname]['vrfs'][0]['name']}}"
+    - name: Run command to get VRF BGP neighbor data
       cli_command:
-        command: sh ip bgp vpnv4 vrf {{vrf_name}} neighbors
+        command: sh ip bgp vpnv4 vrf VRF_ACME neighbors
       register: cmd_output
     - name: Parsing BGP Neighbor output
       set_fact:
-        bgp_neigh_output: "{{ cmd_output.stdout | pyats_parser('show ip bgp vpnv4 vrf {{vrf_name}} neighbors', 'iosxe') }}"
-    - name: debug all
-      debug: var=vars
+        bgp_neigh_output: "{{ cmd_output.stdout | pyats_parser('show ip bgp vpnv4 vrf VRF_ACME neighbors', 'iosxe') }}"

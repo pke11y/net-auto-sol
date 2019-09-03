@@ -25,3 +25,19 @@ mgmt:
   "10.10.10.11": "cpe1.pk.lab"
   "10.10.10.12": "cpe2.pk.lab"
   "10.10.10.13": "cpe3.pk.lab"
+vrfs:
+  - name: "VRF_ACME"
+    description: "TEST VRF"
+    type: "vpnv4"
+    rd: "100"
+    rt_import:
+      - "65001:100"
+    rt_export:
+      - "65001:100"
+    check:
+      routes:
+        - "10.3.3.0/30"
+        - "10.4.4.0/24"
+      pings:
+        - "10.3.3.1"
+        - "10.4.4.44"
