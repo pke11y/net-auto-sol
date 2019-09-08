@@ -12,5 +12,5 @@
   # - results: "{{inventory_dir}}/results"
   tasks:
   - name: "Generate DOT file"
-    template: src={{playbook_dir}}/templates/graph_vrf.j2 dest={{playbook_dir}}/{{inventory_dir}}/results/TEST.dot
+    template: src={{playbook_dir}}/templates/graph_vrf.j2 dest={{playbook_dir}}/results/TEST.dot
        

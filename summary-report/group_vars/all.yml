@@ -2,7 +2,6 @@
 ansible_user: pk
 ansible_ssh_pass: pk
 
-## using 'pe: {node_name1{}, node_name2{}, ..}' allows loopback0 IP to be retrieved without looping through a list of PE's
 nodes:
   pe:
     "pe1.pk.lab": 
@@ -18,13 +17,6 @@ nodes:
         routerid: "10.10.10.12"
     "cpe3.pk.lab": 
         routerid: "10.10.10.13"
-mgmt:
-  "10.10.10.1": "pe1.pk.lab"
-  "10.10.10.2": "pe2.pk.lab"
-  "10.10.10.3": "pe3.pk.lab"
-  "10.10.10.11": "cpe1.pk.lab"
-  "10.10.10.12": "cpe2.pk.lab"
-  "10.10.10.13": "cpe3.pk.lab"
 vrfs:
   - name: "VRF_ACME"
     description: "TEST VRF"
