@@ -19,22 +19,16 @@
       set_fact:
         rd_cli: "{{(vrf_type + ' RD ' + router_id + ':' + rd)}}"
         parsed_output: "{{ cli_output.stdout | pyats_parser('show ip bgp vpnv4 vrf {{vrf_name}}', 'iosxe') }}"
-    # - name: Print variable
-      # debug: var=parsed_output['vrf']['{{vrf_name}}']['address_family']['vpnv4 RD 10.10.10.2:100']['routes']['10.0.3.0/30']['index'][1]['next_hop']
-      # var=parsed_output['vrf']['{{vrf_name}}']['address_family']['{{vrf_type}} RD {{router_id}}:{{rd}}']['routes']
     - name: Set VPNV4 routes variable
       set_fact:
         routes: "{{parsed_output['vrf'][vrf_name]['address_family'][rd_cli]['routes']}}"
-        #prefix: routes.keys()
 
 - hosts: ios_pe
   connection: network_cli
   gather_facts: no
   roles:
     - ansible-pyats
-  tasks:   
-    # - set_fact:
-    #     vrf_name: "{{hostvars[inventory_hostname]['vrfs'][0]['name']}}"
+  tasks:
     - name: Run command to get VRF BGP neighbor data
       cli_command:
         command: sh ip bgp vpnv4 vrf VRF_ACME neighbors
