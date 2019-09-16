@@ -7,7 +7,7 @@ Filter plugins are created to simplify the generation of a diagram in DOT file f
 
 The following basic data model was used to describe the L3VPN.
 
-[group_vars] (./group_vars/all.yml)
+[group_vars](./group_vars/all.yml)
  
  L3VPN topology sample in DOT file format.
  
