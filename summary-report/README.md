@@ -7,24 +7,7 @@ Filter plugins are created to simplify the generation of a diagram in DOT file f
 
 The following basic data model was used to describe the L3VPN.
 
-
-'''
-nodes:
-  pe:
-    "pe1.pk.lab": 
-        routerid: "10.10.10.1"
-    "pe2.pk.lab": 
-        routerid: "10.10.10.2"
-    "pe3.pk.lab": 
-        routerid: "10.10.10.3"
-  cpe:
-    "cpe1.pk.lab": 
-        routerid: "10.10.10.11"
-    "cpe2.pk.lab": 
-        routerid: "10.10.10.12"
-    "cpe3.pk.lab": 
-        routerid: "10.10.10.13"
-'''
+[group_vars] (./group_vars/all.yml)
  
  L3VPN topology sample in DOT file format.
  
