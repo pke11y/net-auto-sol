@@ -5,9 +5,13 @@ These playbooks gather BGP MPLS VPN data from an IOS-XE PE node and extract VRF 
 
 Filter plugins are created to simplify the generation of a diagram in DOT file format, using the extracted data.
 
+---
+
 The following basic data model was used to describe the L3VPN.
 
 [group_vars](./group_vars/all.yml)
+
+***
  
  L3VPN topology sample in DOT file format.
  
