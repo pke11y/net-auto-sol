@@ -31,4 +31,4 @@ vrfs:
       - "65001:100"
       
  L3VPN topology sample in DOT file format
- ![alt text](net-auto-sol/summary-report/results/pe2.pk.lab.png)
+ ![L3VPN Diagram](./results/pe2.pk.lab.png)
