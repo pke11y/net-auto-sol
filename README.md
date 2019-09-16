@@ -3,3 +3,6 @@ This repository contains exercises and solutions for the Building Network Automa
 
 ## Lab 
 Details of the lab setup can be found [here](lab/l3vpn/README.md)
+
+## Exercise 2: Reporting
+A basic graph depicting a L3VPN topology  [here](summary-report/README.md)
