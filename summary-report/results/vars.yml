@@ -40,7 +40,7 @@ bgp_neigh_output:
                         vpnv4 unicast:
                             advertise_bit: 1
                             bgp_table_version: 17
-                            current_time: '0xFECB2B1'
+                            current_time: '0x2455E6CF'
                             dynamic_slow_peer_recovered: never
                             index: 2
                             last_detected_dynamic_slow_peer: never
@@ -93,18 +93,18 @@ bgp_neigh_output:
                             sendwnd: '0x0'
                             timewait: '0x0'
                         starts:
-                            ackhold: 29
+                            ackhold: 5736
                             deadwait: 0
                             giveup: 0
                             keepalive: 0
                             linger: 0
                             pmtuager: 0
                             processq: 0
-                            retrans: 32
+                            retrans: 6314
                             sendwnd: 0
                             timewait: 0
                         wakeups:
-                            ackhold: 26
+                            ackhold: 5638
                             deadwait: 0
                             giveup: 0
                             keepalive: 0
@@ -128,18 +128,18 @@ bgp_neigh_output:
                             in_queue_depth: 0
                             out_queue_depth: 0
                             received:
-                                keepalives: 29
+                                keepalives: 5736
                                 notifications: 0
                                 opens: 1
                                 route_refresh: 0
-                                total: 30
+                                total: 5737
                                 updates: 0
                             sent:
-                                keepalives: 31
+                                keepalives: 6313
                                 notifications: 0
                                 opens: 1
                                 route_refresh: 0
-                                total: 36
+                                total: 6318
                                 updates: 4
                     bgp_neighbor_session:
                         sessions: 1
@@ -155,18 +155,18 @@ bgp_neigh_output:
                         datagram:
                             datagram_received:
                                 out_of_order: 0
-                                total_data: 596
-                                value: 60
-                                with_data: 29
+                                total_data: 109029
+                                value: 11959
+                                with_data: 5736
                             datagram_sent:
                                 fastretransmit: 0
                                 partialack: 0
                                 retransmit: 0
                                 second_congestion: 0
-                                total_data: 818
-                                value: 61
-                                with_data: 33
-                        delrcvwnd: 596
+                                total_data: 120176
+                                value: 12029
+                                with_data: 6315
+                        delrcvwnd: 760
                         ecn_connection: disabled
                         enqueued_packets:
                             input_packet: 0
@@ -183,7 +183,7 @@ bgp_neigh_output:
                         max_rtt: 1000
                         maximum_output_segment_queue_size: 50
                         maxrcvwnd: 16384
-                        min_rtt: 7
+                        min_rtt: 3
                         min_time_between_advertisement_runs: 0
                         minimum_incoming_ttl: 0
                         option_flags: VRF id set, nagle, path mtu capable
@@ -192,18 +192,18 @@ bgp_neigh_output:
                         packet_fast_processed: 0
                         packet_slow_path: 0
                         rcv_scale: 0
-                        rcvnxt: 1590241035
-                        rcvwnd: 15788
-                        receive_idletime: 32775
+                        rcvnxt: 1590349468
+                        rcvwnd: 15624
+                        receive_idletime: 8697
                         rib_route_ip: 10.0.3.5
-                        rtto: 1099
-                        rtv: 113
-                        sent_idletime: 32575
+                        rtto: 1003
+                        rtv: 3
+                        sent_idletime: 8919
                         snd_scale: 0
-                        sndnxt: 376756633
-                        snduna: 376756633
-                        sndwnd: 15566
-                        srtt: 986
+                        sndnxt: 376875991
+                        snduna: 376875991
+                        sndwnd: 16175
+                        srtt: 1000
                         sso: false
                         status_flags: passive open, gen tcbs
                         tcp_path_mtu_discovery: enabled
@@ -216,7 +216,7 @@ bgp_neigh_output:
                             local_port: '179'
                             mss: 1460
                         unread_input_bytes: 0
-                        uptime: 1593812
+                        uptime: 344032754
                     bgp_version: 4
                     link: external
                     remote_as: 65502
@@ -256,9 +256,9 @@ cmd_output:
     failed: false
     stdout: "BGP neighbor is 10.0.3.5,  vrf VRF_ACME,  remote AS 65502, external link\n\
         \  BGP version 4, remote router ID 10.10.10.12\n  BGP state = Established,\
-        \ up for 00:26:33\n  Last read 00:00:32, last write 00:00:39, hold time is\
-        \ 180, keepalive interval is 60 seconds\n  Neighbor sessions:\n    1 active,\
-        \ is not multisession capable (disabled)\n  Neighbor capabilities:\n    Route\
+        \ up for 3d23h\n  Last read 00:00:47, last write 00:00:08, hold time is 180,\
+        \ keepalive interval is 60 seconds\n  Neighbor sessions:\n    1 active, is\
+        \ not multisession capable (disabled)\n  Neighbor capabilities:\n    Route\
         \ refresh: advertised and received(new)\n    Four-octets ASN Capability: advertised\n\
         \    Address family IPv4 Unicast: advertised and received\n    Enhanced Refresh\
         \ Capability: advertised\n    Multisession Capability: \n    Stateful switchover\
@@ -266,8 +266,8 @@ cmd_output:
         \ is 0\n    OutQ depth is 0\n    \n                         Sent       Rcvd\n\
         \    Opens:                  1          1\n    Notifications:          0 \
         \         0\n    Updates:                4          0\n    Keepalives:   \
-        \         31         29\n    Route Refresh:          0          0\n    Total:\
-        \                 36         30\n  Do log neighbor state changes (via global\
+        \       6313       5736\n    Route Refresh:          0          0\n    Total:\
+        \               6318       5737\n  Do log neighbor state changes (via global\
         \ configuration)\n  Default minimum time between advertisement runs is 0 seconds\n\
         \n For address family: VPNv4 Unicast\n  Translates address family IPv4 Unicast\
         \ for VRF VRF_ACME\n  Session: 10.0.3.5\n  BGP table version 17, neighbor\
@@ -298,31 +298,31 @@ cmd_output:
         \ Local port: 179\nForeign host: 10.0.3.5, Foreign port: 42966\nConnection\
         \ tableid (VRF): 1\nMaximum output segment queue size: 50\n\nEnqueued packets\
         \ for retransmit: 0, input: 0  mis-ordered: 0 (0 bytes)\n\nEvent Timers (current\
-        \ time is 0xFECB2B1):\nTimer          Starts    Wakeups            Next\n\
-        Retrans            32          0             0x0\nTimeWait            0  \
-        \        0             0x0\nAckHold            29         26             0x0\n\
+        \ time is 0x2455E6CF):\nTimer          Starts    Wakeups            Next\n\
+        Retrans          6314          0             0x0\nTimeWait            0  \
+        \        0             0x0\nAckHold          5736       5638             0x0\n\
         SendWnd             0          0             0x0\nKeepAlive           0  \
         \        0             0x0\nGiveUp              0          0             0x0\n\
         PmtuAger            0          0             0x0\nDeadWait            0  \
         \        0             0x0\nLinger              0          0             0x0\n\
         ProcessQ            0          0             0x0\n\niss:  376755814  snduna:\
-        \  376756633  sndnxt:  376756633\nirs: 1590240438  rcvnxt: 1590241035\n\n\
-        sndwnd:  15566  scale:      0  maxrcvwnd:  16384\nrcvwnd:  15788  scale: \
-        \     0  delrcvwnd:    596\n\nSRTT: 986 ms, RTTO: 1099 ms, RTV: 113 ms, KRTT:\
-        \ 0 ms\nminRTT: 7 ms, maxRTT: 1000 ms, ACK hold: 200 ms\nuptime: 1593812 ms,\
-        \ Sent idletime: 32575 ms, Receive idletime: 32775 ms \nStatus Flags: passive\
+        \  376875991  sndnxt:  376875991\nirs: 1590240438  rcvnxt: 1590349468\n\n\
+        sndwnd:  16175  scale:      0  maxrcvwnd:  16384\nrcvwnd:  15624  scale: \
+        \     0  delrcvwnd:    760\n\nSRTT: 1000 ms, RTTO: 1003 ms, RTV: 3 ms, KRTT:\
+        \ 0 ms\nminRTT: 3 ms, maxRTT: 1000 ms, ACK hold: 200 ms\nuptime: 344032754\
+        \ ms, Sent idletime: 8919 ms, Receive idletime: 8697 ms \nStatus Flags: passive\
         \ open, gen tcbs\nOption Flags: VRF id set, nagle, path mtu capable\nIP Precedence\
-        \ value : 6\n\nDatagrams (max data segment is 1460 bytes):\nRcvd: 60 (out\
-        \ of order: 0), with data: 29, total data bytes: 596\nSent: 61 (retransmit:\
-        \ 0, fastretransmit: 0, partialack: 0, Second Congestion: 0), with data: 33,\
-        \ total data bytes: 818\n\n Packets received in fast path: 0, fast processed:\
+        \ value : 6\n\nDatagrams (max data segment is 1460 bytes):\nRcvd: 11959 (out\
+        \ of order: 0), with data: 5736, total data bytes: 109029\nSent: 12029 (retransmit:\
+        \ 0, fastretransmit: 0, partialack: 0, Second Congestion: 0), with data: 6315,\
+        \ total data bytes: 120176\n\n Packets received in fast path: 0, fast processed:\
         \ 0, slow path: 0\n fast lock acquisition failures: 0, slow path: 0\nTCP Semaphore\
         \      0x7FEB5ECBB990  FREE"
     stdout_lines:
     - BGP neighbor is 10.0.3.5,  vrf VRF_ACME,  remote AS 65502, external link
     - '  BGP version 4, remote router ID 10.10.10.12'
-    - '  BGP state = Established, up for 00:26:33'
-    - '  Last read 00:00:32, last write 00:00:39, hold time is 180, keepalive interval
+    - '  BGP state = Established, up for 3d23h'
+    - '  Last read 00:00:47, last write 00:00:08, hold time is 180, keepalive interval
         is 60 seconds'
     - '  Neighbor sessions:'
     - '    1 active, is not multisession capable (disabled)'
@@ -341,9 +341,9 @@ cmd_output:
     - '    Opens:                  1          1'
     - '    Notifications:          0          0'
     - '    Updates:                4          0'
-    - '    Keepalives:            31         29'
+    - '    Keepalives:          6313       5736'
     - '    Route Refresh:          0          0'
-    - '    Total:                 36         30'
+    - '    Total:               6318       5737'
     - '  Do log neighbor state changes (via global configuration)'
     - '  Default minimum time between advertisement runs is 0 seconds'
     - ''
@@ -398,11 +398,11 @@ cmd_output:
     - ''
     - 'Enqueued packets for retransmit: 0, input: 0  mis-ordered: 0 (0 bytes)'
     - ''
-    - 'Event Timers (current time is 0xFECB2B1):'
+    - 'Event Timers (current time is 0x2455E6CF):'
     - Timer          Starts    Wakeups            Next
-    - Retrans            32          0             0x0
+    - Retrans          6314          0             0x0
     - TimeWait            0          0             0x0
-    - AckHold            29         26             0x0
+    - AckHold          5736       5638             0x0
     - SendWnd             0          0             0x0
     - KeepAlive           0          0             0x0
     - GiveUp              0          0             0x0
@@ -411,23 +411,23 @@ cmd_output:
     - Linger              0          0             0x0
     - ProcessQ            0          0             0x0
     - ''
-    - 'iss:  376755814  snduna:  376756633  sndnxt:  376756633'
-    - 'irs: 1590240438  rcvnxt: 1590241035'
+    - 'iss:  376755814  snduna:  376875991  sndnxt:  376875991'
+    - 'irs: 1590240438  rcvnxt: 1590349468'
     - ''
-    - 'sndwnd:  15566  scale:      0  maxrcvwnd:  16384'
-    - 'rcvwnd:  15788  scale:      0  delrcvwnd:    596'
+    - 'sndwnd:  16175  scale:      0  maxrcvwnd:  16384'
+    - 'rcvwnd:  15624  scale:      0  delrcvwnd:    760'
     - ''
-    - 'SRTT: 986 ms, RTTO: 1099 ms, RTV: 113 ms, KRTT: 0 ms'
-    - 'minRTT: 7 ms, maxRTT: 1000 ms, ACK hold: 200 ms'
-    - 'uptime: 1593812 ms, Sent idletime: 32575 ms, Receive idletime: 32775 ms '
+    - 'SRTT: 1000 ms, RTTO: 1003 ms, RTV: 3 ms, KRTT: 0 ms'
+    - 'minRTT: 3 ms, maxRTT: 1000 ms, ACK hold: 200 ms'
+    - 'uptime: 344032754 ms, Sent idletime: 8919 ms, Receive idletime: 8697 ms '
     - 'Status Flags: passive open, gen tcbs'
     - 'Option Flags: VRF id set, nagle, path mtu capable'
     - 'IP Precedence value : 6'
     - ''
     - 'Datagrams (max data segment is 1460 bytes):'
-    - 'Rcvd: 60 (out of order: 0), with data: 29, total data bytes: 596'
-    - 'Sent: 61 (retransmit: 0, fastretransmit: 0, partialack: 0, Second Congestion:
-        0), with data: 33, total data bytes: 818'
+    - 'Rcvd: 11959 (out of order: 0), with data: 5736, total data bytes: 109029'
+    - 'Sent: 12029 (retransmit: 0, fastretransmit: 0, partialack: 0, Second Congestion:
+        0), with data: 6315, total data bytes: 120176'
     - ''
     - ' Packets received in fast path: 0, fast processed: 0, slow path: 0'
     - ' fast lock acquisition failures: 0, slow path: 0'
@@ -548,7 +548,7 @@ hostvars:
                     routerid: 10.10.10.2
                 pe3.pk.lab:
                     routerid: 10.10.10.3
-        omit: __omit_place_holder__ed8a7a22fd0192abd94e47629c4d1f3457ebc766
+        omit: __omit_place_holder__7be009f46c81615454b236951bcc08812a0f178d
         playbook_dir: /home/pk/net-auto-sol/summary-report
         vrfs:
         -   check:
@@ -643,7 +643,7 @@ hostvars:
                     routerid: 10.10.10.2
                 pe3.pk.lab:
                     routerid: 10.10.10.3
-        omit: __omit_place_holder__ed8a7a22fd0192abd94e47629c4d1f3457ebc766
+        omit: __omit_place_holder__7be009f46c81615454b236951bcc08812a0f178d
         playbook_dir: /home/pk/net-auto-sol/summary-report
         vrfs:
         -   check:
@@ -737,7 +737,7 @@ hostvars:
                     routerid: 10.10.10.2
                 pe3.pk.lab:
                     routerid: 10.10.10.3
-        omit: __omit_place_holder__ed8a7a22fd0192abd94e47629c4d1f3457ebc766
+        omit: __omit_place_holder__7be009f46c81615454b236951bcc08812a0f178d
         playbook_dir: /home/pk/net-auto-sol/summary-report
         vrfs:
         -   check:
@@ -788,7 +788,7 @@ hostvars:
                                 vpnv4 unicast:
                                     advertise_bit: 1
                                     bgp_table_version: 17
-                                    current_time: '0xFECB2B1'
+                                    current_time: '0x2455E6CF'
                                     dynamic_slow_peer_recovered: never
                                     index: 2
                                     last_detected_dynamic_slow_peer: never
@@ -841,18 +841,18 @@ hostvars:
                                     sendwnd: '0x0'
                                     timewait: '0x0'
                                 starts:
-                                    ackhold: 29
+                                    ackhold: 5736
                                     deadwait: 0
                                     giveup: 0
                                     keepalive: 0
                                     linger: 0
                                     pmtuager: 0
                                     processq: 0
-                                    retrans: 32
+                                    retrans: 6314
                                     sendwnd: 0
                                     timewait: 0
                                 wakeups:
-                                    ackhold: 26
+                                    ackhold: 5638
                                     deadwait: 0
                                     giveup: 0
                                     keepalive: 0
@@ -876,18 +876,18 @@ hostvars:
                                     in_queue_depth: 0
                                     out_queue_depth: 0
                                     received:
-                                        keepalives: 29
+                                        keepalives: 5736
                                         notifications: 0
                                         opens: 1
                                         route_refresh: 0
-                                        total: 30
+                                        total: 5737
                                         updates: 0
                                     sent:
-                                        keepalives: 31
+                                        keepalives: 6313
                                         notifications: 0
                                         opens: 1
                                         route_refresh: 0
-                                        total: 36
+                                        total: 6318
                                         updates: 4
                             bgp_neighbor_session:
                                 sessions: 1
@@ -903,18 +903,18 @@ hostvars:
                                 datagram:
                                     datagram_received:
                                         out_of_order: 0
-                                        total_data: 596
-                                        value: 60
-                                        with_data: 29
+                                        total_data: 109029
+                                        value: 11959
+                                        with_data: 5736
                                     datagram_sent:
                                         fastretransmit: 0
                                         partialack: 0
                                         retransmit: 0
                                         second_congestion: 0
-                                        total_data: 818
-                                        value: 61
-                                        with_data: 33
-                                delrcvwnd: 596
+                                        total_data: 120176
+                                        value: 12029
+                                        with_data: 6315
+                                delrcvwnd: 760
                                 ecn_connection: disabled
                                 enqueued_packets:
                                     input_packet: 0
@@ -931,7 +931,7 @@ hostvars:
                                 max_rtt: 1000
                                 maximum_output_segment_queue_size: 50
                                 maxrcvwnd: 16384
-                                min_rtt: 7
+                                min_rtt: 3
                                 min_time_between_advertisement_runs: 0
                                 minimum_incoming_ttl: 0
                                 option_flags: VRF id set, nagle, path mtu capable
@@ -940,18 +940,18 @@ hostvars:
                                 packet_fast_processed: 0
                                 packet_slow_path: 0
                                 rcv_scale: 0
-                                rcvnxt: 1590241035
-                                rcvwnd: 15788
-                                receive_idletime: 32775
+                                rcvnxt: 1590349468
+                                rcvwnd: 15624
+                                receive_idletime: 8697
                                 rib_route_ip: 10.0.3.5
-                                rtto: 1099
-                                rtv: 113
-                                sent_idletime: 32575
+                                rtto: 1003
+                                rtv: 3
+                                sent_idletime: 8919
                                 snd_scale: 0
-                                sndnxt: 376756633
-                                snduna: 376756633
-                                sndwnd: 15566
-                                srtt: 986
+                                sndnxt: 376875991
+                                snduna: 376875991
+                                sndwnd: 16175
+                                srtt: 1000
                                 sso: false
                                 status_flags: passive open, gen tcbs
                                 tcp_path_mtu_discovery: enabled
@@ -964,7 +964,7 @@ hostvars:
                                     local_port: '179'
                                     mss: 1460
                                 unread_input_bytes: 0
-                                uptime: 1593812
+                                uptime: 344032754
                             bgp_version: 4
                             link: external
                             remote_as: 65502
@@ -1007,10 +1007,10 @@ hostvars:
             failed: false
             stdout: "BGP neighbor is 10.0.3.5,  vrf VRF_ACME,  remote AS 65502, external\
                 \ link\n  BGP version 4, remote router ID 10.10.10.12\n  BGP state\
-                \ = Established, up for 00:26:33\n  Last read 00:00:32, last write\
-                \ 00:00:39, hold time is 180, keepalive interval is 60 seconds\n \
-                \ Neighbor sessions:\n    1 active, is not multisession capable (disabled)\n\
-                \  Neighbor capabilities:\n    Route refresh: advertised and received(new)\n\
+                \ = Established, up for 3d23h\n  Last read 00:00:47, last write 00:00:08,\
+                \ hold time is 180, keepalive interval is 60 seconds\n  Neighbor sessions:\n\
+                \    1 active, is not multisession capable (disabled)\n  Neighbor\
+                \ capabilities:\n    Route refresh: advertised and received(new)\n\
                 \    Four-octets ASN Capability: advertised\n    Address family IPv4\
                 \ Unicast: advertised and received\n    Enhanced Refresh Capability:\
                 \ advertised\n    Multisession Capability: \n    Stateful switchover\
@@ -1018,8 +1018,8 @@ hostvars:
                 \ depth is 0\n    OutQ depth is 0\n    \n                        \
                 \ Sent       Rcvd\n    Opens:                  1          1\n    Notifications:\
                 \          0          0\n    Updates:                4          0\n\
-                \    Keepalives:            31         29\n    Route Refresh:    \
-                \      0          0\n    Total:                 36         30\n  Do\
+                \    Keepalives:          6313       5736\n    Route Refresh:    \
+                \      0          0\n    Total:               6318       5737\n  Do\
                 \ log neighbor state changes (via global configuration)\n  Default\
                 \ minimum time between advertisement runs is 0 seconds\n\n For address\
                 \ family: VPNv4 Unicast\n  Translates address family IPv4 Unicast\
@@ -1054,35 +1054,35 @@ hostvars:
                 \ port: 179\nForeign host: 10.0.3.5, Foreign port: 42966\nConnection\
                 \ tableid (VRF): 1\nMaximum output segment queue size: 50\n\nEnqueued\
                 \ packets for retransmit: 0, input: 0  mis-ordered: 0 (0 bytes)\n\n\
-                Event Timers (current time is 0xFECB2B1):\nTimer          Starts \
-                \   Wakeups            Next\nRetrans            32          0    \
-                \         0x0\nTimeWait            0          0             0x0\n\
-                AckHold            29         26             0x0\nSendWnd        \
+                Event Timers (current time is 0x2455E6CF):\nTimer          Starts\
+                \    Wakeups            Next\nRetrans          6314          0   \
+                \          0x0\nTimeWait            0          0             0x0\n\
+                AckHold          5736       5638             0x0\nSendWnd        \
                 \     0          0             0x0\nKeepAlive           0        \
                 \  0             0x0\nGiveUp              0          0           \
                 \  0x0\nPmtuAger            0          0             0x0\nDeadWait\
                 \            0          0             0x0\nLinger              0 \
                 \         0             0x0\nProcessQ            0          0    \
-                \         0x0\n\niss:  376755814  snduna:  376756633  sndnxt:  376756633\n\
-                irs: 1590240438  rcvnxt: 1590241035\n\nsndwnd:  15566  scale:    \
-                \  0  maxrcvwnd:  16384\nrcvwnd:  15788  scale:      0  delrcvwnd:\
-                \    596\n\nSRTT: 986 ms, RTTO: 1099 ms, RTV: 113 ms, KRTT: 0 ms\n\
-                minRTT: 7 ms, maxRTT: 1000 ms, ACK hold: 200 ms\nuptime: 1593812 ms,\
-                \ Sent idletime: 32575 ms, Receive idletime: 32775 ms \nStatus Flags:\
+                \         0x0\n\niss:  376755814  snduna:  376875991  sndnxt:  376875991\n\
+                irs: 1590240438  rcvnxt: 1590349468\n\nsndwnd:  16175  scale:    \
+                \  0  maxrcvwnd:  16384\nrcvwnd:  15624  scale:      0  delrcvwnd:\
+                \    760\n\nSRTT: 1000 ms, RTTO: 1003 ms, RTV: 3 ms, KRTT: 0 ms\n\
+                minRTT: 3 ms, maxRTT: 1000 ms, ACK hold: 200 ms\nuptime: 344032754\
+                \ ms, Sent idletime: 8919 ms, Receive idletime: 8697 ms \nStatus Flags:\
                 \ passive open, gen tcbs\nOption Flags: VRF id set, nagle, path mtu\
                 \ capable\nIP Precedence value : 6\n\nDatagrams (max data segment\
-                \ is 1460 bytes):\nRcvd: 60 (out of order: 0), with data: 29, total\
-                \ data bytes: 596\nSent: 61 (retransmit: 0, fastretransmit: 0, partialack:\
-                \ 0, Second Congestion: 0), with data: 33, total data bytes: 818\n\
-                \n Packets received in fast path: 0, fast processed: 0, slow path:\
-                \ 0\n fast lock acquisition failures: 0, slow path: 0\nTCP Semaphore\
-                \      0x7FEB5ECBB990  FREE"
+                \ is 1460 bytes):\nRcvd: 11959 (out of order: 0), with data: 5736,\
+                \ total data bytes: 109029\nSent: 12029 (retransmit: 0, fastretransmit:\
+                \ 0, partialack: 0, Second Congestion: 0), with data: 6315, total\
+                \ data bytes: 120176\n\n Packets received in fast path: 0, fast processed:\
+                \ 0, slow path: 0\n fast lock acquisition failures: 0, slow path:\
+                \ 0\nTCP Semaphore      0x7FEB5ECBB990  FREE"
             stdout_lines:
             - BGP neighbor is 10.0.3.5,  vrf VRF_ACME,  remote AS 65502, external
                 link
             - '  BGP version 4, remote router ID 10.10.10.12'
-            - '  BGP state = Established, up for 00:26:33'
-            - '  Last read 00:00:32, last write 00:00:39, hold time is 180, keepalive
+            - '  BGP state = Established, up for 3d23h'
+            - '  Last read 00:00:47, last write 00:00:08, hold time is 180, keepalive
                 interval is 60 seconds'
             - '  Neighbor sessions:'
             - '    1 active, is not multisession capable (disabled)'
@@ -1101,9 +1101,9 @@ hostvars:
             - '    Opens:                  1          1'
             - '    Notifications:          0          0'
             - '    Updates:                4          0'
-            - '    Keepalives:            31         29'
+            - '    Keepalives:          6313       5736'
             - '    Route Refresh:          0          0'
-            - '    Total:                 36         30'
+            - '    Total:               6318       5737'
             - '  Do log neighbor state changes (via global configuration)'
             - '  Default minimum time between advertisement runs is 0 seconds'
             - ''
@@ -1159,11 +1159,11 @@ hostvars:
             - ''
             - 'Enqueued packets for retransmit: 0, input: 0  mis-ordered: 0 (0 bytes)'
             - ''
-            - 'Event Timers (current time is 0xFECB2B1):'
+            - 'Event Timers (current time is 0x2455E6CF):'
             - Timer          Starts    Wakeups            Next
-            - Retrans            32          0             0x0
+            - Retrans          6314          0             0x0
             - TimeWait            0          0             0x0
-            - AckHold            29         26             0x0
+            - AckHold          5736       5638             0x0
             - SendWnd             0          0             0x0
             - KeepAlive           0          0             0x0
             - GiveUp              0          0             0x0
@@ -1172,24 +1172,24 @@ hostvars:
             - Linger              0          0             0x0
             - ProcessQ            0          0             0x0
             - ''
-            - 'iss:  376755814  snduna:  376756633  sndnxt:  376756633'
-            - 'irs: 1590240438  rcvnxt: 1590241035'
+            - 'iss:  376755814  snduna:  376875991  sndnxt:  376875991'
+            - 'irs: 1590240438  rcvnxt: 1590349468'
             - ''
-            - 'sndwnd:  15566  scale:      0  maxrcvwnd:  16384'
-            - 'rcvwnd:  15788  scale:      0  delrcvwnd:    596'
+            - 'sndwnd:  16175  scale:      0  maxrcvwnd:  16384'
+            - 'rcvwnd:  15624  scale:      0  delrcvwnd:    760'
             - ''
-            - 'SRTT: 986 ms, RTTO: 1099 ms, RTV: 113 ms, KRTT: 0 ms'
-            - 'minRTT: 7 ms, maxRTT: 1000 ms, ACK hold: 200 ms'
-            - 'uptime: 1593812 ms, Sent idletime: 32575 ms, Receive idletime: 32775
+            - 'SRTT: 1000 ms, RTTO: 1003 ms, RTV: 3 ms, KRTT: 0 ms'
+            - 'minRTT: 3 ms, maxRTT: 1000 ms, ACK hold: 200 ms'
+            - 'uptime: 344032754 ms, Sent idletime: 8919 ms, Receive idletime: 8697
                 ms '
             - 'Status Flags: passive open, gen tcbs'
             - 'Option Flags: VRF id set, nagle, path mtu capable'
             - 'IP Precedence value : 6'
             - ''
             - 'Datagrams (max data segment is 1460 bytes):'
-            - 'Rcvd: 60 (out of order: 0), with data: 29, total data bytes: 596'
-            - 'Sent: 61 (retransmit: 0, fastretransmit: 0, partialack: 0, Second Congestion:
-                0), with data: 33, total data bytes: 818'
+            - 'Rcvd: 11959 (out of order: 0), with data: 5736, total data bytes: 109029'
+            - 'Sent: 12029 (retransmit: 0, fastretransmit: 0, partialack: 0, Second
+                Congestion: 0), with data: 6315, total data bytes: 120176'
             - ''
             - ' Packets received in fast path: 0, fast processed: 0, slow path: 0'
             - ' fast lock acquisition failures: 0, slow path: 0'
@@ -1250,7 +1250,7 @@ hostvars:
                     routerid: 10.10.10.2
                 pe3.pk.lab:
                     routerid: 10.10.10.3
-        omit: __omit_place_holder__ed8a7a22fd0192abd94e47629c4d1f3457ebc766
+        omit: __omit_place_holder__7be009f46c81615454b236951bcc08812a0f178d
         parsed_output:
             vrf:
                 VRF_ACME:
@@ -1385,7 +1385,7 @@ hostvars:
                                 vpnv4 unicast:
                                     advertise_bit: 1
                                     bgp_table_version: 8
-                                    current_time: '0xFA0F3E8'
+                                    current_time: '0x240A27E9'
                                     dynamic_slow_peer_recovered: never
                                     index: 2
                                     last_detected_dynamic_slow_peer: never
@@ -1437,17 +1437,17 @@ hostvars:
                                     sendwnd: '0x0'
                                     timewait: '0x0'
                                 starts:
-                                    ackhold: 29
+                                    ackhold: 5736
                                     deadwait: 0
                                     giveup: 0
                                     keepalive: 0
                                     linger: 0
                                     processq: 0
-                                    retrans: 35
+                                    retrans: 6318
                                     sendwnd: 0
                                     timewait: 0
                                 wakeups:
-                                    ackhold: 27
+                                    ackhold: 5632
                                     deadwait: 0
                                     giveup: 0
                                     keepalive: 0
@@ -1470,18 +1470,18 @@ hostvars:
                                     in_queue_depth: 0
                                     out_queue_depth: 0
                                     received:
-                                        keepalives: 29
+                                        keepalives: 5736
                                         notifications: 0
                                         opens: 1
                                         route_refresh: 0
-                                        total: 30
+                                        total: 5737
                                         updates: 0
                                     sent:
-                                        keepalives: 31
+                                        keepalives: 6314
                                         notifications: 0
                                         opens: 1
                                         route_refresh: 0
-                                        total: 35
+                                        total: 6318
                                         updates: 3
                             bgp_neighbor_session:
                                 sessions: 1
@@ -1497,18 +1497,18 @@ hostvars:
                                 datagram:
                                     datagram_received:
                                         out_of_order: 0
-                                        total_data: 596
-                                        value: 58
-                                        with_data: 28
+                                        total_data: 109029
+                                        value: 11978
+                                        with_data: 5735
                                     datagram_sent:
                                         fastretransmit: 0
                                         partialack: 0
                                         retransmit: 3
                                         second_congestion: 0
-                                        total_data: 773
-                                        value: 62
-                                        with_data: 33
-                                delrcvwnd: 596
+                                        total_data: 120150
+                                        value: 12024
+                                        with_data: 6316
+                                delrcvwnd: 760
                                 ecn_connection: disabled
                                 enqueued_packets:
                                     input_packet: 0
@@ -1525,7 +1525,7 @@ hostvars:
                                 max_rtt: 1000
                                 maximum_output_segment_queue_size: 50
                                 maxrcvwnd: 16384
-                                min_rtt: 10
+                                min_rtt: 3
                                 min_time_between_advertisement_runs: 0
                                 minimum_incoming_ttl: 0
                                 option_flags: VRF id set, nagle, path mtu capable
@@ -1534,18 +1534,18 @@ hostvars:
                                 packet_fast_processed: 0
                                 packet_slow_path: 0
                                 rcv_scale: 0
-                                rcvnxt: 4014986630
-                                rcvwnd: 15788
-                                receive_idletime: 31260
+                                rcvnxt: 4015095063
+                                rcvwnd: 15624
+                                receive_idletime: 34161
                                 rib_route_ip: 10.0.3.9
-                                rtto: 1113
-                                rtv: 129
-                                sent_idletime: 31461
+                                rtto: 1003
+                                rtv: 3
+                                sent_idletime: 34361
                                 snd_scale: 0
-                                sndnxt: 2160481367
-                                snduna: 2160481367
-                                sndwnd: 15611
-                                srtt: 984
+                                sndnxt: 2160600744
+                                snduna: 2160600744
+                                sndwnd: 16213
+                                srtt: 1000
                                 sso: false
                                 status_flags: active open
                                 tcp_path_mtu_discovery: enabled
@@ -1558,7 +1558,7 @@ hostvars:
                                     local_port: '29962'
                                     mss: 1460
                                 unread_input_bytes: 0
-                                uptime: 1614604
+                                uptime: 344053517
                             bgp_version: 4
                             description: CPE3
                             link: external
@@ -1571,45 +1571,45 @@ hostvars:
             failed: false
             stdout: "BGP neighbor is 10.0.3.9,  vrf VRF_ACME,  remote AS 65503, external\
                 \ link\n Description: CPE3\n  BGP version 4, remote router ID 10.10.10.13\n\
-                \  BGP state = Established, up for 00:26:40\n  Last read 00:00:39,\
-                \ last write 00:00:31, hold time is 180, keepalive interval is 60\
-                \ seconds\n  Neighbor sessions:\n    1 active, is not multisession\
-                \ capable (disabled)\n  Neighbor capabilities:\n    Route refresh:\
-                \ advertised and received(new)\n    Four-octets ASN Capability: advertised\n\
-                \    Address family IPv4 Unicast: advertised and received\n    Enhanced\
-                \ Refresh Capability: advertised\n    Multisession Capability: \n\
-                \    Stateful switchover support enabled: NO for session 1\n  Message\
-                \ statistics:\n    InQ depth is 0\n    OutQ depth is 0\n    \n   \
-                \                      Sent       Rcvd\n    Opens:               \
-                \   1          1\n    Notifications:          0          0\n    Updates:\
-                \                3          0\n    Keepalives:            31     \
-                \    29\n    Route Refresh:          0          0\n    Total:    \
-                \             35         30\n  Do log neighbor state changes (via\
-                \ global configuration)\n  Default minimum time between advertisement\
-                \ runs is 0 seconds\n\n For address family: VPNv4 Unicast\n  Translates\
-                \ address family IPv4 Unicast for VRF VRF_ACME\n  Session: 10.0.3.9\n\
-                \  BGP table version 8, neighbor version 8/0\n  Output queue size\
-                \ : 0\n  Index 2, Advertise bit 1\n  2 update-group member\n  Slow-peer\
-                \ detection is disabled\n  Slow-peer split-update-group dynamic is\
-                \ disabled\n                                 Sent       Rcvd\n  Prefix\
-                \ activity:               ----       ----\n    Prefixes Current: \
-                \              3          0\n    Prefixes Total:                 3\
-                \          0\n    Implicit Withdraw:              0          0\n \
-                \   Explicit Withdraw:              0          0\n    Used as bestpath:\
-                \             n/a          0\n    Used as multipath:            n/a\
-                \          0\n\n                                   Outbound    Inbound\n\
-                \  Local Policy Denied Prefixes:    --------    -------\n    Total:\
-                \                                0          0\n  Number of NLRIs in\
-                \ the update sent: max 2, min 0\n  Last detected as dynamic slow peer:\
-                \ never\n  Dynamic slow peer recovered: never\n  Refresh Epoch: 1\n\
-                \  Last Sent Refresh Start-of-rib: never\n  Last Sent Refresh End-of-rib:\
-                \ never\n  Last Received Refresh Start-of-rib: never\n  Last Received\
-                \ Refresh End-of-rib: never\n\t\t\t\t       Sent\t  Rcvd\n\tRefresh\
-                \ activity:\t       ----\t  ----\n\t  Refresh Start-of-RIB       \
-                \   0          0\n\t  Refresh End-of-RIB            0          0\n\
-                \n  Address tracking is enabled, the RIB does have a route to 10.0.3.9\n\
-                \  Connections established 1; dropped 0\n  Last reset never\n  External\
-                \ BGP neighbor configured for connected checks (single-hop no-disable-connected-check)\n\
+                \  BGP state = Established, up for 3d23h\n  Last read 00:00:53, last\
+                \ write 00:00:34, hold time is 180, keepalive interval is 60 seconds\n\
+                \  Neighbor sessions:\n    1 active, is not multisession capable (disabled)\n\
+                \  Neighbor capabilities:\n    Route refresh: advertised and received(new)\n\
+                \    Four-octets ASN Capability: advertised\n    Address family IPv4\
+                \ Unicast: advertised and received\n    Enhanced Refresh Capability:\
+                \ advertised\n    Multisession Capability: \n    Stateful switchover\
+                \ support enabled: NO for session 1\n  Message statistics:\n    InQ\
+                \ depth is 0\n    OutQ depth is 0\n    \n                        \
+                \ Sent       Rcvd\n    Opens:                  1          1\n    Notifications:\
+                \          0          0\n    Updates:                3          0\n\
+                \    Keepalives:          6314       5736\n    Route Refresh:    \
+                \      0          0\n    Total:               6318       5737\n  Do\
+                \ log neighbor state changes (via global configuration)\n  Default\
+                \ minimum time between advertisement runs is 0 seconds\n\n For address\
+                \ family: VPNv4 Unicast\n  Translates address family IPv4 Unicast\
+                \ for VRF VRF_ACME\n  Session: 10.0.3.9\n  BGP table version 8, neighbor\
+                \ version 8/0\n  Output queue size : 0\n  Index 2, Advertise bit 1\n\
+                \  2 update-group member\n  Slow-peer detection is disabled\n  Slow-peer\
+                \ split-update-group dynamic is disabled\n                       \
+                \          Sent       Rcvd\n  Prefix activity:               ----\
+                \       ----\n    Prefixes Current:               3          0\n \
+                \   Prefixes Total:                 3          0\n    Implicit Withdraw:\
+                \              0          0\n    Explicit Withdraw:              0\
+                \          0\n    Used as bestpath:             n/a          0\n \
+                \   Used as multipath:            n/a          0\n\n             \
+                \                      Outbound    Inbound\n  Local Policy Denied\
+                \ Prefixes:    --------    -------\n    Total:                   \
+                \             0          0\n  Number of NLRIs in the update sent:\
+                \ max 2, min 0\n  Last detected as dynamic slow peer: never\n  Dynamic\
+                \ slow peer recovered: never\n  Refresh Epoch: 1\n  Last Sent Refresh\
+                \ Start-of-rib: never\n  Last Sent Refresh End-of-rib: never\n  Last\
+                \ Received Refresh Start-of-rib: never\n  Last Received Refresh End-of-rib:\
+                \ never\n\t\t\t\t       Sent\t  Rcvd\n\tRefresh activity:\t      \
+                \ ----\t  ----\n\t  Refresh Start-of-RIB          0          0\n\t\
+                \  Refresh End-of-RIB            0          0\n\n  Address tracking\
+                \ is enabled, the RIB does have a route to 10.0.3.9\n  Connections\
+                \ established 1; dropped 0\n  Last reset never\n  External BGP neighbor\
+                \ configured for connected checks (single-hop no-disable-connected-check)\n\
                 \  Interface associated: GigabitEthernet4 (peering address in same\
                 \ link)\n  Transport(tcp) path-mtu-discovery is enabled\n  Graceful-Restart\
                 \ is disabled\n  SSO is disabled\nConnection state is ESTAB, I/O status:\
@@ -1618,36 +1618,36 @@ hostvars:
                 \ port: 29962\nForeign host: 10.0.3.9, Foreign port: 179\nConnection\
                 \ tableid (VRF): 1\nMaximum output segment queue size: 50\n\nEnqueued\
                 \ packets for retransmit: 0, input: 0  mis-ordered: 0 (0 bytes)\n\n\
-                Event Timers (current time is 0xFA0F3E8):\nTimer          Starts \
-                \   Wakeups            Next\nRetrans            35          3    \
-                \         0x0\nTimeWait            0          0             0x0\n\
-                AckHold            29         27             0x0\nSendWnd        \
+                Event Timers (current time is 0x240A27E9):\nTimer          Starts\
+                \    Wakeups            Next\nRetrans          6318          3   \
+                \          0x0\nTimeWait            0          0             0x0\n\
+                AckHold          5736       5632             0x0\nSendWnd        \
                 \     0          0             0x0\nKeepAlive           0        \
                 \  0             0x0\nGiveUp              0          0           \
-                \  0x0\nPmtuAger          714        713       0xFA0F598\nDeadWait\
+                \  0x0\nPmtuAger       341949     341948      0x240A2B0D\nDeadWait\
                 \            0          0             0x0\nLinger              0 \
                 \         0             0x0\nProcessQ            0          0    \
-                \         0x0\n\niss: 2160480593  snduna: 2160481367  sndnxt: 2160481367\n\
-                irs: 4014986033  rcvnxt: 4014986630\n\nsndwnd:  15611  scale:    \
-                \  0  maxrcvwnd:  16384\nrcvwnd:  15788  scale:      0  delrcvwnd:\
-                \    596\n\nSRTT: 984 ms, RTTO: 1113 ms, RTV: 129 ms, KRTT: 0 ms\n\
-                minRTT: 10 ms, maxRTT: 1000 ms, ACK hold: 200 ms\nuptime: 1614604\
-                \ ms, Sent idletime: 31461 ms, Receive idletime: 31260 ms \nStatus\
+                \         0x0\n\niss: 2160480593  snduna: 2160600744  sndnxt: 2160600744\n\
+                irs: 4014986033  rcvnxt: 4015095063\n\nsndwnd:  16213  scale:    \
+                \  0  maxrcvwnd:  16384\nrcvwnd:  15624  scale:      0  delrcvwnd:\
+                \    760\n\nSRTT: 1000 ms, RTTO: 1003 ms, RTV: 3 ms, KRTT: 0 ms\n\
+                minRTT: 3 ms, maxRTT: 1000 ms, ACK hold: 200 ms\nuptime: 344053517\
+                \ ms, Sent idletime: 34361 ms, Receive idletime: 34161 ms \nStatus\
                 \ Flags: active open\nOption Flags: VRF id set, nagle, path mtu capable\n\
                 IP Precedence value : 6\n\nDatagrams (max data segment is 1460 bytes):\n\
-                Rcvd: 58 (out of order: 0), with data: 28, total data bytes: 596\n\
-                Sent: 62 (retransmit: 3, fastretransmit: 0, partialack: 0, Second\
-                \ Congestion: 0), with data: 33, total data bytes: 773\n\n Packets\
-                \ received in fast path: 0, fast processed: 0, slow path: 0\n fast\
-                \ lock acquisition failures: 0, slow path: 0\nTCP Semaphore      0x7F5DDCA572A8\
-                \  FREE"
+                Rcvd: 11978 (out of order: 0), with data: 5735, total data bytes:\
+                \ 109029\nSent: 12024 (retransmit: 3, fastretransmit: 0, partialack:\
+                \ 0, Second Congestion: 0), with data: 6316, total data bytes: 120150\n\
+                \n Packets received in fast path: 0, fast processed: 0, slow path:\
+                \ 0\n fast lock acquisition failures: 0, slow path: 0\nTCP Semaphore\
+                \      0x7F5DDCA572A8  FREE"
             stdout_lines:
             - BGP neighbor is 10.0.3.9,  vrf VRF_ACME,  remote AS 65503, external
                 link
             - ' Description: CPE3'
             - '  BGP version 4, remote router ID 10.10.10.13'
-            - '  BGP state = Established, up for 00:26:40'
-            - '  Last read 00:00:39, last write 00:00:31, hold time is 180, keepalive
+            - '  BGP state = Established, up for 3d23h'
+            - '  Last read 00:00:53, last write 00:00:34, hold time is 180, keepalive
                 interval is 60 seconds'
             - '  Neighbor sessions:'
             - '    1 active, is not multisession capable (disabled)'
@@ -1666,9 +1666,9 @@ hostvars:
             - '    Opens:                  1          1'
             - '    Notifications:          0          0'
             - '    Updates:                3          0'
-            - '    Keepalives:            31         29'
+            - '    Keepalives:          6314       5736'
             - '    Route Refresh:          0          0'
-            - '    Total:                 35         30'
+            - '    Total:               6318       5737'
             - '  Do log neighbor state changes (via global configuration)'
             - '  Default minimum time between advertisement runs is 0 seconds'
             - ''
@@ -1724,37 +1724,37 @@ hostvars:
             - ''
             - 'Enqueued packets for retransmit: 0, input: 0  mis-ordered: 0 (0 bytes)'
             - ''
-            - 'Event Timers (current time is 0xFA0F3E8):'
+            - 'Event Timers (current time is 0x240A27E9):'
             - Timer          Starts    Wakeups            Next
-            - Retrans            35          3             0x0
+            - Retrans          6318          3             0x0
             - TimeWait            0          0             0x0
-            - AckHold            29         27             0x0
+            - AckHold          5736       5632             0x0
             - SendWnd             0          0             0x0
             - KeepAlive           0          0             0x0
             - GiveUp              0          0             0x0
-            - PmtuAger          714        713       0xFA0F598
+            - PmtuAger       341949     341948      0x240A2B0D
             - DeadWait            0          0             0x0
             - Linger              0          0             0x0
             - ProcessQ            0          0             0x0
             - ''
-            - 'iss: 2160480593  snduna: 2160481367  sndnxt: 2160481367'
-            - 'irs: 4014986033  rcvnxt: 4014986630'
+            - 'iss: 2160480593  snduna: 2160600744  sndnxt: 2160600744'
+            - 'irs: 4014986033  rcvnxt: 4015095063'
             - ''
-            - 'sndwnd:  15611  scale:      0  maxrcvwnd:  16384'
-            - 'rcvwnd:  15788  scale:      0  delrcvwnd:    596'
+            - 'sndwnd:  16213  scale:      0  maxrcvwnd:  16384'
+            - 'rcvwnd:  15624  scale:      0  delrcvwnd:    760'
             - ''
-            - 'SRTT: 984 ms, RTTO: 1113 ms, RTV: 129 ms, KRTT: 0 ms'
-            - 'minRTT: 10 ms, maxRTT: 1000 ms, ACK hold: 200 ms'
-            - 'uptime: 1614604 ms, Sent idletime: 31461 ms, Receive idletime: 31260
+            - 'SRTT: 1000 ms, RTTO: 1003 ms, RTV: 3 ms, KRTT: 0 ms'
+            - 'minRTT: 3 ms, maxRTT: 1000 ms, ACK hold: 200 ms'
+            - 'uptime: 344053517 ms, Sent idletime: 34361 ms, Receive idletime: 34161
                 ms '
             - 'Status Flags: active open'
             - 'Option Flags: VRF id set, nagle, path mtu capable'
             - 'IP Precedence value : 6'
             - ''
             - 'Datagrams (max data segment is 1460 bytes):'
-            - 'Rcvd: 58 (out of order: 0), with data: 28, total data bytes: 596'
-            - 'Sent: 62 (retransmit: 3, fastretransmit: 0, partialack: 0, Second Congestion:
-                0), with data: 33, total data bytes: 773'
+            - 'Rcvd: 11978 (out of order: 0), with data: 5735, total data bytes: 109029'
+            - 'Sent: 12024 (retransmit: 3, fastretransmit: 0, partialack: 0, Second
+                Congestion: 0), with data: 6316, total data bytes: 120150'
             - ''
             - ' Packets received in fast path: 0, fast processed: 0, slow path: 0'
             - ' fast lock acquisition failures: 0, slow path: 0'
@@ -1815,7 +1815,7 @@ hostvars:
                     routerid: 10.10.10.2
                 pe3.pk.lab:
                     routerid: 10.10.10.3
-        omit: __omit_place_holder__ed8a7a22fd0192abd94e47629c4d1f3457ebc766
+        omit: __omit_place_holder__7be009f46c81615454b236951bcc08812a0f178d
         playbook_dir: /home/pk/net-auto-sol/summary-report
         vrfs:
         -   check:
@@ -1908,7 +1908,7 @@ hostvars:
                     routerid: 10.10.10.2
                 pe3.pk.lab:
                     routerid: 10.10.10.3
-        omit: __omit_place_holder__ed8a7a22fd0192abd94e47629c4d1f3457ebc766
+        omit: __omit_place_holder__7be009f46c81615454b236951bcc08812a0f178d
         playbook_dir: /home/pk/net-auto-sol/summary-report
         vrfs:
         -   check:
@@ -1945,7 +1945,7 @@ nodes:
             routerid: 10.10.10.2
         pe3.pk.lab:
             routerid: 10.10.10.3
-omit: __omit_place_holder__ed8a7a22fd0192abd94e47629c4d1f3457ebc766
+omit: __omit_place_holder__7be009f46c81615454b236951bcc08812a0f178d
 parsed_output:
     vrf:
         VRF_ACME:

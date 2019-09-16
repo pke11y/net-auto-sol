@@ -11,10 +11,12 @@
   # vars:
   # - results: "{{inventory_dir}}/results"
   tasks:
-  - name: "Offline debug"
-    copy:
-      content: "{{vars | to_nice_yaml(indent=4)}}"
-      dest: "{{playbook_dir}}/results/vars.yml"
+  # - name: "Offline print vars for debug"
+  #   copy:
+  #     content: "{{vars | to_nice_yaml(indent=4)}}"
+  #     dest: "{{playbook_dir}}/results/vars.yml"
   - name: "Generate DOT file"
-    template: src={{playbook_dir}}/templates/graph_vrf.j2 dest={{playbook_dir}}/results/TEST.dot
-       
+    template: src={{playbook_dir}}/templates/graph_vrf.j2 dest={{playbook_dir}}/results/{{inventory_hostname}}.dot
+  - name: "Create image of DOT graph"
+    shell: "dot -Tpng {{playbook_dir}}/results/{{inventory_hostname}}.dot > {{playbook_dir}}/results/{{inventory_hostname}}.png"
+    run_once: true

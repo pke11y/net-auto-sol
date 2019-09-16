@@ -4,13 +4,5 @@ vrf [label="{{vrf_name}}"]
 {% set routes = parsed_output['vrf'][vrf_name]['address_family'][rd_cli]['routes'] %}
 {% set nodes = hostvars[inventory_hostname]['nodes'] %}
 {{ [routes, nodes, router_id] | build_vrf_pe() | printdot() }}
-
-##{% for playhost in play_hosts %}
-##{##}{% for neighbor in hostvars[playhost][bgp_neigh_output]['list_of_neighbors'] %}
-
-##{% set cpe_rid = hostvars[playhost][bgp_neigh_output]['vrf'][vrf_name]['neighbor'][neighbor]['router_id'] %}
-##{{ [bgp_neigh_output, nodes] | build_pe_cpe() | printdot() }}
 {{ hostvars | build_pe_cpe() | printdot() }}
-##{##}{% endfor %}
-##{% endfor %}
 }
