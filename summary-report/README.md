@@ -4,7 +4,7 @@
 These playbooks gather BGP MPLS VPN data from an IOS-XE PE node and extract VRF and IP information using the Cisco pyATS framework. 
 
 The following basic data model was used to describe the L3VPN
-
+'''
 nodes:
   pe:
     "pe1.pk.lab": 
@@ -29,7 +29,8 @@ vrfs:
       - "65001:100"
     rt_export:
       - "65001:100"
-      
+ '''
+ 
  L3VPN topology sample in DOT file format
- ![L3VPN Diagram]
- (./results/pe2.pk.lab.png)
+ 
+ ![L3VPN Diagram](./results/pe2.pk.lab.png)
