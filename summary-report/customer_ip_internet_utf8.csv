@@ -1,0 +1,332 @@
+Customer,Site,Solution Type,First Host IP
+Total Produce,All, Reserved (but not yet used) for possible future expansion,89.204.252.113
+Total Produce,All, Reserved (but not yet used) for possible future expansion,89.204.252.121
+Abbey Tours,Dublin,DIA - single CPE to Blanch,89.204.241.33
+AbbeyTours,MDS (MFW) Abbey Tours,New Vdom addition,89.204.255.105
+Accipiter Holdings,All,Direct internet - non-redundant,95.83.224.241
+AFSC,"Harbor Road, Foynes, Co. Limerick",Direct internet - WLL,89.204.254.81
+Alltech,St James Distilery,Direct internet - Fibre,89.204.253.161
+ALLTECH,Dundalk,Direct Internet - Fibre,89.204.254.193
+Amdocs ,Blanch,Direct Internet Amdocs,89.204.253.153
+Aramark,JP Morgan,new DIA site,89.204.255.145
+Aramark Avoca Bray,All,Direct internet - WLL,89.204.242.209
+Aramark Avoca Bray,All,Redundant Direct internet - WLL,89.204.253.225
+Aramark Equinix,Equinix,Direct internet - non-redundant Colt Fibre,95.83.226.73
+Aramex,Dublin,Direct internet - non-redundant,95.83.225.153
+Arranmore Island,Island NEW RIPE Subnet reserved,New Vdom addition - Direct Internet - WLL/DSL,89.204.254.209
+Arranmore The Island,HQ,Direct internet - MFW - Shrdweb,95.83.225.209
+Arup Waterford,Waterford,Direct internet - non-redundant,95.83.226.9
+Athlantic Projects ,Dublin,Direct internet - non-redundant,95.83.226.25
+Athlantic Projects ,Nenagh,Direct internet - non-redundant,95.83.226.29
+Atlantic Containers,"The Malt House - North Grand Canal Quay, Dublin",DIA,95.83.230.37
+Aubren,-,Direct internet - non-redundant,95.83.226.45
+Avoca,Dunboyne,Direct internet - Fibre,89.204.253.89
+Avoca,Rathnew,Direct internet - WLL,89.204.253.169
+Avoca,Ballsbridge site,new DIA site,89.204.255.160
+AWN,Cork,Direct internet - WLL,95.83.226.101
+AWN Consultancy,"Clonshaugh, Dublin",DIA,95.83.230.25
+BAM,Kildare,Direct Internet - Fibre and WLL,89.204.254.161
+BAM,Cork,Direct Internet - Fibre and WLL,89.204.254.169
+BAM,Galway,Direct Internet  WLL,89.204.254.185
+BCD,"Railway Rd, Charleville, Co Cork",Direct Internet - WLL,95.83.226.141
+Beaumont House,"St Francis Farm, Mountwolseley, Co. Carlow",DIA-WLL,89.204.254.93
+BGP over DSL LAB,SJRQ Lab room,DSL,89.204.255.73
+Blarney Woollen Mills,Carrick On Suir,Direct internet - WLL,89.204.252.169
+Bloomfield House Hotel,Mullingar,Direct internet - non-redundant,95.83.225.33
+BSB,All,Direct internet - redundant,95.83.224.161
+BSB,All,Direct internet - redundant,95.83.224.176
+BWG,Tallaght,DIA,95.83.225.17
+BWG,Mullingar,Direct Internet - Enet Fibre,95.83.226.89
+BWG,North Road (DR),Direct internet - redundant,95.83.224.1
+BWG,Willsborough,Direct internet - redundant,95.83.226.113
+BWG,Willsborough,Direct internet - redundant,95.83.226.117
+Campbell Comms Tankardstown House,Meath,Direct Internet - WLL,89.204.254.217
+Carroll Meats,Dublin,Direct internet - non-redundant,95.83.226.1
+CCIE Solutions,Dublin,Direct Internet - wirh managed firewall Test,95.83.225.9
+CCIE SOLUTIONS LTD,N/A,Direct Internet - DSL backup,95.83.224.153
+CCT,All,CCT Test Lab,89.204.253.73
+CCT,All,CCT Test Lab,89.204.253.81
+CCT,All,CCT Test Lab BGP Peers (bla-asr-01.mpls),95.83.226.85
+Celtic Pure Water,"Corcreagh Shercock, Co Monaghon",Direct internet - WLL,89.204.254.57
+CJ  Fallon,Clondalkin site HQ,Direct internet - WLL,95.83.226.185
+Clonmel Park Hotel,Clonmel Park ,Redundant Direct internet - Primary Fibre/Backup xDSL,89.204.252.9
+Coffey Group,Limerick,Direct internet - non-redundant,95.83.225.137
+Coleman Legal Partners,Dublin,Redundant Direct internet - Primary Fibre/Backup Xdsl,95.83.226.57
+Coolmore House,Kilkenny,DIA - single CPE to Blanch,89.204.241.13
+Corcoran Chemicals,Dublin - Finglas,Direct Internet - WLL,89.204.254.221
+Corrib Foods,Galway,Direct internet - non-redundant,95.83.225.57
+CPL Dublin 4,Dublin,Direct internet - non-redundant,95.83.226.13
+Cross Group,3 dual-homed sites,New Vdom addition,89.204.255.153
+DB Schenker,dbs-dub-01.mds,Direct internet - WLL,89.204.242.165
+DB Schenker Ballycoolin,Ballycoolin,Direct internet - WLL,89.204.253.145
+DB Schenker Cork,dbs-cor-01.mds,Direct internet - WLL,89.204.242.133
+DB Schenker Cork,dbs-cor-01.mds,Direct internet - WLL,89.204.253.25
+DB Schenker Cork Unit1,Cork Unit 1,Direct internet - non-redundant,95.83.226.37
+DB Schenker Cork Unit3,Cork Unit 3,Direct internet - non-redundant,95.83.226.41
+DB Schenker Dublin,Dublin,Direct internet - WLL,89.204.252.49
+DB Schenker Finglas,dbs-finglas-01.mds,Direct internet - WLL,89.204.253.33
+DB Schenker Newlands,dbs-newlands-01.mds,Direct internet - WLL,89.204.253.41
+DB Schenker Santry,Santry,Direct internet - WLL,89.204.253.17
+DB Schenker Smithstown,Clare,Direct internet - WLL,89.204.252.241
+DCC Leopardstown,DCC Leopardstown,Direct Internet - Fiber,89.204.242.45
+DCC Leopardstown Additional,Dublin,Direct internet - non-redundant,95.83.226.69
+Dermot Casey,Mallow,Direct internet - non-redundant,95.83.226.49
+Doheny Wheelie Bins,Kilkenny,Direct internet Fibre - non-redundant,89.204.252.161
+Doosan,Swords,Direct internet - redundant,95.83.226.129
+Dualway Coaches,All,Direct internet - WLL,89.204.252.25
+Dublin Port Company,Dublin,DIA - dual CPE,95.83.225.65
+Dublin Port Company,dpc-dub-01.mds,Direct internet - Fibre,89.204.242.113
+Dublin Port Company,dpc-dub-02.mds,Direct internet - WLL,89.204.242.117
+Dublin Port Company,dpc-dub-01.mds & dpc-dub-02.mds ,Direct internet /29,89.204.242.121
+Duelchem Kilkenny," Unit 7 Purcellsinch Business Park, Dublin road, Kilkenny",Direct Internet - Enet fibre,95.83.226.233
+Eurofoods Limerick,Limerick,Direct internet - non-redundant,95.83.226.17
+Excel Plastics,Excel Plastics,Direct internet - WLL,89.204.242.73
+Excel Plastics,Excel Plastics,Direct internet - WLL,89.204.242.85
+FAI,MDS FAI,Abbotstown,89.204.255.97
+FAI,MDS FAI,DIA Abbotstown,89.204.255.193
+Flair Salon Services,?,Direct internet - non-redundant,95.83.225.1
+Flair Salon Services,"Wilton, Cork",Direct internet - WLL,89.204.253.185
+FMI Ltd,Dundrum,DIA - single CPE to Blanch,89.204.241.45
+Frank Kieran Longford,FKIERAN-LONG-01.mds,Direct internet - WLL,89.204.253.209
+FRS,Dublin,Direct internet - WLL with DSL Backup,89.204.252.73
+G4S,Holly Road,new DIA site,89.204.255.177
+Gaelite Signs,Dublin,Direct internet - WLL,95.83.226.97
+Gamestop,Dublin,Direct internet - redundant,95.83.225.177
+Glanbia Wexford,Wexford,Direct internet - non-redundant,95.83.225.41
+Gleeson,gle-bor-01.mds,Direct internet - WLL (/30 from router to 03.net),89.204.242.141
+Gleeson,gle-bor-01.mds,Direct internet /29  (RIPE range in use by customer),89.204.242.145
+Goffs Kildare,Goffs Kildare,DIA,95.83.227.1
+Golden Pages,gol-dub-01.mds,Direct internet - Fibre,89.204.242.97
+Golden Pages,gol-dub-02.mds,Direct internet - WLL,89.204.242.101
+Goshawk,Dublin,Direct Interner - BT Fibre and WLL,95.83.226.121
+Greenstar,Bray,Direct internet - non-redundant,95.83.224.193
+Greenstar,Cork,Direct internet - non-redundant,95.83.224.201
+Greenstar,Dublin,Direct internet - non-redundant,95.83.225.193
+Greenstar,Millenium,Direct internet - redundant,95.83.224.185
+Greenstar ,Millenium,Direct internet - redundant,89.204.252.129
+GREENSTAR - Bray,,Direct internet - WLL,89.204.242.241
+GREENSTAR - Cork,,Direct internet - WLL,89.204.242.245
+GREENSTAR - Millenium,,Direct internet - Fiber,89.204.242.233
+GREENSTAR - Millenium,,Direct internet - WLL,89.204.242.237
+GSLS Limerick,Kilmallock Road,Direct Internet - WLL,95.83.226.217
+H&K International,XXX,Direct Internet - Fibre and WLL,89.204.254.153
+Hermitage Clinic,Ballymount,Direct internet - redundant,95.83.226.145
+Hertz,Ferrybank,DIA-WLL,89.204.254.137
+HERTZ,Dublin - site 02,Direct Internet - Fibre,89.204.254.197
+Hertz,Dublin,Direct Internet - Fibre,89.204.254.89
+Home Help,All,Direct internet - WLL,89.204.252.193
+HOVIONE,"Loughbeg, Ringaskiddy, Co. Cork",Direct Internet - Enet Fibre and WLL,95.83.226.161
+IEC,iec-cor-01.mds,Direct internet - WLL,95.83.226.77
+Ikea,Dublin,Direct internet - Fibre,89.204.253.113
+ILLE,ille-hq-01.mds,Direct internet - Fiber,89.204.242.161
+ILLE,HQ,Direct internet - non-redundant,95.83.224.137
+IRB,irb-pem-01.mds,Direct internet - Fiber,89.204.242.153
+IRB,,Direct internet - redundant,95.83.224.65
+IRB,irb-pem-02.mds,Direct internet - WLL,89.204.242.157
+JFC Manufacturing,All,Direct internet - WLL,89.204.242.185
+JFC Manufacturing,,Direct internet - WLL,89.204.242.57
+Jigsaw,MDS (MFW) Jigsaw HQ + 13 sites,New Vdom addition,95.83.226.175
+Jones International Transport,Dublin - Ballyboughal,Direct Internet  WLL,95.83.224.5
+Kepak,Clonee,DIA for UK - ROI,95.83.230.113
+Kilkenny Group,Dublin,DIA - single CPE to Blanch,89.204.241.41
+Killashee House Hotel,Killashee House,Redundant Direct internet - Primary Fibre/Backup WLL,89.204.252.57
+Kortec,Dublin,Redundant Direct internet - WLL/DSL,89.204.252.217
+L&M Keating,MDS  MFW,New Vdom addition,89.204.255.169
+Lantec,All,Direct Internet - BT Fibre,89.204.252.201
+Largo Foods ,Ashbourne,Customer lan Direct internet - redundant,89.204.241.209
+Largo Foods ,Ashbourne,Direct internet - redundant,89.204.241.225
+Largo Foods ,Ashbourne,Direct internet - redundant,89.204.241.229
+Lidl RDC (Backup),Newbridge,DIA,95.83.230.65
+Lidl RDC (Primary),Newbridge,DIA,95.83.230.81
+Lidl RDC (WiFi),Newbridge,DIA,95.83.230.97
+Lionbridge Technologies,All,Direct internet - WLL,89.204.242.225
+Lionbridge Technologies,,Direct internet - WLL,89.204.242.61
+M50 Concession,"Castleknock, Dublin 15",Direct internet - WLL,95.83.226.201
+Mainstream Renewables,Dublin,Redundant Direct internet - WLL/DSL,89.204.253.105
+Maryborough Hotel,Cork,Direct internet - non-redundant,95.83.225.97
+Mater Hospital,Mater Hospital,Direct internet - WLL,89.204.242.25
+Mater Hospital,Mater Hospital,Direct internet - WLL,89.204.242.41
+Mater Hospital,Mater Hospital,Direct internet - WLL,89.204.252.65
+Mather Hospital,Dublin ,DIA,95.83.230.33
+Mazars,Harcourt Centre,Customer LAN Direct internet - redundant,95.83.224.33
+Mazars,Harcourt Centre,Customer LAN Direct internet - redundant,95.83.224.49
+Mazars,Harcourt Centre,Customer LAN Direct internet - redundant,95.83.227.49
+Mazars,Mazars,Direct internet - Fibre,89.204.242.89
+Mazars,Mazars,Direct internet - WLL,89.204.242.93
+MAZARS,MAZARS,Direct Internet BT Fibre,95.83.226.153
+McArdle,Hollystown,Direct internet - WLL,89.204.254.85
+McCarthy Commercials Clare,McCarthy Commercials Clare,Direct internet - WLL,89.204.242.17
+McCarthy Commercials Clare,McCarthy Commercials Clare,Direct internet - WLL,89.204.242.37
+McCarthy Commercials Kilkenny,McCarthy Commercials Kilkenny,Direct internet - WLL,89.204.242.33
+McCarthy Commercials Kilkenny,McCarthy Commercials Kilkenny,Direct internet - WLL,89.204.242.9
+McGowans Digital Print,Dublin,Direct internet - non-redundant,95.83.225.105
+MDS-BSB,bsb-rah-01.mds,Direct internet - Fiber,89.204.242.177
+MDS-BSB,bsb-rah-02.mds,Direct internet - WLL,89.204.242.181
+MDS-Test,Willsborough*,Customer VPN Connectivity*,89.204.241.233
+MDS-Test,Uvalue,Direct internet - WLL,89.204.242.65
+MDS-TESTon Wil.Net-03,MDS-TESTon Wil.Net-03,Direct internet - WLL,89.204.242.1
+Meaghers Pharmacy,MDS (MFW) Meaghers Pharmacy,New Vdom addition,89.204.255.113
+Medlab Pathology,Sandymount,DIA - single CPE from Host Ireland,89.204.241.57
+Michael Baer,Galway,Direct internet - non-redundant,95.83.225.121
+Microsemi,Dublin,Direct internet - Fibre,89.204.252.177
+MNS INTERNET IPVPN TEST,BLA - bla-rtr-03.net to bla-asr-02.mpls,DIA TEST,95.83.226.237
+Mosiac,5 HarbourMaster Place,DIA - single CPE to Blanch,89.204.241.17
+Mt. Wolseley Hotel ,Carlow,Direct internet - WLL,89.204.252.249
+NVD,NVD site,5 sites,89.204.255.81
+NVD,Baldonnel,new DIA site,89.204.255.137
+Obrien Fine Foods,"Ballygarvey, Rathowen, Co. Westmeath",new DIA site,89.204.255.141
+Olive Safety,Dublin,Direct internet - WLL,89.204.253.97
+Ove Arup,St James - Dublin,Direct Internet - non redundant,95.83.226.109
+Ove Arup,Galway,Direct internet - non-redundant,95.83.224.209
+Ove Arup,Limerick,Direct internet - non-redundant,95.83.224.217
+PANDA,MDS Panda DIA - Cappagh site,new DIA site,89.204.255.129
+PDM,Dublin,Direct internet - WLL,89.204.242.137
+PFL,Limerick,Redundant Direct internet - WLL/DSL,89.204.253.177
+Pitney Bowes,Ballymount,Direct internet - WLL,89.204.242.213
+PUBLIC RANGE FOR AWS SYSTEMS,Blanch Test Bed,Managed Internet,95.83.229.160
+Quantcast,Dublin,Direct internet Fibre - non-redundant,89.204.252.137
+Quantcast,Dublin,Direct internet Fibre - non-redundant,95.83.226.65
+Redmills HQ Goresbridge,Redmills HQ Goresbridge Co Kilkenny,Direct internet - WLL,89.204.254.65
+Reserved,Blanch Test Bed,Managed Internet,95.83.229.152
+Respa Beds,Meath,Direct internet - non-redundant,95.83.226.5
+Roadbridge,Roadbridge Glasgow UK,Direct Internet - Fibre,89.204.253.217
+Roadbridge,Roadbridge Hertfordshire UK,Direct Internet - Fibre,89.204.253.233
+Roadbridge,Roadbridge Naas,Direct internet - WLL,89.204.253.241
+Roadbridge,Roadbridge Claregalway,Direct internet - WLL,89.204.253.249
+Roadbridge ,Roadbridge Limerick,Direct Internet - Fibre,89.204.254.121
+Saint Gobain,Dublin,Direct internet - non-redundant,95.83.226.21
+Saint Gobain 2,Dublin,Direct internet - non-redundant,95.83.226.53
+SANTANDER,Dublin,Direct Internet - Fibre and DSL,89.204.254.177
+Securitas,All,Redundant Direct internet - WLL/Fibre,89.204.252.145
+Shannon Aerospace,Shannon Airport,Direct internet - non-redundant,95.83.224.249
+Silver Hills Food,Monaghan,Direct internet - Fibre,89.204.242.217
+Silver Hills Food,Monaghan,Direct internet - non-redundant,95.83.224.233
+SIRUS,sir-dub-cty-rtr01,Direct internet - Host Ireland Circuit,95.83.226.81
+WFS,N/A,Firewall,89.204.240.120
+Hevac (Heat Merchants vdom),N/A,Firewall (added to existing HeatMerchants firewall build),89.204.241.25
+MNS INTERNET IPVPN,BLA - bla-rtr-03.net to bla-asr-02.mpls,Firewall and DIA,95.83.226.241
+MNS INTERNET IPVPN,WIL - wil-rtr-03.net to wil-asr-02.mpls,Firewall and DIA,95.83.226.245
+MNS INTERNET IPVPN,CIT - dn2m4804 to dn2q10k01,Firewall and DIA,95.83.226.249
+MNS INTERNET IPVPN,CIT - dn2m4805 to dn2q10k02,Firewall and DIA,95.83.226.253
+Bradleys Pharmacy,,Managed Firewall,89.204.241.201
+Heat Merchants,,Managed Firewall,89.204.241.205
+Golden Pages,gol-dub-01.mds & gol-dub-02.mds,Managed Firewall,89.204.242.105
+MDS-SIRUS,All,Managed Firewall,89.204.242.169
+WALLS CONSTRUCTION,All,Managed Firewall,89.204.242.193
+Golden Pages,,Managed Firewall,89.204.242.249
+Oxigen,All,Managed Firewall,89.204.252.1
+Total Produce,All,Managed Firewall,89.204.252.105
+Nuparc,All,Managed Firewall,89.204.252.17
+Centric Health,All,Managed Firewall,89.204.252.185
+Applegreen,All,Managed Firewall,89.204.252.32
+Glennon Brothers,All,Managed Firewall,89.204.252.81
+Total Produce,All,Managed Firewall,89.204.252.97
+McCabes,All,Managed Firewall,89.204.253.121
+Alltech,All,Managed Firewall,89.204.253.129
+McArdle Skeath,All,Managed Firewall,89.204.253.137
+CEX - Customer Experience Room SJRQ,cex-sjrq-01.mds,Managed Firewall,89.204.253.49
+Barna Reclycling,All,Managed Firewall,89.204.253.57
+Securitas,All,Managed Firewall,89.204.253.65
+Reagecon,,Managed Firewall,95.83.224.145
+UTV,Mallow (HQ),Managed Firewall,95.83.224.17
+Synergy Security ,Cork,Managed Firewall,95.83.224.9
+O'Keeffes,O'Keeffes,Managed Firewall,95.83.226.209
+Kepak,Customer KEPAK - VRF expansion - ROI Range,Managed Firewall,95.83.230.129
+Donnybrook Fair,Dublin,Managed Firewall ,95.83.225.129
+Gamestop,Dublin,Managed Firewall ,95.83.225.161
+Four Star Pizza,All,Managed Firewall ,95.83.227.129
+Donnybrook Fair CCTV subnet,Donnybrook,Managed Firewall ,95.83.227.33
+Aurivo,Managed Firewall,Managed Firewall ,95.83.227.64
+Mr Price,Dublin - Tallaght,Managed Firewall ,95.83.227.73
+Noonans,All,Managed Firewall ,95.83.227.97
+MDS-PETERMARK,To Be Defined,Managed Firewall (DR),89.204.241.249
+MDS-PETERMARK,To Be Defined,Managed Firewall (HQ),89.204.241.241
+Brothers of Charity,Blackberry Park,Managed Firewall (HQ),89.204.241.48
+SJRQ-TEST-LAB,CCT-TEST-01.MDS in  MDS-SJRQ-TEST-LAB vrf,Managed Firewall and DIA,95.83.229.1
+Applegreen - DMZ UC,Expressway,Managed Firewall and UC,95.83.228.1
+PANDAPOWER,Slane,Managed Firewall with DMZ,95.83.224.129
+PANDAPOWER,MNS Firewall,Managed Firewall with DMZ,95.83.225.17
+Valeo,Ballymount,Managed Firewall with DMZ,95.83.225.81
+SJRQ TEST LAB - FIBRE,SJRQ TEST LAB - FIBRE,Direct internet - BT Fibre in SJRQ,95.83.226.137
+SJRQ-TEST-CPE-WLL-ACX,Test WLL to ACX,DIA,95.83.229.9
+Solarwinds,sol-crk-01.mds,Direct internet - Fibre,89.204.242.129
+Solarwinds,Cork,Direct internet - non-redundant,95.83.224.225
+Sunbeam House,Wicklow,Direct internet - WLL,95.83.226.93
+MNS Back-to-Back 03.NET,Blanch/Wills,MNS Back-to-Back 03.NET between Blanch & Wills,95.83.226.105
+SWS,Cork,Direct internet - non-redundant,95.83.225.113
+Tech-Mahindra (Techm),Waterford Site,MNS VRF ( no DIA / ManagedFirewall ). CCV Leaking,95.83.225.145
+TEST for PANDA DUB4,PANDA - Equinix,Direct internet - redundant,95.83.226.133
+TEST-LAB-SITE-1,Blanch Test Bed,Managed Internet,95.83.229.129
+TEST-LAB-SITE-2,Blanch Test Bed,Managed Internet,95.83.229.137
+TEST-LAB-SITE-3,Blanch Test Bed,Managed Internet,95.83.229.145
+The Travel Department,Dublin,Redundant Direct internet - WLL/Fibre,89.204.252.209
+Thermodial,Thermodial,DIA,95.83.225.225
+Thermodial ,Dublin,Direct internet - non-redundant,95.83.226.33
+Traditional Cheese,Dublin,Direct internet Fibre - non-redundant,89.204.252.153
+Transitions Optical,Dublin,Direct internet - Fibre,89.204.252.89
+Uvalue,Uvalue,Direct internet - WLL,89.204.242.81
+Wasdell,Dundalk,DIA,95.83.230.57
+WIC,All,Direct internet - WLL,89.204.241.61
+Wilder Hotel,TBC,Direct Internet - WLL/DSL,89.204.254.201
+WindWard Group,WindWard Fitzwilton Hotel,DIA,95.83.230.161
+WindWard Group,WindWard Cavan Crystal Hotel,DIA,95.83.230.169
+WindWard Group,WindWard Cavan Crystal Factory,DIA,95.83.230.177
+WindWard Group,WindWard Anner Hotel,DIA,95.83.230.185
+WindWard Group,WindWard Connemara Coast Hotel,DIA,95.83.230.193
+,DCC Leopardstown,Direct Internet - Fiber,89.204.242.49
+,DCC Leopardstown,Direct Internet - Fiber,89.204.242.53
+MNS OAM Service,Spine and Leaf - Citadel and Equinix,Static 1-1 NAT for OSS servers,95.83.239.225
+DCC,TBC,TBC,95.83.225.49
+CustomerX,N/A,Testing of IP SLA Solution,89.204.240.125
+xxx,xxxx,xxxx,95.83.226.193
+O2,MPLS ,,89.204.240.1
+BWG,BWG-HQ cpe-01,,89.204.240.113
+BWG,BWG-HQ cpe-02,,89.204.240.117
+Kirby,MPLS WAN,,89.204.240.17
+Altobridge,MPLS WAN,,89.204.240.21
+Kirby,Kirby1,,89.204.240.25
+La Rousse,Dublin,,89.204.240.29
+La Rousse,Dublin,,89.204.240.33
+La Rousse,Dublin,,89.204.240.37
+Panda,Ballymount,,89.204.240.41
+DCC,Stillorgan,,89.204.240.49
+DCC,Stillorgan,,89.204.240.57
+Altobridge,Altobridge1,,89.204.241.1
+Trans Opt,Tuam,,89.204.241.1
+La Rousse,Dublin,,89.204.241.193
+Trans Opt,Tuam,,89.204.241.5
+Trans Opt,Tuam,,89.204.241.65
+Trans Opt,Tuam,,89.204.241.9
+UC - Blanch CE01-P21  eBGP subnet,,,89.204.253.1
+UC - Blanch CE02-PE02  eBGP subnet,,,89.204.253.13
+UC - Blanch CE02-P21  eBGP subnet,,,89.204.253.5
+UC - Blanch CE01-PE01  eBGP subnet,,,89.204.253.9
+UC - Bally CE01-P21  eBGP subnet,,,89.204.254.1
+UC - Bally CE02-PE02  eBGP subnet,,,89.204.254.13
+BAM - HQ,,,89.204.254.225
+UC - Bally CE02-P21  eBGP subnet,,,89.204.254.5
+UC - Bally CE01-PE01  eBGP subnet,,,89.204.254.9
+UC - Wills CE01-P21  eBGP subnet,,,89.204.255.1
+UC - Wills CE02-PE02  eBGP subnet,,,89.204.255.13
+O2,MDS-to-firewall-DMZ-Blanch (bla-asr-01.mpls to Integrity FW),,89.204.255.225
+O2,MDS-to-firewall-DMZ-Blanch-CPE (CPE to bla-asr-01.mpls),,89.204.255.229
+O2,MDS-to-firewall-DMZ-Wills (wil-asr-01.mpls to Integrity FW),,89.204.255.233
+O2,MDS-to-firewall-DMZ-Wills-CPE (CPE to wil-asr-01.mpls),,89.204.255.237
+O2,MDS-to-tester Blanch,,89.204.255.241
+O2,MDS-to-tester Wills,,89.204.255.245
+O2,MDS-to-firewall-Wills,,89.204.255.249
+O2,MDS-to-firewall-Blanch,,89.204.255.253
+UC - Wills CE02-P21  eBGP subnet,,,89.204.255.5
+TTM Recruitment,"Ennis, co Clare",,89.204.255.65
+UC - Wills CE01-PE01  eBGP subnet,,,89.204.255.9
+,,,95.83.224.25
+Bimeda Ireland,Dublin - Tallaght,,95.83.228.1
+,,,95.83.230.41
+,,,95.83.230.49
+,,,95.83.239.0
+,,,95.83.239.129
+,,,95.83.239.161
+,,,95.83.239.193
+,,,95.83.239.33
+,,,95.83.239.65
+,,,95.83.239.97

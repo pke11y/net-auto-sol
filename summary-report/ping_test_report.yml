@@ -1,0 +1,28 @@
+# Create Connectivity Report
+# 
+#
+---
+- name: "Read data from Excel file and return a dictionary"
+  hosts: localhost
+  connection: local
+  tasks:
+  - name: "Read data" 
+    read_csv:
+      path: customer_ip_internet_utf8.csv
+      key: First Host IP
+      unique: no
+    register: customers
+  - debug:
+      var: customers
+
+ - name: "Generate Report"
+  hosts: localhost
+  connection: local
+  # # vars:
+  # # - results: "{{inventory_dir}}/results"
+  tasks:
+  - name: "Generate Report"
+    shell: "ping {{}}"
+    loop: 
+  - name: "Generate Report"
+    template: src={{playbook_dir}}/templates/ping-report.j2 dest={{playbook_dir}}/results/mns_report.txt
