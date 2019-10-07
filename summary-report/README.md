@@ -17,4 +17,4 @@ The following basic data model was used to describe the L3VPN.
  
  L3VPN topology sample in DOT file format.
  
- ![L3VPN Diagram](./results/pe2.pk.lab.png)
+ ![L3VPN Diagram](./results/localhost.png)
