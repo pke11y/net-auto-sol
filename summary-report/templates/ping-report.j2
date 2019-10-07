@@ -30,8 +30,6 @@ Unknown
 {% set mintrx = namespace(minttotalrx = 0) %}
 {% set mfwtx = namespace(mfwtotaltx = 0) %}
 {% set mfwrx = namespace(mfwtotalrx = 0) %}
-{% set unktx = namespace(unktotaltx = 0) %}
-{% set unkrx = namespace(unktotalrx = 0) %}
 {% for prefix, custdict in cust_data.items()%}
 {{'\n'}}Customer Name: {{custdict['Customer']}} Site: {{custdict['Site']}}
 Product: {{custdict['Solution Type'] | default('N/A')}}
@@ -52,10 +50,6 @@ Product: {{custdict['Solution Type'] | default('N/A')}}
 {% set mfwtx.mfwtotaltx =  mfwtx.mfwtotaltx + itemresult[0] | int %}
 {% set mfwrx.mfwtotalrx = mfwrx.mfwtotalrx + itemresult[1] | int %}
 {% endif %}
-{% if custdict['Solution Type'] | regex_search("^(?:(?!\binternet\b|\bfirewall\b).)*$", ignorecase=True) %}
-{% set unktx.unktotaltx =  unktx.mfwtotaltx + itemresult[0] | int %}
-{% set unkrx.unktotalrx = unkrx.mfwtotalrx + itemresult[1] | int %}
-{% endif %}
 {##}{% endfor %}
 {{custdict['Customer']}} SUMMARY: TX:{{ctx.custtotaltx}} SUCCESS:{{crx.custtotalrx}} FAILED:{{ctx.custtotaltx - crx.custtotalrx}}
 {% set ttx.totaltx = ttx.totaltx + ctx.custtotaltx %}
@@ -64,5 +58,4 @@ Product: {{custdict['Solution Type'] | default('N/A')}}
 {{'\n'}}
 INTERNET: TX:{{minttx.minttotaltx}} SUCCESS:{{mintrx.minttotalrx}} FAILED:{{minttx.minttotaltx - mintrx.minttotalrx}}
 FIREWALL: TX:{{mfwtx.mfwtotaltx}} SUCCESS:{{mfwrx.mfwtotalrx}} FAILED:{{mfwtx.mfwtotaltx - mfwrx.mfwtotalrx}}
-UNKNOWN: TX:{{unktx.unktotaltx}} SUCCESS:{{unkrx.unktotalrx}} FAILED:{{unktx.unktotaltx - unkrx.unktotalrx}}
 SUMMARY: TX:{{ttx.totaltx}} SUCCESS:{{trx.totalrx}} FAILED:{{ttx.totaltx - trx.totalrx}}

@@ -23,16 +23,17 @@ def build_vrf_pe(vrfdata):
 def build_pe_cpe(hostdata):
     """ Build a list of PE and CPE items that can be used to develop a DOT file graph for a L3VPN
     """
+    hostvars = hostdata[0]
+    vrf_name = hostdata[1]
     pe_cpe = []
     cpe = []
-    for hostname, hostdict in hostdata.items():
+    for hostname, hostdict in hostvars.items():
 
         try:
             bgp_peers = hostdict['bgp_neigh_output']['list_of_neighbors']
             pass
         except:
             continue
-        vrf_name = hostdict['vrfs'][0]['name']
         for neighbor in bgp_peers:
             cpe_rid = hostdict['bgp_neigh_output']['vrf'][vrf_name]['neighbor'][neighbor]['router_id']
             cpename = get_cpename(hostdict['nodes'], cpe_rid)

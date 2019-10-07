@@ -8,21 +8,31 @@
   tasks:
   - name: "Read data" 
     read_csv:
-      path: customer_ip_internet_utf8.csv
-      key: First Host IP
-      unique: no
+      path: customer_dia_mfw_utf8.csv
+      key: Subnet
+      unique: yes
     register: customers
+  - name: "Add IP Addresses within subnet"
+    set_fact:
+      cust_data: "{{ customers.dict | addiprange }}"
   - debug:
-      var: customers
+      var: cust_data
 
- - name: "Generate Report"
+- name: "Generate Report"
   hosts: localhost
   connection: local
-  # # vars:
-  # # - results: "{{inventory_dir}}/results"
   tasks:
-  - name: "Generate Report"
-    shell: "ping {{}}"
-    loop: 
-  - name: "Generate Report"
+  - name: "Iterate through customers"
+    include_tasks: ping_host.yml
+    loop: "{{ cust_data | dict2items }}"
+    ignore_errors: true
+    loop_control:
+      loop_var: cust_item
+  - name: "Offline print vars for debug"
+    copy:
+      content: "{{vars | to_nice_yaml(indent=4)}}"
+      dest: "{{playbook_dir}}/results/ping-vars.yml"
+  - name: "Create Report"
     template: src={{playbook_dir}}/templates/ping-report.j2 dest={{playbook_dir}}/results/mns_report.txt
+  # - name: "Filter Failed IP"
+  #   template: src={{playbook_dir}}/templates/ping-filter.j2 dest={{playbook_dir}}/customer_dia_mfw_filter.csv

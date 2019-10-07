@@ -1,5 +1,5 @@
 ---
-vrfs:
+l3vpn:
   - name: "VRF_ACME"
     description: "TEST VRF"
     type: "vpnv4"
@@ -8,10 +8,6 @@ vrfs:
       - "65001:100"
     rt_export:
       - "65001:100"
-    check:
-      routes:
-        - "10.3.3.0/30"
-        - "10.4.4.0/24"
-      pings:
-        - "10.3.3.1"
-        - "10.4.4.44"
+    nodes:
+      - "pe2.pk.lab"
+      - "pe3.pk.lab"

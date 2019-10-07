@@ -1,8 +1,10 @@
 
 graph network {
-vrf [label="{{vrf_name}}"]
-{% set routes = parsed_output['vrf'][vrf_name]['address_family'][rd_cli]['routes'] %}
-{% set nodes = hostvars[inventory_hostname]['nodes'] %}
+vrf [label="{{l3vpn.0.name}}"]
+{% set rd_cli = hostvars[l3vpn.0.nodes.0]['rd_cli'] %}
+{% set router_id = hostvars[l3vpn.0.nodes.0]['router_id'] %}
+{% set routes = hostvars[l3vpn.0.nodes.0]['parsed_output']['vrf'][l3vpn.0.name]['address_family'][rd_cli]['routes'] %}
+{% set nodes = hostvars[l3vpn.0.nodes.0]['nodes'] %}
 {{ [routes, nodes, router_id] | build_vrf_pe() | printdot() }}
-{{ hostvars | build_pe_cpe() | printdot() }}
+{{ [hostvars, l3vpn.0.name] | build_pe_cpe() | printdot() }}
 }

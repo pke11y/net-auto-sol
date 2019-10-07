@@ -6,10 +6,10 @@
   import_playbook: "get-l3vpn.yml"
 
 - name: "Generate Report"
-  hosts: pe2.pk.lab
+  hosts: localhost
   connection: network_cli
-  # vars:
-  # - results: "{{inventory_dir}}/results"
+  vars_files:
+    - l3vpn-properties.yml
   tasks:
   # - name: "Offline print vars for debug"
   #   copy:
