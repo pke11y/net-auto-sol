@@ -2,13 +2,11 @@
 Parsing Cisco IOS/IOS-XE
 
 ## Options
-	* 
-parse_cli
-	* 
-ntc_template
-	* 
-pyATS
-
+<ul>
+<li>parse_cli</li>
+<li>ntc_template</li>
+<li>pyATS</li>
+</ul>
 
 
 ## pyATS
