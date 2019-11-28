@@ -7,7 +7,6 @@ Ansible has various options that support parsing CLI output
 | Network CLI Filters | Jinja2 filters for customer regex based text parsing on CLI strings | parse_cli |
 | TextFSM | Repository of text parses for common networking vendor operations| ntc_templates |
 | pyATS | Framework developed by Cisco for use as their core test automation solution for IOS/IOS-XE/IOS-XR/NX-OS products | genie |
-</ul>
 
 
 ## pyATS
