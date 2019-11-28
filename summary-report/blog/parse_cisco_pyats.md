@@ -1,12 +1,12 @@
 # Gather Device Data from IOS
-Ansible provides some very useful modules to gather facts from Cisco IOS/IOS-XE devices. The <code>ios_facts</code> core module can collect generic facts from IOS/IOS-XE devices, returning hardware model, software version and interfaces etc. Cisco IOS/IOS-XE devices don't provide full support for extracting structured data for all show commands. To get this type of operational data, which is not included in the base set of deivce facts, requires parsing of CLI output.
+Ansible provides some very useful modules to gather facts from Cisco IOS/IOS-XE devices. The <code>ios_facts</code> core module can collect generic facts from IOS/IOS-XE devices, returning hardware model, software version and interfaces etc. Cisco IOS/IOS-XE devices don't provide full support for extracting structured data for all show commands. Getting this type of operational data requires parsing of CLI output.
 
 ## Ansible Parsing Options
-A number of options exist to parse CLI output
-<ul>
-<li>Network CLI Filters - parse_cli</li>
-<li>TextFSM - ntc_templates</li>
-<li>pyATS</li>
+Ansible has various options that support parsing CLI output
+| Parser | Description | Example |
+| Network CLI Filters | Jinja2 filters for customer regex based text parsing on CLI strings | parse_cli |
+| TextFSM | Repository of text parses for common networking vendor operations| ntc_templates |
+| pyATS | Framework developed by Cisco for use as their core test automation solution for IOS/IOS-XE/IOS-XR/NX-OS products | genie |
 </ul>
 
 
