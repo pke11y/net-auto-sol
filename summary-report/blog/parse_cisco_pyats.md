@@ -10,7 +10,7 @@ Cisco have released an internal test framework called pyATS that can be used par
 
 Parser | Description | Example
 ------ | ----------- | --------
-Network CLI Filters | Jinja2 filters for customer regex based text parsing on CLI strings | <code>parse_cli<\code>
+Network CLI Filters | Jinja2 filters for customer regex based text parsing on CLI strings | '<parse_cli>'
 TextFSM | Repository of text parses for common networking vendor operations | ntc_templates
 pyATS | Framework developed by Cisco for use as their core test automation solution for IOS/XE/XR/NX-OS products | genie 
 
