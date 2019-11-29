@@ -16,26 +16,17 @@ pyATS | Framework developed by Cisco for use as their core test automation solut
 
 
 ## Cisco pyATS | genie
-	* 
-Cisco internal test framework launched 2014
-	* 
-Released to devnet for external use in 2018
-	* 
-The framework provides
+Cisco's Python based internal test framework was released to DevNet community for external use in 2018. pyATS provides many functions, aimed predominantly at the test automation space but can also be used for DevOps.
 
-		* 
-common operations
+<ul>
+<li>configuration<\li>
+<li>device connectivity<\li>
+<li>command execution<\li>
+<li>parsers<\li>
+<\ul>
 
-			* 
-connectivity
-			* 
-Command execution
-			* 
-Configuration
-		* 
-parsing
+Components of the pyATS are loosely coupled, facilitating feature integration with other automation platforms (e.g. Ansible) and software libraries. The genie library 
 
-			* 
 Genie library
 			* 
 TextFSM
