@@ -1,4 +1,4 @@
-# Ansible: Gather Device Data from IOS using pyATS | genie
+# Gather IOS Device Data using pyATS on Ansible
 Ansible provides some very useful modules to gather facts from Cisco IOS/IOS-XE devices. The <code>ios_facts</code> core module can collect generic facts from IOS/IOS-XE devices, returning hardware model, software version and interfaces etc. Cisco IOS/IOS-XE devices don't provide full support for extracting structured data for all show commands. Getting this type of operational data requires parsing of CLI output.
 
 ## Ansible Parsing Options
