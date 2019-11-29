@@ -1,99 +1,42 @@
-# Gather Device Data from IOS
+# Ansible: Gather Device Data from IOS using pyATS | genie
 Ansible provides some very useful modules to gather facts from Cisco IOS/IOS-XE devices. The <code>ios_facts</code> core module can collect generic facts from IOS/IOS-XE devices, returning hardware model, software version and interfaces etc. Cisco IOS/IOS-XE devices don't provide full support for extracting structured data for all show commands. Getting this type of operational data requires parsing of CLI output.
 
 ## Ansible Parsing Options
 Ansible supports various options for parsing CLI output. Network CLI filters are a tool within the Ansible core modules that use Jinja2 features to manipulate data. These filters can parse the CLI output retrieved from a network device and store it in a custom data structure. The filter requires a user-defined regular expression to be developed to parse the CLI data into structured data. Regular expressions can be difficult to maintain and time consuming to write for complex CLI output.
 
-An alternative to custom parsing, is to use pre-built text parsers such as the TextFSM templates on the Network to Code repository, in conjunction with the <code>parse_cli_textfsm</code> Ansible filter. The template repo provides a large collection of textfsm files containing the regular expression parsing operations for common commands on multivendor operating systems. Not all commands are supported, so if the vendor and command required does not exist, a new textfsm or Jinja2 filter will need to be created.
+An alternative to custom parsing, is to use pre-built text parsers such as the TextFSM templates on the Network to Code repository, in conjunction with the <code>parse_cli_textfsm</code> Ansible filter. The template repo provides a large collection of textfsm files containing the regular expression parsing operations for common commands on multivendor operating systems. Not all commands are supported, so if the vendor and command required does have an existing template, a new textfsm or Jinja2 filter will need to be created.
 
-Cisco have released an internal test framework called pyATS that can be used parse CLI output for many of their network operating systems. The framework is packaged with a number of libraries (e.g. genie library) that provide configuration models, operational models and also parsing. It has support for an extensive number of commands and is Cisco supported. This post will focus on how to get started with pyATS and Ansible to parse Cisco CLI output.
+For Cisco devices, a Python based framework called pyATS | Genie can be used parse CLI output for many of their network operating systems. It has support for an extensive number of commands and is Cisco supported with some open-source libraries. This post will focus on how to get started with pyATS and Ansible to parse Cisco CLI output.
 
-Parser | Description | Example
+Parser? | Description | Example
 ------ | ----------- | --------
 Network CLI Filters | Jinja2 filters for customer regex based text parsing on CLI strings | <code>parse_cli</code>
-TextFSM | Repository of text parses for common networking vendor operations | ntc_templates
+TextFSM | Repository of text parses for common networking vendor operations | ntc-templates
 pyATS | Framework developed by Cisco for use as their core test automation solution for IOS/XE/XR/NX-OS products | genie 
 
 
-## Cisco pyATS | genie
-Cisco's Python based internal test framework was released to DevNet community for external use in 2018. pyATS provides many functions, aimed predominantly at the test automation space but can also be used for DevOps.
+## Cisco pyATS & genie
+Cisco's test automation suite was released to the DevNet community for external use. pyATS defines a framework hat standardises how to connect to devices, define test topologies and test execution/reporting. 
 
-* configuration
-* device connectivity
-* command execution
-* parsers
+The genie package contains open-source libraries that provide the main network automation functionality:
 
-Components of the pyATS are loosely coupled, facilitating feature integration with other automation platforms (e.g. Ansible) and software libraries. The genie library 
+* OS agnostic device configuration
+* retrieve operational state using common data models
+* extensive library of Cisco OS parsing
 
-Genie library
-			* 
-TextFSM
-			* 
-regex
-	* 
-Test framework allows you to concentrate on test validation based on your requirements
-	* 
-Some elements not open source
+Components of the automation suite are loosely coupled, facilitating feature integration with other automation platforms e.g. Ansible. 
 
+### Ansible with pyATS | genie
+Pre-requisite: pyATS and Genie require Python >= 3.4 
 
+The easiest way to use pyATS | Genie is to include the functionality in an Ansible role. Follow the installation instructions on the CiscoDevNet github page (https://github.com/CiscoDevNet/ansible-pyats) 
 
-## Genie
-	* 
-Concentrates on the feature-centric object implementation built within network elements
-	* 
-Intangible
-	* 
-All parsers and libraries are open source on GitHub (attach links)
-	* 
-Three libraries
-
-		* 
-genie.conf
-
-			* 
-conf t
-		* 
-genie.ops
-
-			* 
-show
-		* 
-genie.sdk (triggers/verification)
-
-			* 
-clear ip bgp
-			* 
-show ip bgp
-	* 
-Provide Structured data for all configuration and operational objects with access to their properties
-
-		* 
-Avoiding screen scrapping
-
-			* 
-TextFSM, regex
-	* 
-Device agnostic
-
-		* 
-data structure between different objects IOS NXOS is identical so easier to control network devices on a single schema
-	* 
-Management interface agnostic
-
-		* 
-Works with cli, Yang, XML etc.
-
-
-
-Check genie 
-learn('bgp', 'pe2")
-
-### Pre-requisites 
-
-### Ansible pyATS Install
-
-### Example
+Let's take a look at how to use the ansible role to retrieve BGP L3VPN data from a Cisco IOS device. 
 
 ### Output
 
 ## Conclusion 
+
+## Links
+pyATS and genie libs - https://github.com/CiscoTestAutomation
+ansible-pyats - https://github.com/CiscoDevNet/ansible-pyats
