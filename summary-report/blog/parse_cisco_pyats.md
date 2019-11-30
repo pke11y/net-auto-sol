@@ -41,7 +41,7 @@ Let's use the Ansible role to retrieve data for 'VRF_ACME' from a Cisco IOS-XE P
               set_fact:
                 parsed_output: "{{ cli_output.stdout | pyats_parser('show ip bgp vpnv4 vrf VRF_ACME', 'iosxe') }}"
 
-The <code>pyats_parser</code> will parse the output into a python dictionary using the pre-defined data model.  
+The <code>pyats_parser</code> will parse the output into a python dictionary using the pre-defined Cisco data model.  
 
         ok: [pe2.pk.lab] => {
             "parsed_output": {
@@ -79,7 +79,7 @@ The <code>pyats_parser</code> will parse the output into a python dictionary usi
                                     },
           ...                          
 
-To access the VRF routes, traverse the parsed_output variable using the schema for the parser. 
+To access the VRF routes, traverse the parsed_output variable as per the data model for the parser. 
 In the example, fact <code>rd_cli</code> is defined as <code>rd_cli: "{{vrf_type + ' RD ' + router_id + ':' + vrf_rd}}"</code>. 
 
         - name: Set VRF_ROUTES variable
