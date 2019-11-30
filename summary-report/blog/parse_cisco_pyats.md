@@ -33,6 +33,32 @@ The easiest way to use pyATS | Genie is to include the functionality in an Ansib
 
 Let's take a look at how to use the ansible role to retrieve BGP L3VPN data from a Cisco IOS device. 
 
+'''
+---
+- hosts: pe2.pk.lab
+  connection: network_cli
+  gather_facts: no
+  vars_files:
+    - l3vpn-properties.yml  
+  roles:
+    - ansible-pyats
+  tasks:
+    - name: Set local variables
+      set_fact:
+        router_id: "{{hostvars[inventory_hostname]['nodes']['pe'][inventory_hostname]['routerid']}}"
+    - name: Run command to get VPNV4 data
+      cli_command:
+        command: sh ip bgp vpnv4 vrf {{l3vpn.0.name}}
+      register: cli_output
+    - name: Parsing output
+      set_fact:
+        rd_cli: "{{(l3vpn.0.type + ' RD ' + router_id + ':' + l3vpn.0.rd )}}"
+        parsed_output: "{{ cli_output.stdout | pyats_parser('show ip bgp vpnv4 vrf {{l3vpn.0.name}}', 'iosxe') }}"
+    - name: Set VPNV4 routes variable
+      set_fact:
+        routes: "{{parsed_output['vrf'][l3vpn.0.name]['address_family'][rd_cli]['routes']}}"
+'''
+
 ### Output
 
 ## Conclusion 
