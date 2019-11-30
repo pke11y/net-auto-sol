@@ -31,31 +31,60 @@ Pre-requisite: pyATS and Genie require Python >= 3.4
 
 The easiest way to use pyATS | Genie is to include the functionality in an Ansible role. Follow the installation instructions on the CiscoDevNet github page (https://github.com/CiscoDevNet/ansible-pyats) 
 
-Let's take a look at how to use the ansible role to retrieve BGP L3VPN data from a Cisco IOS device. 
+Let's use the Ansible role to retrieve data for 'VRF_ACME' from a Cisco IOS-XE PE router. Adding the role to the playbook provides access to the 'pyats_parser' filter that takes the parser name and OS as arguments.
 
         ---
-        - hosts: pe2.pk.lab
+        - hosts: pe2.rtr.lab
           connection: network_cli
           gather_facts: no
-          vars_files:
-            - l3vpn-properties.yml  
           roles:
             - ansible-pyats
           tasks:
-            - name: Set local variables
-              set_fact:
-                router_id: "{{hostvars[inventory_hostname]['nodes']['pe'][inventory_hostname]['routerid']}}"
-            - name: Run command to get VPNV4 data
+            - name: Run command to get VRF data
               cli_command:
-                command: sh ip bgp vpnv4 vrf {{l3vpn.0.name}}
+                command: sh ip bgp vpnv4 vrf VRF_ACME
               register: cli_output
             - name: Parsing output
               set_fact:
-                rd_cli: "{{(l3vpn.0.type + ' RD ' + router_id + ':' + l3vpn.0.rd )}}"
-                parsed_output: "{{ cli_output.stdout | pyats_parser('show ip bgp vpnv4 vrf {{l3vpn.0.name}}', 'iosxe') }}"
-            - name: Set VPNV4 routes variable
-              set_fact:
-                routes: "{{parsed_output['vrf'][l3vpn.0.name]['address_family'][rd_cli]['routes']}}"
+                parsed_output: "{{ cli_output.stdout | pyats_parser('show ip bgp vpnv4 vrf VRF_ACME', 'iosxe') }}"
+
+The 'pyats_parser' will parse the output into a python dictionary using the data model  
+
+        ok: [pe2.pk.lab] => {
+            "parsed_output": {
+                "vrf": {
+                    "VRF_ACME": {
+                        "address_family": {
+                            "vpnv4 RD 10.10.10.2:100": {
+                                "bgp_table_version": 17,
+                                "default_vrf": "VRF_ACME",
+                                "route_distinguisher": "10.10.10.2:100",
+                                "route_identifier": "10.10.10.2",
+                                "routes": {
+                                    "10.0.3.0/30": {
+                                        "index": {
+                                            "1": {
+                                                "localpref": 100,
+                                                "metric": 0,
+                                                "next_hop": "10.10.10.1",
+                                                "origin_codes": "?",
+                                                "status_codes": "*>i",
+                                                "weight": 0
+                                            }
+                                        }
+                                    },
+                                    "10.0.3.4/30": {
+                                        "index": {
+                                            "1": {
+                                                "metric": 0,
+                                                "next_hop": "0.0.0.0",
+                                                "origin_codes": "?",
+                                                "status_codes": "*>",
+                                                "weight": 32768
+                                            }
+                                        }
+                                    },
+
 
 ### Output
 
