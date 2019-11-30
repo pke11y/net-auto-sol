@@ -86,7 +86,8 @@ The <code>pyats_parser</code> will parse the output into a python dictionary usi
                                     },
           ...                          
 
-To access the VRF routes, traverse the parsed_output variable using the schema for the parser. In the example, variable <code>rd_cli</code> is defined as <code>rd_cli: "{{vrf_type + ' RD ' + router_id + ':' + vrf_rd}}"</code>. 
+To access the VRF routes, traverse the parsed_output variable using the schema for the parser. 
+In the example, variable <code>rd_cli</code> is defined as <code>rd_cli: "{{vrf_type + ' RD ' + router_id + ':' + vrf_rd}}"</code>. 
 
         - name: Set VRF_ROUTES variable
               set_fact:
