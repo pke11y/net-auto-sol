@@ -87,7 +87,7 @@ The <code>pyats_parser</code> will parse the output into a python dictionary usi
           ...                          
 
 To access the VRF routes, traverse the parsed_output variable using the schema for the parser. 
-In the example, variable <code>rd_cli</code> is defined as <code>rd_cli: "{{vrf_type + ' RD ' + router_id + ':' + vrf_rd}}"</code>. 
+In the example, fact <code>rd_cli</code> is defined as <code>rd_cli: "{{vrf_type + ' RD ' + router_id + ':' + vrf_rd}}"</code>. 
 
         - name: Set VRF_ROUTES variable
               set_fact:
@@ -123,6 +123,7 @@ Returning the VRF route objects.
        ...         
 
 ## Conclusion 
+The Cisco pyATS | genie framework allows you to focus on your network automation solution without investing a lot of effort in parsing and manipulating data across different Cisco operating systems. See the links below for more information on Cisco automation support.  
 
 ## Links
 pyATS and genie libs - https://github.com/CiscoTestAutomation
