@@ -2,23 +2,16 @@
 Ansible provides some very useful modules to gather facts from Cisco IOS/IOS-XE devices. The <code>ios_facts</code> core module can collect generic facts from IOS/IOS-XE devices, returning hardware model, software version and interfaces etc. Cisco IOS/IOS-XE devices don't provide full support for extracting structured data for all show commands. Getting this type of operational data requires parsing of CLI output.
 
 ## Ansible Parsing Options
-Ansible supports various options for parsing CLI output. Network CLI filters are a tool within the Ansible core modules that use Jinja2 features to manipulate data. These filters can parse the CLI output retrieved from a network device and store it in a custom data structure. The filter requires a user-defined regular expression to be developed to parse the CLI data into structured data. Regular expressions can be difficult to maintain and time consuming to write for complex CLI output.
+Network CLI filters are a tool within the Ansible core modules that use Jinja2 features to manipulate data. The <code>parse_cli</code> filter can parse the CLI output retrieved from a network device and store it into a custom data structure. The filter requires a user-defined regular expression to be developed to parse the CLI output into structured data. Regular expressions can be difficult to maintain and time consuming to write for complex CLI output.
 
-An alternative to custom parsing, is to use pre-built text parsers such as the TextFSM templates on the Network to Code repository, in conjunction with the <code>parse_cli_textfsm</code> Ansible filter. The template repo provides a large collection of textfsm files containing the regular expression parsing operations for common commands on multivendor operating systems. Not all commands are supported, so if the vendor and command required does have an existing template, a new textfsm or Jinja2 filter will need to be created.
+An alternative to custom parsing, is to use pre-built text parsers such as the TextFSM templates on the Network to Code [repository] (https://github.com/networktocode/ntc-templates), in conjunction with the <code>parse_cli_textfsm</code> Ansible filter. The template repository is mostly community driven. It provides a large collection of textfsm files containing the regular expression parsing operations for common commands on multivendor operating systems. Not all commands are supported, so if the vendor and command required does have an existing template, a new textfsm file will need to be created.
 
 For Cisco devices, a Python based framework called pyATS | Genie can be used parse CLI output for many of their network operating systems. It has support for an extensive number of commands and is Cisco supported with some open-source libraries. This post will focus on how to get started with pyATS and Ansible to parse Cisco CLI output.
 
-Parser? | Description | Example
------- | ----------- | --------
-Network CLI Filters | Jinja2 filters for customer regex based text parsing on CLI strings | <code>parse_cli</code>
-TextFSM | Repository of text parses for common networking vendor operations | ntc-templates
-pyATS | Framework developed by Cisco for use as their core test automation solution for IOS/XE/XR/NX-OS products | genie 
-
-
 ## Cisco pyATS & genie
-Cisco's test automation suite was released to the DevNet community for external use. pyATS defines a framework hat standardises how to connect to devices, define test topologies and test execution/reporting. 
+Cisco's test automation suite was released to the DevNet community for external use. pyATS defines a framework that standardises how to connect to devices, define test topologies and define test execution/reporting. 
 
-The genie package contains open-source libraries that provide the main network automation functionality:
+The genie package contains open-source libraries that build on pyATS to provide the main network automation functionality:
 
 * OS agnostic device configuration
 * retrieve operational state using common data models
@@ -126,6 +119,7 @@ Returning the VRF route objects.
 The Cisco pyATS | genie framework allows you to focus on your network automation solution without investing a lot of effort in parsing and manipulating data across different Cisco operating systems. See the links below for more information on Cisco automation support.  
 
 ## Links
-pyATS and genie libs - https://github.com/CiscoTestAutomation
-ansible-pyats - https://github.com/CiscoDevNet/ansible-pyats
-genie API - https://pubhub.devnetcloud.com/media/genie-feature-browser/docs/#/
+* pyATS and genie libs - https://github.com/CiscoTestAutomation
+* ansible-pyats - https://github.com/CiscoDevNet/ansible-pyats
+* genie API - https://pubhub.devnetcloud.com/media/genie-feature-browser/docs/#/
+* networktocode - https://github.com/networktocode/ntc-templates
