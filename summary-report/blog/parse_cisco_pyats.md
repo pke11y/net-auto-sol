@@ -31,7 +31,7 @@ Pre-requisite: pyATS and Genie require Python >= 3.4
 
 The easiest way to use pyATS | Genie is to include the functionality in an Ansible role. Follow the installation instructions on the CiscoDevNet github page (https://github.com/CiscoDevNet/ansible-pyats) 
 
-Let's use the Ansible role to retrieve data for 'VRF_ACME' from a Cisco IOS-XE PE router. Adding the role to the playbook provides access to the 'pyats_parser' filter that takes the parser name and OS as arguments.
+Let's use the Ansible role to retrieve data for 'VRF_ACME' from a Cisco IOS-XE PE router. Adding the role to the playbook provides access to the <code>pyats_parser</code> filter that takes the parser name and OS as arguments.
 
         ---
         - hosts: pe2.rtr.lab
@@ -48,7 +48,7 @@ Let's use the Ansible role to retrieve data for 'VRF_ACME' from a Cisco IOS-XE P
               set_fact:
                 parsed_output: "{{ cli_output.stdout | pyats_parser('show ip bgp vpnv4 vrf VRF_ACME', 'iosxe') }}"
 
-The 'pyats_parser' will parse the output into a python dictionary using the data model  
+The <code>pyats_parser</code> will parse the output into a python dictionary using the pre-defined data model.  
 
         ok: [pe2.pk.lab] => {
             "parsed_output": {
@@ -84,12 +84,46 @@ The 'pyats_parser' will parse the output into a python dictionary using the data
                                             }
                                         }
                                     },
+          ...                          
 
+To access the VRF routes, traverse the parsed_output variable using the schema for the parser. In the example, variable <code>rd_cli</code> is defined as <code>rd_cli: "{{vrf_type + ' RD ' + router_id + ':' + vrf_rd}}"</code>. 
 
-### Output
+        - name: Set VRF_ROUTES variable
+              set_fact:
+                vrf_routes: "{{parsed_output['vrf']['VRF_ACME']['address_family'][rd_cli]['routes']}}"
+
+Returning the VRF route objects.
+
+        ok: [pe2.pk.lab] => {
+            "vrf_routes": {
+                "10.0.3.0/30": {
+                    "index": {
+                        "1": {
+                            "localpref": 100,
+                            "metric": 0,
+                            "next_hop": "10.10.10.1",
+                            "origin_codes": "?",
+                            "status_codes": "*>i",
+                            "weight": 0
+                        }
+                    }
+                },
+                "10.0.3.4/30": {
+                    "index": {
+                        "1": {
+                            "metric": 0,
+                            "next_hop": "0.0.0.0",
+                            "origin_codes": "?",
+                            "status_codes": "*>",
+                            "weight": 32768
+                        }
+                    }
+                },
+       ...         
 
 ## Conclusion 
 
 ## Links
 pyATS and genie libs - https://github.com/CiscoTestAutomation
 ansible-pyats - https://github.com/CiscoDevNet/ansible-pyats
+genie API - https://pubhub.devnetcloud.com/media/genie-feature-browser/docs/#/
