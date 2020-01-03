@@ -1,0 +1,16 @@
+
+graph network {
+vrf [label="VRF_ACME"]
+"pe3.pk.lab"
+"pe1.pk.lab"
+"pe2.pk.lab"
+"vrf" -- "pe1.pk.lab"
+"vrf" -- "pe2.pk.lab"
+"vrf" -- "pe3.pk.lab"
+
+"cpe3.pk.lab"
+"cpe2.pk.lab"
+"pe2.pk.lab" -- "cpe2.pk.lab"
+"pe3.pk.lab" -- "cpe3.pk.lab"
+
+}

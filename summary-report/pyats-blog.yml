@@ -1,0 +1,29 @@
+---
+- hosts: pe2.pk.lab
+  connection: network_cli
+  gather_facts: no
+  vars:
+    vrf_type: 'vpnv4' 
+    router_id: '10.10.10.2'
+    vrf_rd: '100'
+  roles:
+    - ansible-pyats
+  tasks:
+    - name: Run command to get VRF data
+      cli_command:
+        command: sh ip bgp vpnv4 vrf VRF_ACME
+      register: cli_output
+    - name: Parsing output
+      set_fact:
+        parsed_output: "{{ cli_output.stdout | pyats_parser('show ip bgp vpnv4 vrf VRF_ACME', 'iosxe') }}"
+    - name: PRINT DEBUG
+      debug: var=parsed_output
+    - name: Set VPNV4 RD variable
+      set_fact:
+        rd_cli: "{{vrf_type + ' RD ' + router_id + ':' + vrf_rd}}"
+    - name: Set VRF routes variable
+      set_fact:
+        vrf_routes: "{{parsed_output['vrf']['VRF_ACME']['address_family'][rd_cli]['routes']}}"
+    - name: PRINT DEBUG
+      debug: var=vrf_routes
+
