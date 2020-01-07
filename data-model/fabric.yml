@@ -1,0 +1,47 @@
+#
+# Infrastructure Fabric definition
+#
+---
+links:
+  - "a_end": "p1.pk.lab"
+    "a_end_ip": 10.0.1.0
+    "a_end_port": "GigabitEthernet2"
+    "b_end": "pe1.pk.lab"
+    "b_end_ip": 10.0.1.1
+    "b_end_port": "GigabitEthernet0/0/0/0"
+    "cost": 5
+  - "a_end": "p1.pk.lab"
+    "a_end_ip": 10.0.1.4
+    "a_end_port": "GigabitEthernet4"
+    "b_end": "pe2.pk.lab"
+    "b_end_ip": 10.0.1.5
+    "b_end_port": "GigabitEthernet2"
+    "cost": 5
+  - "a_end": "p1.pk.lab"
+    "a_end_ip": 10.0.1.2
+    "a_end_port": "GigabitEthernet3"
+    "b_end": "pe3.pk.lab"
+    "b_end_ip": 10.0.1.3
+    "b_end_port": "GigabitEthernet2"
+    "cost": 5
+  - "a_end": "cpe1.pk.lab"
+    "a_end_ip": 10.0.3.1
+    "a_end_port": "FastEthernet0/0.1031"
+    "b_end": "pe1.pk.lab"
+    "b_end_ip": 10.0.3.2
+    "b_end_port": "GigabitEthernet0/0/0/2"
+    "cost": 100
+  - "a_end": "cpe2.pk.lab"
+    "a_end_ip": 10.0.3.5
+    "a_end_port": "FastEthernet0/0.1032"
+    "b_end": "pe1.pk.lab"
+    "b_end_ip": 10.0.3.6
+    "b_end_port": "GigabitEthernet3"
+    "cost": 100
+  - "a_end": "cpe3.pk.lab"
+    "a_end_ip": 10.0.3.9
+    "a_end_port": "FastEthernet0/0.1033"
+    "b_end": "pe3.pk.lab"
+    "b_end_ip": 10.0.3.10
+    "b_end_port": "GigabitEthernet4"
+    "cost": 100
