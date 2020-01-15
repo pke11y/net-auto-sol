@@ -2,17 +2,14 @@ graph network {
     vrf [label="VRF_ACME"]
     pe1 [shape="box"]
     pe2 [shape="box"]
-        vrf -- pe2
-    vrf -- pe3
-    pe3.pk.lab [shape="box"]
+    vrf -- pe2
+    vrf -- "pe3"
+    pe3 [shape="box"]
     cpe1 [shape="box"]
     cpe2 [shape="box"]
     cpe3 [shape="box"]
-    cpe4
-    cpe3 -- pe3 [label="10.0.3.8/30"]
+    pe3 -- cpe3 [label="10.0.3.8/30"]
     pe1 -- vrf
-
-    cpe1 -- pe1 [label="10.0.3.0/30"]
-    cpe2 -- pe2 [label="10.0.3.4/30"]
-    
+    pe1 -- cpe1 [label="10.0.3.0/30"]
+    pe2 -- cpe2 [label="10.0.3.4/30"]
 }
