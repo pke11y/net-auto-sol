@@ -1,1 +1,130 @@
----
+pe1.pk.lab
+    routerid: 10.10.10.1
+    mgmt: 10.0.0.0.51
+    asn: 65001
+    interfaces:
+        GigabitEthernet0/0/0/0: 
+          ip: 10.0.1.1/31
+          cost: 5
+    # services
+        # vpnv4
+            # vrf_name
+                # description: "TEST VRF"
+                # rd: "100"
+                # rt_import: ["65001:100"]
+                # rt_export:["65001:100"]
+                # sites
+                    # site_name: {interface_name: , ip:, asn: }
+                    # site_name: {interface_name: , ip:, asn: }
+            # vrf
+pe2.pk.lab
+    routerid: 10.10.10.2
+    mgmt: 10.0.0.0.52
+    asn: 65001
+    interfaces:
+        GigabitEthernet2: 
+          ip: 10.0.1.5/31
+          cost: 5
+    # services
+        # vpnv4
+            # vrf_name
+                # description: "TEST VRF"
+                # rd: "100"
+                # rt_import: ["65001:100"]
+                # rt_export:["65001:100"]
+                # sites
+                    # site_name: {interface_name: , ip:, asn: }
+                    # site_name: {interface_name: , ip:, asn: }
+            # vrf
+pe3.pk.lab
+    routerid: 10.10.10.3
+    mgmt: 10.0.0.0.53
+    asn: 65001
+    interfaces:
+        GigabitEthernet2: 
+          ip: 10.0.1.3/31
+          cost: 5
+    # services
+        # vpnv4
+            # vrf_name
+                # description: "TEST VRF"
+                # rd: "100"
+                # rt_import: ["65001:100"]
+                # rt_export:["65001:100"]
+                # sites
+                    # site_name: {interface_name: , ip:, asn: }
+                    # site_name: {interface_name: , ip:, asn: }
+            # vrf
+cpe1.pk.lab
+    routerid: 10.10.10.11
+    mgmt: 10.0.0.0.56
+    asn: 65501
+    interfaces:
+    # services
+        # vpnv4
+            # vrf_name
+                # description: "TEST VRF"
+                # rd: "100"
+                # rt_import: ["65001:100"]
+                # rt_export:["65001:100"]
+                # sites
+                    # site_name: {interface_name: , ip:, asn: }
+                    # site_name: {interface_name: , ip:, asn: }
+            # vrf
+cpe2.pk.lab
+    routerid: 10.10.10.12
+    mgmt: 10.0.0.0.57
+    asn: 65501
+    interfaces:
+    # services
+        # vpnv4
+            # vrf_name
+                # description: "TEST VRF"
+                # rd: "100"
+                # rt_import: ["65001:100"]
+                # rt_export:["65001:100"]
+                # sites
+                    # site_name: {interface_name: , ip:, asn: }
+                    # site_name: {interface_name: , ip:, asn: }
+            # vrf
+cpe3.pk.lab
+    routerid: 10.10.10.13
+    mgmt: 10.0.0.0.58
+    asn: 65501
+    interfaces:
+    # services
+        # vpnv4
+            # vrf_name
+                # description: "TEST VRF"
+                # rd: "100"
+                # rt_import: ["65001:100"]
+                # rt_export:["65001:100"]
+                # sites
+                    # site_name: {interface_name: , ip:, asn: }
+                    # site_name: {interface_name: , ip:, asn: }
+            # vrf
+p1.pk.lab
+    routerid: 10.10.10.4
+    mgmt: 10.0.0.0.50
+    asn: 65001
+    interfaces:
+        GigabitEthernet2: 
+          ip: 10.0.1.0/31
+          cost: 5
+        GigabitEthernet4: 
+          ip: 10.0.1.4/31
+          cost: 5
+        GigabitEthernet3: 
+          ip: 10.0.1.2/31
+          cost: 5
+    # services
+        # vpnv4
+            # vrf_name
+                # description: "TEST VRF"
+                # rd: "100"
+                # rt_import: ["65001:100"]
+                # rt_export:["65001:100"]
+                # sites
+                    # site_name: {interface_name: , ip:, asn: }
+                    # site_name: {interface_name: , ip:, asn: }
+            # vrf

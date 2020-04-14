@@ -1,10 +1,11 @@
 ---
-- hosts: ios_pe
-  connection: network_cli
+- hosts: localhost
+  # hosts: mpls
+  # connection: network_cli
   gather_facts: no
   vars_files:
     - fabric.yml
     - services.yml
   tasks:
-    - name:
-      template:
+    - name: "CREATE NODE DATA MODEL FROM SERVICE & FABRIC MODELS"
+      template: src=./templates/nodes.j2 dest=./nodes.yml

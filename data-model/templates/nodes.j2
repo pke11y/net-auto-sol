@@ -1,0 +1,33 @@
+{% for node_type, nodes_vals in nodes.items() %}
+{% for node_name, node_data in nodes_vals.items() %}
+{{node_name}}
+    routerid: {{node_data['routerid']}}
+    mgmt: {{node_data['mgmt']}}
+    asn: {{node_data['asn']}}
+    interfaces:
+{% for link in links %}
+{% if link['a_end'] == node_name: %}
+        {{ link['a_end_intf'] }}: 
+          ip: {{ link['link_ip_pfx'] | ipaddr('0') }}
+          cost: {{ link['cost'] }}
+{% elif link['b_end'] == node_name %}
+        {{link['b_end_intf']}}: 
+          ip: {{ link['link_ip_pfx'] | ipaddr('1') }}
+          cost: {{link['cost']}}
+{% endif %}
+{% endfor %}
+{% if node_type == 'pe' %}
+    # services
+        # vrf_name
+            # vpnv4
+            # description: "TEST VRF"
+            # rd: "100"
+            # rt_import: ["65001:100"]
+            # rt_export:["65001:100"]
+            # sites
+                # site_name: {interface_name: , ip:, asn: }
+                # site_name: {interface_name: , ip:, asn: }
+        # vrf
+{% endif %}
+{% endfor %}
+{% endfor %}
