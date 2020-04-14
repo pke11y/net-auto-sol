@@ -1,0 +1,19 @@
+{% for node in nodes.values() %}
+# node name
+    # router-id
+    # mgmt-ip
+    # bgp-as
+    # links
+        # interface_name: {ip:, cost: }
+        # interface_name: {ip:, cost: }
+    # services
+        # vpnv4
+            # vrf_name
+                # description: "TEST VRF"
+                # rd: "100"
+                # rt_import: ["65001:100"]
+                # rt_export:["65001:100"]
+                # sites
+                    # site_name: {interface_name: , ip:, asn: }
+                    # site_name: {interface_name: , ip:, asn: }
+            # vrf

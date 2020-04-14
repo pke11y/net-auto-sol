@@ -1,0 +1,20 @@
+{% customer = wan[0] %}
+
+ip vrf {{customer['vrf_name']}}
+ rd {{inventory_hostname['router_id']}}:{{rd}}
+ route-target export 65001:100
+ route-target import 65001:100
+ route-target import 65001:110
+ 
+interface GigabitEthernet3
+ description PE2_CPE2
+ ip vrf forwarding {{customer['vrf_name']}}
+ ip address 10.0.3.6 255.255.255.252
+ negotiation auto
+ 
+router bgp 65001
+ address-family ipv4 vrf {{customer['vrf_name']}}
+  redistribute connected
+  neighbor 10.0.3.5 remote-as 65502
+  neighbor 10.0.3.5 activate
+ exit-address-family

@@ -1,0 +1,10 @@
+---
+- hosts: ios_pe
+  connection: network_cli
+  gather_facts: no
+  vars_files:
+    - fabric.yml
+    - services.yml
+  tasks:
+    - name:
+      template:

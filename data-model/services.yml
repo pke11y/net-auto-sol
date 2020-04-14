@@ -13,28 +13,28 @@ wan:
         - "65001:100"
       rt_export:
         - "65001:100"
-      overlay:
+      sites:
         - site_name: "SITE_A"
           a_end: "cpe1.pk.lab"
           a_end_ip: 10.0.3.1
-          a_end_port: "FastEthernet0/0.1031"
+          a_end_intf: "FastEthernet0/0.1031"
           b_end: "pe1.pk.lab"
           b_end_ip: 10.0.3.2
-          b_end_port: "GigabitEthernet0/0/0/2"
+          b_end_intf: "GigabitEthernet0/0/0/2"
         - site_name: "SITE_B"
           a_end: "cpe2.pk.lab"
           a_end_ip: 10.0.3.5
-          a_end_port: "FastEthernet0/0.1032"
+          a_end_intf: "FastEthernet0/0.1032"
           b_end: "pe1.pk.lab"
           b_end_ip: 10.0.3.6
-          b_end_port: "GigabitEthernet3"
+          b_end_intf: "GigabitEthernet3"
         - site_name: "SITE_C"
           a_end: "cpe3.pk.lab"
           a_end_ip: 10.0.3.9
-          a_end_port: "FastEthernet0/0.1033"
+          a_end_intf: "FastEthernet0/0.1033"
           b_end: "pe3.pk.lab"
           b_end_ip: 10.0.3.10
-          b_end_port: "GigabitEthernet4"
+          b_end_intf: "GigabitEthernet4"
 internet:
   - vrf_name: "VRF_INTERNET"
     description: "SHARED INTERNET VRF"
@@ -44,14 +44,14 @@ internet:
       - "65001:2000"
     rt_export:
       - "65001:2000"
-    overlay:
-        - customer: "ACME"
-          site_name: "SITE_A"
+    sites:
+        - site_name: "SITE_A"
+          customer: "ACME"
           a_end: "cpe1.pk.lab"
           a_end_ip: 10.0.4.1
-          a_end_port: "FastEthernet0/0.2031"
+          a_end_intf: "FastEthernet0/0.2031"
           b_end: "pe1.pk.lab"
           b_end_ip: 10.0.4.2
-          b_end_port: "GigabitEthernet0/0/0/2"
+          b_end_intf: "GigabitEthernet0/0/0/2"
           public_ipv4: "95.83.1.0/29"
           asn: "65101"
