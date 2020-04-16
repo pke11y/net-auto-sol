@@ -1,9 +1,10 @@
+nodes:
 {% for node_type, nodes_vals in nodes.items() %}
 {% for node_name, node_data in nodes_vals.items() %}
-{{node_name}}
+  {{node_name}}:
     routerid: {{node_data['routerid']}}
     mgmt: {{node_data['mgmt']}}
-    asn: {{node_data['asn']}}
+    asn: {{ node_data['asn'] }}
     interfaces:
 {% for link in links %}
 {% if link['a_end'] == node_name: %}
@@ -11,23 +12,47 @@
           ip: {{ link['link_ip_pfx'] | ipaddr('0') }}
           cost: {{ link['cost'] }}
 {% elif link['b_end'] == node_name %}
-        {{link['b_end_intf']}}: 
+        {{ link['b_end_intf'] }}: 
           ip: {{ link['link_ip_pfx'] | ipaddr('1') }}
           cost: {{link['cost']}}
 {% endif %}
 {% endfor %}
 {% if node_type == 'pe' %}
-    # services
-        # vrf_name
-            # vpnv4
-            # description: "TEST VRF"
-            # rd: "100"
-            # rt_import: ["65001:100"]
-            # rt_export:["65001:100"]
-            # sites
-                # site_name: {interface_name: , ip:, asn: }
-                # site_name: {interface_name: , ip:, asn: }
-        # vrf
+{% for vpn_type, vpn_data in services.items() %}
+{% if vpn_type == 'l3vpn' %}
+    vrfs:
+{% for service_type, service_vrfs in vpn_data.items() %}
+{% for vrf in service_vrfs %}
+        {{ vrf['vrf_name'] }}:
+            type: vpnv4
+            description: {{ vrf['description'] }} 
+            rd: {{ vrf['rd'] }}
+            rt_import: 
+{% for rt_in in vrf['rt_import'] %}
+              - {{ rt_in }}
+{% endfor %}
+            rt_export:
+{% for rt_out in vrf['rt_export'] %}
+              - {{ rt_out }}
+{% endfor %}
+            vrf_interfaces:
+{% for site in vrf['sites'] %}
+{% if site['b_end'] == node_name: %}
+              {{ site['b_end_intf'] }}:
+                ip: {{ site['wan_ip_pfx'] | ipaddr('2') }}
+{% if service_type == 'wan' %}
+                remote_asn: {{ vrf['remote_asn'] }}
+                description: "WAN L3VPN service for customer: {{ vrf['customer'] }} site: {{ site['site_name'] }}"
+{% elif service_type == 'internet' %}
+                remote_asn: {{ site['asn'] }}
+                description: "INTERNET L3VPN service for customer: {{ site['customer'] }} site: {{ site['site_name'] }}"
+{% endif %}
+{% endif %}
+{% endfor %}
+{% endfor %}
+{% endfor %}
+{% endif %}
+{% endfor %}
 {% endif %}
 {% endfor %}
 {% endfor %}

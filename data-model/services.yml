@@ -3,12 +3,13 @@
 #
 ---
 services:
-  wan:
-    - ACME:
-        vrf_name: "VRF_ACME"
+  l3vpn:
+    wan:
+      - vrf_name: "VRF_ACME"
         description: "TEST VRF"
+        customer: "ACME"
+        remote_asn: "65101"
         rd: "100"
-        asn: "65101"
         rt_import:
           - "65001:100"
         rt_export:
@@ -23,7 +24,7 @@ services:
           - site_name: "SITE_B"
             a_end: "cpe2.pk.lab"
             a_end_intf: "FastEthernet0/0.1032"
-            b_end: "pe1.pk.lab"
+            b_end: "pe2.pk.lab"
             b_end_intf: "GigabitEthernet3"
             wan_ip_pfx: "10.0.3.4/30"
           - site_name: "SITE_C"
@@ -32,21 +33,21 @@ services:
             b_end: "pe3.pk.lab"
             b_end_intf: "GigabitEthernet4"
             wan_ip_pfx: "10.0.3.8/30"
-  internet:
-    - vrf_name: "VRF_INTERNET"
-      description: "SHARED INTERNET VRF"
-      rd: "2000"
-      rt_import:
-        - "65001:2000"
-      rt_export:
-        - "65001:2000"
-      sites:
-          - site_name: "SITE_A"
-            customer: "ACME"
-            a_end: "cpe1.pk.lab"
-            a_end_intf: "FastEthernet0/0.2031"
-            b_end: "pe1.pk.lab"
-            b_end_intf: "GigabitEthernet0/0/0/2"
-            wan_ip_pfx: "10.0.4.0/30"
-            public_ipv4: "95.83.1.0/29"
-            asn: "65101"
+    internet:
+      - vrf_name: "VRF_INTERNET"
+        description: "SHARED INTERNET VRF"
+        rd: "2000"
+        rt_import:
+          - "65001:2000"
+        rt_export:
+          - "65001:2000"
+        sites:
+            - site_name: "SITE_A"
+              customer: "ACME"
+              a_end: "cpe1.pk.lab"
+              a_end_intf: "FastEthernet0/0.2031"
+              b_end: "pe1.pk.lab"
+              b_end_intf: "GigabitEthernet0/0/0/2"
+              wan_ip_pfx: "10.0.4.0/30"
+              public_ipv4: "95.83.1.0/29"
+              asn: "65101"
