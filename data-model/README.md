@@ -1,5 +1,5 @@
 
-# Data Model
+# Deploy MPLS/VPN Services
 These playbooks are submissions for 'exercise 3 - Data Models' as part of the Building Network Automation Solutions course on ipspace.net.
 
 ## Overview
@@ -12,13 +12,17 @@ The following diagram represents the test platform for the playbook development.
 
 ![Topology Diagram](../lab/l3vpn/logical.png)
 
-## Infrastructure Data Model
+---
+## Data Model 
+The fabric and service data models are used as input the the **create_data_model.yml** playbook. This playbook produces a **nodes.yml** file extracting per-node data from the two input data models using the **nodes.j2** template to transform the service and fabric data into a node data model. This simplifies the deployment playbook (explained below). 
+
+### Infrastructure Data Model
 The **fabric.yml** data model is divided into two main sections:
 
 - **nodes**: a dictionary of MPLS nodes stored based on their function. Node types include 'pe', 'ce' and 'p' router. Each type of router will have a number of nodes, each with node name, routerid, AS number and IPv4 mgmt address.      
 - **links**: a list of core IP intra-AS links. Each link has an 'a_end' and 'b_end' representing the hostnames of the two endpoints. Interfaces of the two endpoints are stored in 'a_end_intf' and 'b_end_intf'. The IP prefix and cost on the link are in 'link_ip_prefix' and 'cost' respectively.
 
-## L3VPN Service Data Model
+### L3VPN Service Data Model
 The **service.yml** data model represents the MPLS services supported on the service provider core network. The example only outlines 'l3vpn', but the data model could support L2VPN and pseudowire type services.
 
 - **services**: a dictionary of MPLS services
@@ -30,5 +34,9 @@ The **service.yml** data model represents the MPLS services supported on the ser
 ---
 
 ## Deploy BGP
+The **deploy_wan_ebgp.yml** playbook iwll create the EBGP configuration and BGP MPLS/VPN configuration. The deployment playbook expects the **nodes.yml** data model as input.
 
-The communities are not include in the template configuration.
+Basic templates are included for IOS PE's and will be updated as part of ongoing development of the solution, also further updates required including:
+- IOS-XR config template for pe1.pk.lab
+- CE configuration template
+- The BGP communities are not include in the template configuration.
