@@ -99,17 +99,17 @@ nodes:
   cpe1.pk.lab:
     routerid: 10.10.10.11
     mgmt: 10.0.0.0.56
-    asn: 65501
+    asn: 65101
     interfaces:
   cpe2.pk.lab:
     routerid: 10.10.10.12
     mgmt: 10.0.0.0.57
-    asn: 65501
+    asn: 65101
     interfaces:
   cpe3.pk.lab:
     routerid: 10.10.10.13
     mgmt: 10.0.0.0.58
-    asn: 65501
+    asn: 65101
     interfaces:
   p1.pk.lab:
     routerid: 10.10.10.4
