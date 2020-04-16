@@ -36,7 +36,9 @@ The **service.yml** data model represents the MPLS services supported on the ser
 ## Deploy BGP
 The **deploy_wan_ebgp.yml** playbook will create the EBGP configuration and BGP MPLS/VPN configuration. The deployment playbook expects the **nodes.yml** data model as input.
 
-Basic templates are included for IOS PE's and will be updated as part of ongoing development of the solution, also further updates required including:
+A basic template - **l3vpn_service.j2** is included for IOS PE's and will be updated as part of ongoing development of the solution, also further updates required include:
 - IOS-XR config template for pe1.pk.lab
 - CE configuration template
 - The BGP communities are not include in the template configuration.
+
+All configuration outputs are stored in the **results** folder.
