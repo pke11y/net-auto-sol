@@ -1,0 +1,23 @@
+#
+#
+---
+common:
+  snmp:
+    192.168.0.3:
+      community: public
+    192.168.0.4:
+      community: public
+  syslog:
+  ntp:
+    - 192.168.1.251
+  dns:
+    domain:
+      - pk.lab
+    servers:
+  users:
+    pk:
+      privilege: 15 
+      password: pk
+  oam:
+  
+  

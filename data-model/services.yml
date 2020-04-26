@@ -13,26 +13,41 @@ services:
         rt_import:
           - "65001:100"
         rt_export:
-          - "65001:100"
+          - "65001:101"
         sites:
           - site_name: "SITE_A"
-            a_end: "cpe1.pk.lab"
-            a_end_intf: "FastEthernet0/0.1031"
-            b_end: "pe1.pk.lab"
-            b_end_intf: "GigabitEthernet0/0/0/2"
-            wan_ip_pfx: "10.0.3.0/30"
+            nodes:
+              cpe1.pk.lab: 
+                routerid: 10.10.10.11
+                mgmt: 10.0.0.0.56
+            links:
+              - a_end: "cpe1.pk.lab"
+                a_end_intf: "FastEthernet0/0.1031"
+                b_end: "pe1.pk.lab"
+                b_end_intf: "GigabitEthernet0/0/0/2"
+                wan_ip_pfx: "10.0.3.0/30"
           - site_name: "SITE_B"
-            a_end: "cpe2.pk.lab"
-            a_end_intf: "FastEthernet0/0.1032"
-            b_end: "pe2.pk.lab"
-            b_end_intf: "GigabitEthernet3"
-            wan_ip_pfx: "10.0.3.4/30"
+            nodes:
+              cpe2.pk.lab: 
+                routerid: 10.10.10.12
+                mgmt: 10.0.0.0.57
+            links:
+              - a_end: "cpe2.pk.lab"
+                a_end_intf: "FastEthernet0/0.1032"
+                b_end: "pe2.pk.lab"
+                b_end_intf: "GigabitEthernet3"
+                wan_ip_pfx: "10.0.3.4/30"
           - site_name: "SITE_C"
-            a_end: "cpe3.pk.lab"
-            a_end_intf: "FastEthernet0/0.1033"
-            b_end: "pe3.pk.lab"
-            b_end_intf: "GigabitEthernet4"
-            wan_ip_pfx: "10.0.3.8/30"
+            nodes:
+              cpe3.pk.lab: 
+                routerid: 10.10.10.13
+                mgmt: 10.0.0.0.58
+            links:
+              - a_end: "cpe3.pk.lab"
+                a_end_intf: "FastEthernet0/0.1033"
+                b_end: "pe3.pk.lab"
+                b_end_intf: "GigabitEthernet4"
+                wan_ip_pfx: "10.0.3.8/30"
     internet:
       - vrf_name: "VRF_INTERNET"
         description: "SHARED INTERNET VRF"
@@ -40,14 +55,16 @@ services:
         rt_import:
           - "65001:2000"
         rt_export:
-          - "65001:2000"
+          - "65001:2001"
         sites:
             - site_name: "SITE_A"
               customer: "ACME"
-              a_end: "cpe1.pk.lab"
-              a_end_intf: "FastEthernet0/0.2031"
-              b_end: "pe1.pk.lab"
-              b_end_intf: "GigabitEthernet0/0/0/2"
-              wan_ip_pfx: "10.0.4.0/30"
-              public_ipv4: "95.83.1.0/29"
               asn: "65101"
+              public_ipv4: "95.83.1.0/29"
+              links:
+                - a_end: "cpe1.pk.lab"
+                  a_end_intf: "FastEthernet0/0.2031"
+                  b_end: "pe1.pk.lab"
+                  b_end_intf: "GigabitEthernet0/0/0/2"
+                  wan_ip_pfx: "10.0.4.0/30"
+                  

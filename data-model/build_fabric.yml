@@ -1,0 +1,31 @@
+#
+# Deploy eBGP peering for L3VPN
+# This playbook is dependent on running 'create_data_model.yml' to produce 'nodes.yml'
+---
+- hosts: mpls
+  connection: network_cli
+  gather_facts: no
+  vars_files:
+    - nodes.yml
+    - common.yml
+  tasks:
+    - name: CREATE CONFIG DIRECTORY
+      local_action: file path={{playbook_dir}}/results state=directory
+      run_once: true
+      check_mode: no
+    - name: CREATE CONFIG
+      template: src=./templates/{{ansible_network_os}}-mpls-template.j2 dest={{playbook_dir}}/results/{{inventory_hostname}}.cfg 
+
+# - hosts: xr
+#   connection: network_cli
+#   gather_facts: no
+#   vars_files:
+#     - nodes.yml
+#     - common.yml
+#   tasks:
+#     - name: CREATE CONFIG DIRECTORY
+#       local_action: file path={{playbook_dir}}/results state=directory
+#       run_once: true
+#       check_mode: no
+#     - name: CREATE CONFIG
+#       template: src=./templates/ios-xr-pe-template.j2 dest={{playbook_dir}}/results/{{inventory_hostname}}.cfg 
