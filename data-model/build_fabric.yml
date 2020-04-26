@@ -14,18 +14,21 @@
       run_once: true
       check_mode: no
     - name: CREATE CONFIG
-      template: src=./templates/{{ansible_network_os}}-mpls-template.j2 dest={{playbook_dir}}/results/{{inventory_hostname}}.cfg 
-
-# - hosts: xr
-#   connection: network_cli
-#   gather_facts: no
-#   vars_files:
-#     - nodes.yml
-#     - common.yml
-#   tasks:
-#     - name: CREATE CONFIG DIRECTORY
-#       local_action: file path={{playbook_dir}}/results state=directory
-#       run_once: true
-#       check_mode: no
-#     - name: CREATE CONFIG
-#       template: src=./templates/ios-xr-pe-template.j2 dest={{playbook_dir}}/results/{{inventory_hostname}}.cfg 
+      template: src=./templates/{{ansible_network_os}}-mpls-template.j2 dest={{playbook_dir}}/results/{{inventory_hostname}}.cfg
+    - name: CREATE DIFF FILES
+      local_action: file path={{playbook_dir}}/results/{{inventory_hostname}}.diff state=touch
+      check_mode: no
+    - name: DEPLOY CONFIG TO DEVICES
+      napalm_install_config:
+        hostname: "{{ inventory_hostname }}"
+        username: "{{ ansible_user }}"
+        dev_os: "{{ ansible_network_os }}"
+        password: "{{ ansible_ssh_pass }}"
+        config_file: "{{playbook_dir}}/results/{{inventory_hostname}}.cfg"
+        commit_changes: True
+        replace_config: True
+        get_diffs: True
+        diff_file: "{{playbook_dir}}/results/{{inventory_hostname}}.diff"
+      register: result
+    - debug:
+        var: result['msg']

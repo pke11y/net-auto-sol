@@ -1,0 +1,9 @@
+-license udi pid CSR1000V sn 9G82IZA1QBP
+-interface GigabitEthernet3
+ -no ip address
+ -speed 1000
+ -no negotiation auto
+-interface GigabitEthernet4
+ -no ip address
+ -speed 1000
+ -no negotiation auto

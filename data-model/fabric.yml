@@ -6,24 +6,24 @@ nodes:
   pe:
     pe1.pk.lab: 
         routerid: 10.10.10.1
-        mgmt: 10.0.0.0.51
+        mgmt: 10.0.0.51
         asn: 65001
     pe2.pk.lab: 
         routerid: 10.10.10.2
-        mgmt: 10.0.0.0.52
+        mgmt: 10.0.0.52
         asn: 65001
     pe3.pk.lab: 
         routerid: 10.10.10.3
-        mgmt: 10.0.0.0.53
+        mgmt: 10.0.0.53
         asn: 65001
     bras1.pk.lab: 
         routerid: 10.10.10.5
-        mgmt: 10.0.0.0.54
+        mgmt: 10.0.0.54
         asn: 65001
   p:
     p1.pk.lab: 
         routerid: 10.10.10.4
-        mgmt: 10.0.0.0.50
+        mgmt: 10.0.0.50
         asn: 65001
 links:
   - a_end: p1.pk.lab

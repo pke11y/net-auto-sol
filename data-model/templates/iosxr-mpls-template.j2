@@ -1,7 +1,3 @@
-Building configuration...
-!! IOS XR Configuration 6.1.2
-!! Last configuration change at Sun Jul 28 22:45:48 2019 by pk
-!
 hostname {{ inventory_hostname }}
 {% for domain_name in common['dns']['domain'] %}
 domain name {{ domain_name }}
@@ -21,7 +17,7 @@ interface MgmtEth0/0/CPU0/0
 !
 {% for intf_name, intf_dict in nodes[inventory_hostname]['interfaces'].items() %}
 interface {{ intf_name }}
- ipv4 address {{ intf_dict['ip'] }} 255.255.255.254
+ ipv4 address {{ intf_dict['ip'] }}
 !
 {% endfor %}
 route-policy ALLOW-ALL

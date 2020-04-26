@@ -1,3 +1,4 @@
+version 15.5
 service timestamps debug datetime msec
 service timestamps log datetime msec
 no platform punt-keepalive disable-kernel-core
@@ -25,7 +26,8 @@ mpls ldp neighbor {{ node_dict['routerid'] }} password CISCO
 {% endfor %}            
 multilink bundle-name authenticated
 !
-license udi pid CSR1000V sn 9G82IZA1QBP
+archive
+ path bootflash:/config-archive.cfg
 spanning-tree extend system-id
 !
 {% for username, user_dict in common['users'].items() %}
@@ -43,18 +45,17 @@ interface GigabitEthernet1
  ip address {{nodes[inventory_hostname]['mgmt']}} 255.255.255.0
  ip ospf 1 area 0
  negotiation auto
- mpls ip  
 !
 {% for intf_name, intf_dict in nodes[inventory_hostname]['interfaces'].items() %}
 interface {{ intf_name }}
- ip address {{ intf_dict['ip'] }} 255.255.255.254
+ ip address {{ intf_dict['ip'] | ipaddr('address') }} {{ intf_dict['ip'] | ipaddr('netmask') }}
  ip ospf 1 area 0
  negotiation auto
  mpls ip
 !
 {% endfor %}
 router ospf 1
-network {{ nodes[inventory_hostname]['routerid'] | ipaddr('network') }} {{ nodes[inventory_hostname]['routerid'] | ipaddr('hostmask') }} area 0
+ network {{ nodes[inventory_hostname]['routerid'] | ipaddr('network') }} {{ nodes[inventory_hostname]['routerid'] | ipaddr('hostmask') }} area 0
 {% for intf_name, intf_dict in nodes[inventory_hostname]['interfaces'].items() %}
  network {{ intf_dict['ip'] | ipaddr('network') }} {{ intf_dict['ip'] | ipaddr('hostmask') }} area 0
 {% endfor %}
@@ -88,7 +89,7 @@ router bgp {{ nodes[inventory_hostname]['asn'] }}
 {% if nodes[inventory_hostname]['is_rr'] == true and node_dict['type'] == 'pe' %}
   neighbor {{ node_dict['routerid'] }} activate
   neighbor {{ node_dict['routerid'] }} send-community extended
-  neighbor {{node_dict['routerid'] }} route-reflector-client
+  neighbor {{ node_dict['routerid'] }} route-reflector-client
 {% elif not nodes[inventory_hostname]['is_rr'] == true and node_dict['type'] == 'p' %}
   neighbor {{ node_dict['routerid'] }} activate
   neighbor {{ node_dict['routerid'] }} send-community extended
@@ -114,19 +115,19 @@ snmp-server location pk.lab
 snmp-server contact pk
 snmp-server enable traps snmp authentication linkdown linkup coldstart warmstart
 {% for host_ip, snmp_dict in common['snmp'].items() %}
-snmp-server host {{ host_ip }} {{ snmp_dict['community'] }} 
-{% endfor %}  
+snmp-server host {{ host_ip }} {{ snmp_dict['community'] }}
+{% endfor %}
 !
 !
 control-plane
-!         
+!
 !
 line con 0
  stopbits 1
 line vty 0 4
  login local
 !
-{% for host_ip in common['ntp'] %}     
+{% for host_ip in common['ntp'] %}
 ntp server {{ host_ip }}
 {% endfor %}
 !
