@@ -31,4 +31,26 @@
         diff_file: "{{playbook_dir}}/results/{{inventory_hostname}}.diff"
       register: result
     - debug:
-        var: result['msg']
+        var: result['changed']
+    - name:  GET NAPALM FACTS 
+      napalm_get_facts:
+        hostname: '{{ansible_host}}'
+        username: '{{ansible_user}}'
+        dev_os: '{{ansible_network_os}}'
+        password: '{{ ansible_ssh_pass }}'
+        filter:
+          - 'facts'
+          - 'interfaces'
+          - 'interfaces_ip'
+          - 'bgp_neighbors'
+          - 'route_to'
+        register: napalm_facts
+      - debug:
+          var: napalm_facts
+      - name: CHECK INTERFACES 
+        assert:
+          that:
+            - val == xxx
+          msg: "VAL != xxx"
+
+
