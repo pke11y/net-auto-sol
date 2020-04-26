@@ -16,19 +16,10 @@ nodes:
         routerid: 10.10.10.3
         mgmt: 10.0.0.0.53
         asn: 65001
-  ce:
-    cpe1.pk.lab: 
-        routerid: 10.10.10.11
-        mgmt: 10.0.0.0.56
-        asn: 65101
-    cpe2.pk.lab: 
-        routerid: 10.10.10.12
-        mgmt: 10.0.0.0.57
-        asn: 65101
-    cpe3.pk.lab: 
-        routerid: 10.10.10.13
-        mgmt: 10.0.0.0.58
-        asn: 65101
+    bras1.pk.lab: 
+        routerid: 10.10.10.5
+        mgmt: 10.0.0.0.54
+        asn: 65001
   p:
     p1.pk.lab: 
         routerid: 10.10.10.4
@@ -52,4 +43,10 @@ links:
     b_end: pe3.pk.lab
     b_end_intf: GigabitEthernet2
     link_ip_pfx: 10.0.1.2/31
+    cost: 5
+  - a_end: pe3.pk.lab
+    a_end_intf: GigabitEthernet3
+    b_end: bras1.pk.lab
+    b_end_intf: GigabitEthernet2
+    link_ip_pfx: 10.0.1.6/31
     cost: 5
