@@ -38,15 +38,26 @@
         username: '{{ansible_user}}'
         dev_os: '{{ansible_network_os}}'
         password: '{{ ansible_ssh_pass }}'
-        filter: ['facts', 'interfaces', 'interfaces_ip', 'bgp_neighbors', 'route_to']
+        filter: ['facts', 'interfaces', 'interfaces_ip', 'bgp_neighbors']
       register: napalm_facts
-    - debug:
-        var: napalm_facts
     - name: CHECK INTERFACES 
       assert:
         that:
-          - "{{ item['value']['is_up'] }}"
+          - "{{ item['value']['is_up'] == true }}"
         fail_msg: "Interface {{ item['key'] }} is down"
       loop: "{{ napalm_facts['ansible_facts']['napalm_interfaces'] | dict2items }}"
-
+      when: item['value']['is_enabled'] == true
+    - name: OSPF NEIGHBOR STATUS 
+      assert:
+        that:
+          - "{{ item['value']['is_up'] == true }}"
+        fail_msg: "Interface {{ item['key'] }} is down"
+      loop: "{{ napalm_facts['ansible_facts']['napalm_interfaces'] | dict2items }}"
+      when: item['value']['is_enabled'] == true
+    - name: CHECK BGP NEIGHBOUR PEERING STATUS
+      assert: 
+        that:
+          - "{{ item['value']['is_up'] == true }}"
+        fail_msg: "BGP peer {{ item['key'] }} is down"
+      loop: "{{ napalm_facts['ansible_facts']['napalm_bgp_neighbors']['global']['peers']  | dict2items }}"
 
