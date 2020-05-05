@@ -1,5 +1,5 @@
 #
-# L3VPN Service VPN
+# Production L3VPN Service
 #
 ---
 services:
@@ -67,4 +67,3 @@ services:
                   b_end: "pe1.pk.lab"
                   b_end_intf: "GigabitEthernet0/0/0/2"
                   wan_ip_pfx: "10.0.4.0/30"
-                  
