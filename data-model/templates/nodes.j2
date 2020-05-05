@@ -42,17 +42,11 @@ nodes:
               - {{ rt_out }}
 {% endfor %}
             vrf_interfaces:
-{% for vrf_node in vrf['nodes'] %}
-{% if vrf_node == node_name: %}
-              {{ vrf_node['interface'] }}:
-                ip: {{ link['wan_ip_pfx'] | ipaddr('2') }}
-{% if service_type == 'wan' %}
-                remote_asn: {{ vrf['remote_asn'] }}
-                description: "WAN L3VPN service for {{ vrf['customer'] }} site: {{ site['site_name'] }}"
-{% elif service_type == 'internet' %}
-                remote_asn: {{ site['asn'] }}
-                description: "INTERNET L3VPN service for {{ site['customer'] }} site: {{ site['site_name'] }}"
-{% endif %}
+{% for node_hostname, vrf_nodes in vrf['nodes'].items() %}
+{% if node_hostname == node_name %}
+              {{ vrf_nodes['interface'] }}:
+                ip: {{node_data['mgmt']}}/24
+                description: "OUT OF BAND OAM INTRA SERVICE for {{ vrf['customer'] }}"
 {% endif %}
 {% endfor %}
 {% endfor %}
@@ -82,8 +76,13 @@ nodes:
 {% for link in site['links'] %}
 {% if link['b_end'] == node_name: %}
               {{ link['b_end_intf'] }}:
-                ip: {{node_data['mgmt']}}/24
-                description: "OUT OF BAND OAM INTRA SERVICE for {{ vrf['customer'] }}"
+                ip: {{ link['wan_ip_pfx'] | ipaddr('2') }}
+{% if service_type == 'wan' %}
+                remote_asn: {{ vrf['remote_asn'] }}
+                description: "WAN L3VPN service for {{ vrf['customer'] }} site: {{ site['site_name'] }}"
+{% elif service_type == 'internet' %}
+                remote_asn: {{ site['asn'] }}
+                description: "INTERNET L3VPN service for {{ site['customer'] }} site: {{ site['site_name'] }}"
 {% endif %}
 {% endif %}
 {% endfor %}

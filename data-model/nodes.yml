@@ -10,6 +10,18 @@ nodes:
           ip: 10.0.1.1/31
           cost: 5
     vrfs:
+        VRF_OAM:
+            type: vpnv4
+            description: OOB MGMT VRF 
+            rd: 10
+            rt_import: 
+              - 65001:10
+            rt_export:
+              - 65001:11
+            vrf_interfaces:
+              GigabitEthernet0/0/0/2:
+                ip: 10.0.0.51/24
+                description: "OUT OF BAND OAM INTRA SERVICE for IP CORE"
         VRF_ACME:
             type: vpnv4
             description: TEST VRF 
@@ -47,6 +59,18 @@ nodes:
           ip: 10.0.1.5/31
           cost: 5
     vrfs:
+        VRF_OAM:
+            type: vpnv4
+            description: OOB MGMT VRF 
+            rd: 10
+            rt_import: 
+              - 65001:10
+            rt_export:
+              - 65001:11
+            vrf_interfaces:
+              GigabitEthernet4:
+                ip: 10.0.0.52/24
+                description: "OUT OF BAND OAM INTRA SERVICE for IP CORE"
         VRF_ACME:
             type: vpnv4
             description: TEST VRF 
@@ -83,6 +107,18 @@ nodes:
           ip: 10.0.1.6/31
           cost: 5
     vrfs:
+        VRF_OAM:
+            type: vpnv4
+            description: OOB MGMT VRF 
+            rd: 10
+            rt_import: 
+              - 65001:10
+            rt_export:
+              - 65001:11
+            vrf_interfaces:
+              GigabitEthernet4:
+                ip: 10.0.0.53/24
+                description: "OUT OF BAND OAM INTRA SERVICE for IP CORE"
         VRF_ACME:
             type: vpnv4
             description: TEST VRF 
@@ -116,6 +152,18 @@ nodes:
           ip: 10.0.1.7/31
           cost: 5
     vrfs:
+        VRF_OAM:
+            type: vpnv4
+            description: OOB MGMT VRF 
+            rd: 10
+            rt_import: 
+              - 65001:10
+            rt_export:
+              - 65001:11
+            vrf_interfaces:
+              GigabitEthernet4:
+                ip: 10.0.0.54/24
+                description: "OUT OF BAND OAM INTRA SERVICE for IP CORE"
         VRF_ACME:
             type: vpnv4
             description: TEST VRF 
@@ -150,3 +198,16 @@ nodes:
         GigabitEthernet3: 
           ip: 10.0.1.2/31
           cost: 5
+    vrfs:
+        VRF_OAM:
+            type: vpnv4
+            description: OOB MGMT VRF 
+            rd: 10
+            rt_import: 
+              - 65001:10
+            rt_export:
+              - 65001:11
+            vrf_interfaces:
+              GigabitEthernet4:
+                ip: 10.0.0.50/24
+                description: "OUT OF BAND OAM INTRA SERVICE for IP CORE"

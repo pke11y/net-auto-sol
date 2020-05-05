@@ -6,6 +6,7 @@
   vars_files:
     - fabric.yml
     - services.yml
+    - intra-services.yml
   tasks:
     - name: "CREATE NODE DATA MODEL FROM SERVICE & FABRIC MODELS"
       template: src=./templates/nodes.j2 dest=./nodes.yml
