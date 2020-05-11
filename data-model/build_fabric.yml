@@ -30,8 +30,6 @@
         get_diffs: True
         diff_file: "{{playbook_dir}}/results/{{inventory_hostname}}.diff"
       register: result
-    - debug:
-        var: result['changed']
     - name:  GET NAPALM FACTS 
       napalm_get_facts:
         hostname: "{{ansible_host}}"
@@ -47,10 +45,41 @@
         fail_msg: "Interface {{ item['key'] }} is down"
       loop: "{{ napalm_facts['ansible_facts']['napalm_interfaces'] | dict2items }}"
       when: item['value']['is_enabled'] == true
+      register: interface_result
     - name: CHECK BGP NEIGHBOUR PEERING STATUS
       assert: 
         that:
           - "{{ item['value']['is_up'] == true }}"
         fail_msg: "BGP peer {{ item['key'] }} is down"
+      register: bgp_result
       loop: "{{ napalm_facts['ansible_facts']['napalm_bgp_neighbors']['global']['peers']  | dict2items }}"
+    - name: DEBUG VARIABLES 
+      copy:
+        content: "{{ vars | to_nice_yaml }}"
+        dest: "{{playbook_dir}}/facts.yml"
+      delegate_to: localhost
+#     - name: CONFIGURATION DEPLOYMENT SUMMARY REPORT
+#       blockinfile:
+#         create: yes
+#         path: "{{playbook_dir}}/results/{{inventory_hostname}}_deployment_report.txt"
+#         # state: present
+#         # insertafter: EOF
+#         marker: "*** {mark} {{inventory_hostname}} Deployment Report:"
+#         marker_begin: "{{ lookup('pipe','date') }}"
+#         # marker_end: "------"
+#         block: |
+#           item_loop: {{item}}
+# #          item 0:{{ item[0] }}
+# #          item 1:{{ item[1] }}
+
+# #          {% for if_name, if_data in item[0].items() %}
+# #              {{if_name}}:
+# #                is_up: {{if_data}} 
+# #          {% endfor %}
+#         #  BGP: {{item.1.results}}
+#       loop: 
+#         - "{{ interface_result.results }}"
+#         - "{{ bgp_result.results }}"
+    - name: CONFIGURATION DEPLOYMENT SUMMARY REPORT
+      template: src=./templates/deployment_summary.j2 dest={{playbook_dir}}/results/{{inventory_hostname}}_deployment_report.txt
 
