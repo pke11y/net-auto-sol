@@ -1,5 +1,6 @@
 _ansible_loop_cache: null
 ansible_check_mode: false
+ansible_connection: local
 ansible_delegated_vars:
     localhost:
         ansible_check_mode: false
@@ -11,14 +12,13 @@ ansible_delegated_vars:
         ansible_host: localhost
         ansible_inventory_sources: &id005
         - /home/pk/net-auto-sol/inventory/hosts
-        ansible_limit: pe2.pk.lab
-        ansible_play_batch: &id001
-        - pe2.pk.lab
+        ansible_network_os: ios
+        ansible_play_batch: &id001 []
         ansible_play_hosts: &id006
-        - pe2.pk.lab
+        - localhost
         ansible_play_hosts_all: &id007
-        - pe2.pk.lab
-        ansible_play_name: mpls
+        - localhost
+        ansible_play_name: localhost
         ansible_play_role_names: &id002 []
         ansible_playbook_python: /usr/bin/python3
         ansible_port: null
@@ -36,30 +36,58 @@ ansible_delegated_vars:
             minor: 8
             revision: 5
             string: 2.8.5
-        common: &id011
-            dns:
-                domain:
-                - pk.lab
-                servers: null
-            ntp:
-            - 192.168.1.251
-            oam: null
-            snmp:
-                192.168.0.3:
-                    community: public
-                192.168.0.4:
-                    community: public
-            syslog: null
-            users:
-                pk:
-                    password: pk
-                    privilege: 15
+        cpe_routers: &id011
+            cpe1.pk.lab:
+                asn: '65101'
+                customer: ACME
+                interfaces:
+                    FastEthernet0/0.1031:
+                        cost: 5
+                        ip: 10.0.3.1
+                        remote_intf: GigabitEthernet0/0/0/2
+                        remote_node: pe1.pk.lab
+                        service_type: wan
+                    FastEthernet0/0.2031:
+                        cost: 5
+                        ip: 10.0.4.1
+                        remote_intf: GigabitEthernet0/0/0/2
+                        remote_node: pe1.pk.lab
+                        service_type: internet
+                mgmt: 10.0.0.56
+                routerid: 10.10.10.11
+            cpe2.pk.lab:
+                asn: '65101'
+                customer: ACME
+                interfaces:
+                    FastEthernet0/0.1032:
+                        cost: 5
+                        ip: 10.0.3.5
+                        remote_intf: GigabitEthernet3
+                        remote_node: pe2.pk.lab
+                        service_type: wan
+                mgmt: 10.0.0.57
+                routerid: 10.10.10.12
+            cpe3.pk.lab:
+                asn: '65101'
+                customer: ACME
+                interfaces:
+                    FastEthernet0/0.1033:
+                        cost: 5
+                        ip: 10.0.3.9
+                        remote_intf: GigabitEthernet4
+                        remote_node: pe3.pk.lab
+                        service_type: wan
+                mgmt: 10.0.0.58
+                routerid: 10.10.10.13
         dns: &id012
         -   domain: pk.lab
         environment: &id013 []
         group_names: &id014 []
         groups: &id015
             all:
+            - cpe1.pk.lab
+            - cpe2.pk.lab
+            - cpe3.pk.lab
             - sw1.pk.lab
             - pe1.pk.lab
             - p1.pk.lab
@@ -78,6 +106,10 @@ ansible_delegated_vars:
             - pe2.pk.lab
             - pe3.pk.lab
             - bras1.pk.lab
+            ios_cpe:
+            - cpe1.pk.lab
+            - cpe2.pk.lab
+            - cpe3.pk.lab
             ios_pe:
             - pe2.pk.lab
             - pe3.pk.lab
@@ -87,7 +119,7 @@ ansible_delegated_vars:
             - pe2.pk.lab
             - pe3.pk.lab
             - bras1.pk.lab
-            ungrouped: &id019 []
+            ungrouped: &id020 []
             xr:
             - pe1.pk.lab
         inventory_hostname: localhost
@@ -315,11 +347,83 @@ ansible_delegated_vars:
         -   ip: 192.168.0.1
         -   ip: 192.168.0.2
         -   ip: 192.168.1.251
-        omit: __omit_place_holder__5caf73663039dae5f0cddca99520d3fe07b31835
+        omit: __omit_place_holder__8e08404ef384521b0a5384da85205f57e730a044
         play_hosts: *id001
         playbook_dir: /home/pk/net-auto-sol/data-model
+        role_name: cpe_router
         role_names: *id002
-        snmp-server: &id018
+        role_path: /home/pk/net-auto-sol/data-model/cpe_router
+        role_uuid: 00000000-0003-761d-b1e9-000000000023
+        services: &id018
+            l3vpn:
+                internet:
+                -   description: SHARED INTERNET VRF
+                    rd: '2000'
+                    rt_export:
+                    - 65001:2001
+                    rt_import:
+                    - 65001:2000
+                    sites:
+                    -   asn: '65101'
+                        customer: ACME
+                        links:
+                        -   a_end: cpe1.pk.lab
+                            a_end_intf: FastEthernet0/0.2031
+                            b_end: pe1.pk.lab
+                            b_end_intf: GigabitEthernet0/0/0/2
+                            wan_ip_pfx: 10.0.4.0/30
+                        nodes:
+                            cpe1.pk.lab:
+                                mgmt: 10.0.0.56
+                                routerid: 10.10.10.11
+                        public_ipv4: 95.83.1.0/29
+                        site_name: SITE_A
+                    vrf_name: VRF_INTERNET
+                wan:
+                -   customer: ACME
+                    description: TEST VRF
+                    rd: '100'
+                    remote_asn: '65101'
+                    rt_export:
+                    - 65001:101
+                    rt_import:
+                    - 65001:100
+                    sites:
+                    -   links:
+                        -   a_end: cpe1.pk.lab
+                            a_end_intf: FastEthernet0/0.1031
+                            b_end: pe1.pk.lab
+                            b_end_intf: GigabitEthernet0/0/0/2
+                            wan_ip_pfx: 10.0.3.0/30
+                        nodes:
+                            cpe1.pk.lab:
+                                mgmt: 10.0.0.56
+                                routerid: 10.10.10.11
+                        site_name: SITE_A
+                    -   links:
+                        -   a_end: cpe2.pk.lab
+                            a_end_intf: FastEthernet0/0.1032
+                            b_end: pe2.pk.lab
+                            b_end_intf: GigabitEthernet3
+                            wan_ip_pfx: 10.0.3.4/30
+                        nodes:
+                            cpe2.pk.lab:
+                                mgmt: 10.0.0.57
+                                routerid: 10.10.10.12
+                        site_name: SITE_B
+                    -   links:
+                        -   a_end: cpe3.pk.lab
+                            a_end_intf: FastEthernet0/0.1033
+                            b_end: pe3.pk.lab
+                            b_end_intf: GigabitEthernet4
+                            wan_ip_pfx: 10.0.3.8/30
+                        nodes:
+                            cpe3.pk.lab:
+                                mgmt: 10.0.0.58
+                                routerid: 10.10.10.13
+                        site_name: SITE_C
+                    vrf_name: VRF_ACME
+        snmp-server: &id019
         -   community: public
             ip: 192.168.0.3
         -   community: public
@@ -332,11 +436,11 @@ ansible_delegated_vars:
             ansible_facts: *id004
             ansible_forks: 5
             ansible_inventory_sources: *id005
-            ansible_limit: pe2.pk.lab
+            ansible_network_os: ios
             ansible_play_batch: *id001
             ansible_play_hosts: *id006
             ansible_play_hosts_all: *id007
-            ansible_play_name: mpls
+            ansible_play_name: localhost
             ansible_play_role_names: *id002
             ansible_playbook_python: /usr/bin/python3
             ansible_python_interpreter: /usr/bin/python3
@@ -347,7 +451,7 @@ ansible_delegated_vars:
             ansible_user: pk
             ansible_verbosity: 0
             ansible_version: *id010
-            common: *id011
+            cpe_routers: *id011
             dns: *id012
             environment: *id013
             group_names: *id014
@@ -356,132 +460,30 @@ ansible_delegated_vars:
             inventory_hostname_short: localhost
             nodes: *id016
             ntp-server: *id017
-            omit: __omit_place_holder__5caf73663039dae5f0cddca99520d3fe07b31835
+            omit: __omit_place_holder__8e08404ef384521b0a5384da85205f57e730a044
             play_hosts: *id001
             playbook_dir: /home/pk/net-auto-sol/data-model
+            role_name: cpe_router
             role_names: *id002
-            snmp-server: *id018
+            role_path: /home/pk/net-auto-sol/data-model/cpe_router
+            role_uuid: 00000000-0003-761d-b1e9-000000000023
+            services: *id018
+            snmp-server: *id019
 ansible_dependent_role_names: []
 ansible_diff_mode: false
-ansible_facts:
-    napalm_bgp_neighbors:
-        global:
-            peers:
-                10.10.10.4:
-                    address_family:
-                        ipv4 unicast:
-                            accepted_prefixes: 0
-                            received_prefixes: 0
-                            sent_prefixes: 0
-                        vpnv4 unicast:
-                            accepted_prefixes: 0
-                            received_prefixes: 0
-                            sent_prefixes: 0
-                    description: p1.********.lab
-                    is_enabled: true
-                    is_up: true
-                    local_as: 65001
-                    remote_as: 65001
-                    remote_id: 10.10.10.4
-                    uptime: 1641600
-            router_id: 10.10.10.2
-    napalm_facts:
-        fqdn: pe2.********.lab.********.lab
-        hostname: pe2.********.lab
-        interface_list:
-        - GigabitEthernet1
-        - GigabitEthernet2
-        - GigabitEthernet3
-        - GigabitEthernet4
-        - Loopback0
-        model: CSR1000V
-        os_version: CSR1000V Software (X86_64_LINUX_IOSD-UNIVERSALK9-M), Version 15.5(2)S2,
-            RELEASE SOFTWARE (fc1)
-        serial_number: 9G82IZA1QBP
-        uptime: 2157840
-        vendor: Cisco
-    napalm_fqdn: pe2.********.lab.********.lab
-    napalm_hostname: pe2.********.lab
-    napalm_interface_list:
-    - GigabitEthernet1
-    - GigabitEthernet2
-    - GigabitEthernet3
-    - GigabitEthernet4
-    - Loopback0
-    napalm_interfaces:
-        GigabitEthernet1:
-            description: ''
-            is_enabled: true
-            is_up: true
-            last_flapped: -1.0
-            mac_address: '50:00:00:02:00:00'
-            mtu: 1500
-            speed: 1000
-        GigabitEthernet2:
-            description: ''
-            is_enabled: true
-            is_up: true
-            last_flapped: -1.0
-            mac_address: '50:00:00:02:00:01'
-            mtu: 1500
-            speed: 1000
-        GigabitEthernet3:
-            description: ''
-            is_enabled: true
-            is_up: true
-            last_flapped: -1.0
-            mac_address: '50:00:00:02:00:02'
-            mtu: 1500
-            speed: 1000
-        GigabitEthernet4:
-            description: ''
-            is_enabled: true
-            is_up: true
-            last_flapped: -1.0
-            mac_address: '50:00:00:02:00:03'
-            mtu: 1500
-            speed: 1000
-        Loopback0:
-            description: ''
-            is_enabled: true
-            is_up: true
-            last_flapped: -1.0
-            mac_address: ''
-            mtu: 1514
-            speed: 8000
-    napalm_interfaces_ip:
-        GigabitEthernet1:
-            ipv4:
-                10.0.0.52:
-                    prefix_length: 24
-        GigabitEthernet2:
-            ipv4:
-                10.0.1.5:
-                    prefix_length: 31
-        Loopback0:
-            ipv4:
-                10.10.10.2:
-                    prefix_length: 32
-    napalm_model: CSR1000V
-    napalm_os_version: CSR1000V Software (X86_64_LINUX_IOSD-UNIVERSALK9-M), Version
-        15.5(2)S2, RELEASE SOFTWARE (fc1)
-    napalm_serial_number: 9G82IZA1QBP
-    napalm_uptime: 2157840
-    napalm_vendor: Cisco
+ansible_facts: {}
 ansible_forks: 5
-ansible_host: 10.0.0.52
 ansible_inventory_sources: *id005
-ansible_limit: pe2.pk.lab
 ansible_network_os: ios
-ansible_play_batch: &id020
-- pe2.pk.lab
+ansible_play_batch: &id021 []
 ansible_play_hosts:
-- pe2.pk.lab
+- localhost
 ansible_play_hosts_all:
-- pe2.pk.lab
-ansible_play_name: mpls
-ansible_play_role_names: &id021 []
+- localhost
+ansible_play_name: localhost
+ansible_play_role_names: &id022 []
 ansible_playbook_python: /usr/bin/python3
+ansible_python_interpreter: /usr/bin/python3
 ansible_role_names: []
 ansible_run_tags: *id009
 ansible_skip_tags: []
@@ -489,41 +491,10 @@ ansible_ssh_pass: pk
 ansible_user: pk
 ansible_verbosity: 0
 ansible_version: *id010
-bgp_result:
-    changed: false
-    msg: All items completed
-    results:
-    -   ansible_loop_var: item
-        changed: false
-        failed: false
-        item:
-            key: 10.10.10.4
-            value:
-                address_family:
-                    ipv4 unicast:
-                        accepted_prefixes: 0
-                        received_prefixes: 0
-                        sent_prefixes: 0
-                    vpnv4 unicast:
-                        accepted_prefixes: 0
-                        received_prefixes: 0
-                        sent_prefixes: 0
-                description: p1.********.lab
-                is_enabled: true
-                is_up: true
-                local_as: 65001
-                remote_as: 65001
-                remote_id: 10.10.10.4
-                uptime: 1641600
-        msg: All assertions passed
-common: *id011
+cpe_routers: *id011
 dns: *id012
 environment: []
-group_names:
-- csr
-- ios
-- ios_pe
-- mpls
+group_names: []
 groups: *id015
 hostvars:
     bras1.pk.lab:
@@ -534,7 +505,6 @@ hostvars:
         ansible_host: 10.0.0.54
         ansible_inventory_sources:
         - /home/pk/net-auto-sol/inventory/hosts
-        ansible_limit: pe2.pk.lab
         ansible_network_os: ios
         ansible_playbook_python: /usr/bin/python3
         ansible_run_tags:
@@ -557,6 +527,9 @@ hostvars:
         - mpls
         groups:
             all:
+            - cpe1.pk.lab
+            - cpe2.pk.lab
+            - cpe3.pk.lab
             - sw1.pk.lab
             - pe1.pk.lab
             - p1.pk.lab
@@ -575,6 +548,10 @@ hostvars:
             - pe2.pk.lab
             - pe3.pk.lab
             - bras1.pk.lab
+            ios_cpe:
+            - cpe1.pk.lab
+            - cpe2.pk.lab
+            - cpe3.pk.lab
             ios_pe:
             - pe2.pk.lab
             - pe3.pk.lab
@@ -584,7 +561,7 @@ hostvars:
             - pe2.pk.lab
             - pe3.pk.lab
             - bras1.pk.lab
-            ungrouped: *id019
+            ungrouped: *id020
             xr:
             - pe1.pk.lab
         inventory_dir: /home/pk/net-auto-sol/inventory
@@ -595,8 +572,248 @@ hostvars:
         -   ip: 192.168.0.1
         -   ip: 192.168.0.2
         -   ip: 192.168.1.251
-        omit: __omit_place_holder__5caf73663039dae5f0cddca99520d3fe07b31835
+        omit: __omit_place_holder__8e08404ef384521b0a5384da85205f57e730a044
         playbook_dir: /home/pk/net-auto-sol/data-model
+        snmp-server:
+        -   community: public
+            ip: 192.168.0.3
+        -   community: public
+            ip: 192.168.0.4
+    cpe1.pk.lab:
+        ansible_check_mode: false
+        ansible_diff_mode: false
+        ansible_facts: {}
+        ansible_forks: 5
+        ansible_host: 10.0.0.56
+        ansible_inventory_sources:
+        - /home/pk/net-auto-sol/inventory/hosts
+        ansible_playbook_python: /usr/bin/python3
+        ansible_run_tags:
+        - all
+        ansible_skip_tags: []
+        ansible_ssh_pass: pk
+        ansible_user: pk
+        ansible_verbosity: 0
+        ansible_version:
+            full: 2.8.5
+            major: 2
+            minor: 8
+            revision: 5
+            string: 2.8.5
+        dns:
+        -   domain: pk.lab
+        group_names:
+        - ios_cpe
+        groups:
+            all:
+            - cpe1.pk.lab
+            - cpe2.pk.lab
+            - cpe3.pk.lab
+            - sw1.pk.lab
+            - pe1.pk.lab
+            - p1.pk.lab
+            - pe2.pk.lab
+            - pe3.pk.lab
+            - bras1.pk.lab
+            catalyst:
+            - sw1.pk.lab
+            csr:
+            - p1.pk.lab
+            - pe2.pk.lab
+            - pe3.pk.lab
+            - bras1.pk.lab
+            ios:
+            - p1.pk.lab
+            - pe2.pk.lab
+            - pe3.pk.lab
+            - bras1.pk.lab
+            ios_cpe:
+            - cpe1.pk.lab
+            - cpe2.pk.lab
+            - cpe3.pk.lab
+            ios_pe:
+            - pe2.pk.lab
+            - pe3.pk.lab
+            mpls:
+            - pe1.pk.lab
+            - p1.pk.lab
+            - pe2.pk.lab
+            - pe3.pk.lab
+            - bras1.pk.lab
+            ungrouped: *id020
+            xr:
+            - pe1.pk.lab
+        inventory_dir: null
+        inventory_file: null
+        inventory_hostname: cpe1.pk.lab
+        inventory_hostname_short: cpe1
+        ntp-server:
+        -   ip: 192.168.0.1
+        -   ip: 192.168.0.2
+        -   ip: 192.168.1.251
+        omit: __omit_place_holder__8e08404ef384521b0a5384da85205f57e730a044
+        playbook_dir: /home/pk/net-auto-sol/data-model
+        routerid: 10.10.10.11
+        snmp-server:
+        -   community: public
+            ip: 192.168.0.3
+        -   community: public
+            ip: 192.168.0.4
+    cpe2.pk.lab:
+        ansible_check_mode: false
+        ansible_diff_mode: false
+        ansible_facts: {}
+        ansible_forks: 5
+        ansible_host: 10.0.0.57
+        ansible_inventory_sources:
+        - /home/pk/net-auto-sol/inventory/hosts
+        ansible_playbook_python: /usr/bin/python3
+        ansible_run_tags:
+        - all
+        ansible_skip_tags: []
+        ansible_ssh_pass: pk
+        ansible_user: pk
+        ansible_verbosity: 0
+        ansible_version:
+            full: 2.8.5
+            major: 2
+            minor: 8
+            revision: 5
+            string: 2.8.5
+        dns:
+        -   domain: pk.lab
+        group_names:
+        - ios_cpe
+        groups:
+            all:
+            - cpe1.pk.lab
+            - cpe2.pk.lab
+            - cpe3.pk.lab
+            - sw1.pk.lab
+            - pe1.pk.lab
+            - p1.pk.lab
+            - pe2.pk.lab
+            - pe3.pk.lab
+            - bras1.pk.lab
+            catalyst:
+            - sw1.pk.lab
+            csr:
+            - p1.pk.lab
+            - pe2.pk.lab
+            - pe3.pk.lab
+            - bras1.pk.lab
+            ios:
+            - p1.pk.lab
+            - pe2.pk.lab
+            - pe3.pk.lab
+            - bras1.pk.lab
+            ios_cpe:
+            - cpe1.pk.lab
+            - cpe2.pk.lab
+            - cpe3.pk.lab
+            ios_pe:
+            - pe2.pk.lab
+            - pe3.pk.lab
+            mpls:
+            - pe1.pk.lab
+            - p1.pk.lab
+            - pe2.pk.lab
+            - pe3.pk.lab
+            - bras1.pk.lab
+            ungrouped: *id020
+            xr:
+            - pe1.pk.lab
+        inventory_dir: null
+        inventory_file: null
+        inventory_hostname: cpe2.pk.lab
+        inventory_hostname_short: cpe2
+        ntp-server:
+        -   ip: 192.168.0.1
+        -   ip: 192.168.0.2
+        -   ip: 192.168.1.251
+        omit: __omit_place_holder__8e08404ef384521b0a5384da85205f57e730a044
+        playbook_dir: /home/pk/net-auto-sol/data-model
+        routerid: 10.10.10.12
+        snmp-server:
+        -   community: public
+            ip: 192.168.0.3
+        -   community: public
+            ip: 192.168.0.4
+    cpe3.pk.lab:
+        ansible_check_mode: false
+        ansible_diff_mode: false
+        ansible_facts: {}
+        ansible_forks: 5
+        ansible_host: 10.0.0.58
+        ansible_inventory_sources:
+        - /home/pk/net-auto-sol/inventory/hosts
+        ansible_playbook_python: /usr/bin/python3
+        ansible_run_tags:
+        - all
+        ansible_skip_tags: []
+        ansible_ssh_pass: pk
+        ansible_user: pk
+        ansible_verbosity: 0
+        ansible_version:
+            full: 2.8.5
+            major: 2
+            minor: 8
+            revision: 5
+            string: 2.8.5
+        dns:
+        -   domain: pk.lab
+        group_names:
+        - ios_cpe
+        groups:
+            all:
+            - cpe1.pk.lab
+            - cpe2.pk.lab
+            - cpe3.pk.lab
+            - sw1.pk.lab
+            - pe1.pk.lab
+            - p1.pk.lab
+            - pe2.pk.lab
+            - pe3.pk.lab
+            - bras1.pk.lab
+            catalyst:
+            - sw1.pk.lab
+            csr:
+            - p1.pk.lab
+            - pe2.pk.lab
+            - pe3.pk.lab
+            - bras1.pk.lab
+            ios:
+            - p1.pk.lab
+            - pe2.pk.lab
+            - pe3.pk.lab
+            - bras1.pk.lab
+            ios_cpe:
+            - cpe1.pk.lab
+            - cpe2.pk.lab
+            - cpe3.pk.lab
+            ios_pe:
+            - pe2.pk.lab
+            - pe3.pk.lab
+            mpls:
+            - pe1.pk.lab
+            - p1.pk.lab
+            - pe2.pk.lab
+            - pe3.pk.lab
+            - bras1.pk.lab
+            ungrouped: *id020
+            xr:
+            - pe1.pk.lab
+        inventory_dir: null
+        inventory_file: null
+        inventory_hostname: cpe3.pk.lab
+        inventory_hostname_short: cpe3
+        ntp-server:
+        -   ip: 192.168.0.1
+        -   ip: 192.168.0.2
+        -   ip: 192.168.1.251
+        omit: __omit_place_holder__8e08404ef384521b0a5384da85205f57e730a044
+        playbook_dir: /home/pk/net-auto-sol/data-model
+        routerid: 10.10.10.13
         snmp-server:
         -   community: public
             ip: 192.168.0.3
@@ -610,7 +827,6 @@ hostvars:
         ansible_host: 10.0.0.50
         ansible_inventory_sources:
         - /home/pk/net-auto-sol/inventory/hosts
-        ansible_limit: pe2.pk.lab
         ansible_network_os: ios
         ansible_playbook_python: /usr/bin/python3
         ansible_run_tags:
@@ -633,6 +849,9 @@ hostvars:
         - mpls
         groups:
             all:
+            - cpe1.pk.lab
+            - cpe2.pk.lab
+            - cpe3.pk.lab
             - sw1.pk.lab
             - pe1.pk.lab
             - p1.pk.lab
@@ -651,6 +870,10 @@ hostvars:
             - pe2.pk.lab
             - pe3.pk.lab
             - bras1.pk.lab
+            ios_cpe:
+            - cpe1.pk.lab
+            - cpe2.pk.lab
+            - cpe3.pk.lab
             ios_pe:
             - pe2.pk.lab
             - pe3.pk.lab
@@ -660,7 +883,7 @@ hostvars:
             - pe2.pk.lab
             - pe3.pk.lab
             - bras1.pk.lab
-            ungrouped: *id019
+            ungrouped: *id020
             xr:
             - pe1.pk.lab
         inventory_dir: /home/pk/net-auto-sol/inventory
@@ -671,7 +894,7 @@ hostvars:
         -   ip: 192.168.0.1
         -   ip: 192.168.0.2
         -   ip: 192.168.1.251
-        omit: __omit_place_holder__5caf73663039dae5f0cddca99520d3fe07b31835
+        omit: __omit_place_holder__8e08404ef384521b0a5384da85205f57e730a044
         playbook_dir: /home/pk/net-auto-sol/data-model
         snmp-server:
         -   community: public
@@ -686,7 +909,6 @@ hostvars:
         ansible_host: 10.0.0.51
         ansible_inventory_sources:
         - /home/pk/net-auto-sol/inventory/hosts
-        ansible_limit: pe2.pk.lab
         ansible_network_os: iosxr
         ansible_playbook_python: /usr/bin/python3
         ansible_run_tags:
@@ -708,6 +930,9 @@ hostvars:
         - xr
         groups:
             all:
+            - cpe1.pk.lab
+            - cpe2.pk.lab
+            - cpe3.pk.lab
             - sw1.pk.lab
             - pe1.pk.lab
             - p1.pk.lab
@@ -726,6 +951,10 @@ hostvars:
             - pe2.pk.lab
             - pe3.pk.lab
             - bras1.pk.lab
+            ios_cpe:
+            - cpe1.pk.lab
+            - cpe2.pk.lab
+            - cpe3.pk.lab
             ios_pe:
             - pe2.pk.lab
             - pe3.pk.lab
@@ -735,7 +964,7 @@ hostvars:
             - pe2.pk.lab
             - pe3.pk.lab
             - bras1.pk.lab
-            ungrouped: *id019
+            ungrouped: *id020
             xr:
             - pe1.pk.lab
         inventory_dir: /home/pk/net-auto-sol/inventory
@@ -746,7 +975,7 @@ hostvars:
         -   ip: 192.168.0.1
         -   ip: 192.168.0.2
         -   ip: 192.168.1.251
-        omit: __omit_place_holder__5caf73663039dae5f0cddca99520d3fe07b31835
+        omit: __omit_place_holder__8e08404ef384521b0a5384da85205f57e730a044
         playbook_dir: /home/pk/net-auto-sol/data-model
         snmp-server:
         -   community: public
@@ -756,116 +985,11 @@ hostvars:
     pe2.pk.lab:
         ansible_check_mode: false
         ansible_diff_mode: false
-        ansible_facts:
-            napalm_bgp_neighbors:
-                global:
-                    peers:
-                        10.10.10.4:
-                            address_family:
-                                ipv4 unicast:
-                                    accepted_prefixes: 0
-                                    received_prefixes: 0
-                                    sent_prefixes: 0
-                                vpnv4 unicast:
-                                    accepted_prefixes: 0
-                                    received_prefixes: 0
-                                    sent_prefixes: 0
-                            description: p1.********.lab
-                            is_enabled: true
-                            is_up: true
-                            local_as: 65001
-                            remote_as: 65001
-                            remote_id: 10.10.10.4
-                            uptime: 1641600
-                    router_id: 10.10.10.2
-            napalm_facts:
-                fqdn: pe2.********.lab.********.lab
-                hostname: pe2.********.lab
-                interface_list:
-                - GigabitEthernet1
-                - GigabitEthernet2
-                - GigabitEthernet3
-                - GigabitEthernet4
-                - Loopback0
-                model: CSR1000V
-                os_version: CSR1000V Software (X86_64_LINUX_IOSD-UNIVERSALK9-M), Version
-                    15.5(2)S2, RELEASE SOFTWARE (fc1)
-                serial_number: 9G82IZA1QBP
-                uptime: 2157840
-                vendor: Cisco
-            napalm_fqdn: pe2.********.lab.********.lab
-            napalm_hostname: pe2.********.lab
-            napalm_interface_list:
-            - GigabitEthernet1
-            - GigabitEthernet2
-            - GigabitEthernet3
-            - GigabitEthernet4
-            - Loopback0
-            napalm_interfaces:
-                GigabitEthernet1:
-                    description: ''
-                    is_enabled: true
-                    is_up: true
-                    last_flapped: -1.0
-                    mac_address: '50:00:00:02:00:00'
-                    mtu: 1500
-                    speed: 1000
-                GigabitEthernet2:
-                    description: ''
-                    is_enabled: true
-                    is_up: true
-                    last_flapped: -1.0
-                    mac_address: '50:00:00:02:00:01'
-                    mtu: 1500
-                    speed: 1000
-                GigabitEthernet3:
-                    description: ''
-                    is_enabled: true
-                    is_up: true
-                    last_flapped: -1.0
-                    mac_address: '50:00:00:02:00:02'
-                    mtu: 1500
-                    speed: 1000
-                GigabitEthernet4:
-                    description: ''
-                    is_enabled: true
-                    is_up: true
-                    last_flapped: -1.0
-                    mac_address: '50:00:00:02:00:03'
-                    mtu: 1500
-                    speed: 1000
-                Loopback0:
-                    description: ''
-                    is_enabled: true
-                    is_up: true
-                    last_flapped: -1.0
-                    mac_address: ''
-                    mtu: 1514
-                    speed: 8000
-            napalm_interfaces_ip:
-                GigabitEthernet1:
-                    ipv4:
-                        10.0.0.52:
-                            prefix_length: 24
-                GigabitEthernet2:
-                    ipv4:
-                        10.0.1.5:
-                            prefix_length: 31
-                Loopback0:
-                    ipv4:
-                        10.10.10.2:
-                            prefix_length: 32
-            napalm_model: CSR1000V
-            napalm_os_version: CSR1000V Software (X86_64_LINUX_IOSD-UNIVERSALK9-M),
-                Version 15.5(2)S2, RELEASE SOFTWARE (fc1)
-            napalm_serial_number: 9G82IZA1QBP
-            napalm_uptime: 2157840
-            napalm_vendor: Cisco
+        ansible_facts: {}
         ansible_forks: 5
         ansible_host: 10.0.0.52
         ansible_inventory_sources:
         - /home/pk/net-auto-sol/inventory/hosts
-        ansible_limit: pe2.pk.lab
         ansible_network_os: ios
         ansible_playbook_python: /usr/bin/python3
         ansible_run_tags:
@@ -880,33 +1004,6 @@ hostvars:
             minor: 8
             revision: 5
             string: 2.8.5
-        bgp_result:
-            changed: false
-            msg: All items completed
-            results:
-            -   ansible_loop_var: item
-                changed: false
-                failed: false
-                item:
-                    key: 10.10.10.4
-                    value:
-                        address_family:
-                            ipv4 unicast:
-                                accepted_prefixes: 0
-                                received_prefixes: 0
-                                sent_prefixes: 0
-                            vpnv4 unicast:
-                                accepted_prefixes: 0
-                                received_prefixes: 0
-                                sent_prefixes: 0
-                        description: p1.********.lab
-                        is_enabled: true
-                        is_up: true
-                        local_as: 65001
-                        remote_as: 65001
-                        remote_id: 10.10.10.4
-                        uptime: 1641600
-                msg: All assertions passed
         dns:
         -   domain: pk.lab
         group_names:
@@ -916,6 +1013,9 @@ hostvars:
         - mpls
         groups:
             all:
+            - cpe1.pk.lab
+            - cpe2.pk.lab
+            - cpe3.pk.lab
             - sw1.pk.lab
             - pe1.pk.lab
             - p1.pk.lab
@@ -934,6 +1034,10 @@ hostvars:
             - pe2.pk.lab
             - pe3.pk.lab
             - bras1.pk.lab
+            ios_cpe:
+            - cpe1.pk.lab
+            - cpe2.pk.lab
+            - cpe3.pk.lab
             ios_pe:
             - pe2.pk.lab
             - pe3.pk.lab
@@ -943,296 +1047,19 @@ hostvars:
             - pe2.pk.lab
             - pe3.pk.lab
             - bras1.pk.lab
-            ungrouped: *id019
+            ungrouped: *id020
             xr:
             - pe1.pk.lab
-        interface_result:
-            changed: false
-            msg: All items completed
-            results:
-            -   ansible_loop_var: item
-                changed: false
-                failed: false
-                item:
-                    key: GigabitEthernet1
-                    value:
-                        description: ''
-                        is_enabled: true
-                        is_up: true
-                        last_flapped: -1.0
-                        mac_address: '50:00:00:02:00:00'
-                        mtu: 1500
-                        speed: 1000
-                msg: All assertions passed
-            -   ansible_loop_var: item
-                changed: false
-                failed: false
-                item:
-                    key: GigabitEthernet2
-                    value:
-                        description: ''
-                        is_enabled: true
-                        is_up: true
-                        last_flapped: -1.0
-                        mac_address: '50:00:00:02:00:01'
-                        mtu: 1500
-                        speed: 1000
-                msg: All assertions passed
-            -   ansible_loop_var: item
-                changed: false
-                failed: false
-                item:
-                    key: GigabitEthernet3
-                    value:
-                        description: ''
-                        is_enabled: true
-                        is_up: true
-                        last_flapped: -1.0
-                        mac_address: '50:00:00:02:00:02'
-                        mtu: 1500
-                        speed: 1000
-                msg: All assertions passed
-            -   ansible_loop_var: item
-                changed: false
-                failed: false
-                item:
-                    key: GigabitEthernet4
-                    value:
-                        description: ''
-                        is_enabled: true
-                        is_up: true
-                        last_flapped: -1.0
-                        mac_address: '50:00:00:02:00:03'
-                        mtu: 1500
-                        speed: 1000
-                msg: All assertions passed
-            -   ansible_loop_var: item
-                changed: false
-                failed: false
-                item:
-                    key: Loopback0
-                    value:
-                        description: ''
-                        is_enabled: true
-                        is_up: true
-                        last_flapped: -1.0
-                        mac_address: ''
-                        mtu: 1514
-                        speed: 8000
-                msg: All assertions passed
         inventory_dir: /home/pk/net-auto-sol/inventory
         inventory_file: /home/pk/net-auto-sol/inventory/hosts
         inventory_hostname: pe2.pk.lab
         inventory_hostname_short: pe2
-        napalm_bgp_neighbors:
-            global:
-                peers:
-                    10.10.10.4:
-                        address_family:
-                            ipv4 unicast:
-                                accepted_prefixes: 0
-                                received_prefixes: 0
-                                sent_prefixes: 0
-                            vpnv4 unicast:
-                                accepted_prefixes: 0
-                                received_prefixes: 0
-                                sent_prefixes: 0
-                        description: p1.********.lab
-                        is_enabled: true
-                        is_up: true
-                        local_as: 65001
-                        remote_as: 65001
-                        remote_id: 10.10.10.4
-                        uptime: 1641600
-                router_id: 10.10.10.2
-        napalm_facts:
-            ansible_facts:
-                napalm_bgp_neighbors:
-                    global:
-                        peers:
-                            10.10.10.4:
-                                address_family:
-                                    ipv4 unicast:
-                                        accepted_prefixes: 0
-                                        received_prefixes: 0
-                                        sent_prefixes: 0
-                                    vpnv4 unicast:
-                                        accepted_prefixes: 0
-                                        received_prefixes: 0
-                                        sent_prefixes: 0
-                                description: p1.********.lab
-                                is_enabled: true
-                                is_up: true
-                                local_as: 65001
-                                remote_as: 65001
-                                remote_id: 10.10.10.4
-                                uptime: 1641600
-                        router_id: 10.10.10.2
-                napalm_facts:
-                    fqdn: pe2.********.lab.********.lab
-                    hostname: pe2.********.lab
-                    interface_list:
-                    - GigabitEthernet1
-                    - GigabitEthernet2
-                    - GigabitEthernet3
-                    - GigabitEthernet4
-                    - Loopback0
-                    model: CSR1000V
-                    os_version: CSR1000V Software (X86_64_LINUX_IOSD-UNIVERSALK9-M),
-                        Version 15.5(2)S2, RELEASE SOFTWARE (fc1)
-                    serial_number: 9G82IZA1QBP
-                    uptime: 2157840
-                    vendor: Cisco
-                napalm_fqdn: pe2.********.lab.********.lab
-                napalm_hostname: pe2.********.lab
-                napalm_interface_list:
-                - GigabitEthernet1
-                - GigabitEthernet2
-                - GigabitEthernet3
-                - GigabitEthernet4
-                - Loopback0
-                napalm_interfaces:
-                    GigabitEthernet1:
-                        description: ''
-                        is_enabled: true
-                        is_up: true
-                        last_flapped: -1.0
-                        mac_address: '50:00:00:02:00:00'
-                        mtu: 1500
-                        speed: 1000
-                    GigabitEthernet2:
-                        description: ''
-                        is_enabled: true
-                        is_up: true
-                        last_flapped: -1.0
-                        mac_address: '50:00:00:02:00:01'
-                        mtu: 1500
-                        speed: 1000
-                    GigabitEthernet3:
-                        description: ''
-                        is_enabled: true
-                        is_up: true
-                        last_flapped: -1.0
-                        mac_address: '50:00:00:02:00:02'
-                        mtu: 1500
-                        speed: 1000
-                    GigabitEthernet4:
-                        description: ''
-                        is_enabled: true
-                        is_up: true
-                        last_flapped: -1.0
-                        mac_address: '50:00:00:02:00:03'
-                        mtu: 1500
-                        speed: 1000
-                    Loopback0:
-                        description: ''
-                        is_enabled: true
-                        is_up: true
-                        last_flapped: -1.0
-                        mac_address: ''
-                        mtu: 1514
-                        speed: 8000
-                napalm_interfaces_ip:
-                    GigabitEthernet1:
-                        ipv4:
-                            10.0.0.52:
-                                prefix_length: 24
-                    GigabitEthernet2:
-                        ipv4:
-                            10.0.1.5:
-                                prefix_length: 31
-                    Loopback0:
-                        ipv4:
-                            10.10.10.2:
-                                prefix_length: 32
-                napalm_model: CSR1000V
-                napalm_os_version: CSR1000V Software (X86_64_LINUX_IOSD-UNIVERSALK9-M),
-                    Version 15.5(2)S2, RELEASE SOFTWARE (fc1)
-                napalm_serial_number: 9G82IZA1QBP
-                napalm_uptime: 2157840
-                napalm_vendor: Cisco
-            changed: false
-            failed: false
-        napalm_fqdn: pe2.********.lab.********.lab
-        napalm_hostname: pe2.********.lab
-        napalm_interface_list:
-        - GigabitEthernet1
-        - GigabitEthernet2
-        - GigabitEthernet3
-        - GigabitEthernet4
-        - Loopback0
-        napalm_interfaces:
-            GigabitEthernet1:
-                description: ''
-                is_enabled: true
-                is_up: true
-                last_flapped: -1.0
-                mac_address: '50:00:00:02:00:00'
-                mtu: 1500
-                speed: 1000
-            GigabitEthernet2:
-                description: ''
-                is_enabled: true
-                is_up: true
-                last_flapped: -1.0
-                mac_address: '50:00:00:02:00:01'
-                mtu: 1500
-                speed: 1000
-            GigabitEthernet3:
-                description: ''
-                is_enabled: true
-                is_up: true
-                last_flapped: -1.0
-                mac_address: '50:00:00:02:00:02'
-                mtu: 1500
-                speed: 1000
-            GigabitEthernet4:
-                description: ''
-                is_enabled: true
-                is_up: true
-                last_flapped: -1.0
-                mac_address: '50:00:00:02:00:03'
-                mtu: 1500
-                speed: 1000
-            Loopback0:
-                description: ''
-                is_enabled: true
-                is_up: true
-                last_flapped: -1.0
-                mac_address: ''
-                mtu: 1514
-                speed: 8000
-        napalm_interfaces_ip:
-            GigabitEthernet1:
-                ipv4:
-                    10.0.0.52:
-                        prefix_length: 24
-            GigabitEthernet2:
-                ipv4:
-                    10.0.1.5:
-                        prefix_length: 31
-            Loopback0:
-                ipv4:
-                    10.10.10.2:
-                        prefix_length: 32
-        napalm_model: CSR1000V
-        napalm_os_version: CSR1000V Software (X86_64_LINUX_IOSD-UNIVERSALK9-M), Version
-            15.5(2)S2, RELEASE SOFTWARE (fc1)
-        napalm_serial_number: 9G82IZA1QBP
-        napalm_uptime: 2157840
-        napalm_vendor: Cisco
         ntp-server:
         -   ip: 192.168.0.1
         -   ip: 192.168.0.2
         -   ip: 192.168.1.251
-        omit: __omit_place_holder__5caf73663039dae5f0cddca99520d3fe07b31835
+        omit: __omit_place_holder__8e08404ef384521b0a5384da85205f57e730a044
         playbook_dir: /home/pk/net-auto-sol/data-model
-        result:
-            changed: true
-            failed: false
-            msg: "-license udi pid CSR1000V sn 9G82IZA1QBP\n-interface GigabitEthernet3\n\
-                \ -no ip address\n -negotiation auto\n-interface GigabitEthernet4\n\
-                \ -no ip address\n -negotiation auto"
         snmp-server:
         -   community: public
             ip: 192.168.0.3
@@ -1246,7 +1073,6 @@ hostvars:
         ansible_host: 10.0.0.53
         ansible_inventory_sources:
         - /home/pk/net-auto-sol/inventory/hosts
-        ansible_limit: pe2.pk.lab
         ansible_network_os: ios
         ansible_playbook_python: /usr/bin/python3
         ansible_run_tags:
@@ -1270,6 +1096,9 @@ hostvars:
         - mpls
         groups:
             all:
+            - cpe1.pk.lab
+            - cpe2.pk.lab
+            - cpe3.pk.lab
             - sw1.pk.lab
             - pe1.pk.lab
             - p1.pk.lab
@@ -1288,6 +1117,10 @@ hostvars:
             - pe2.pk.lab
             - pe3.pk.lab
             - bras1.pk.lab
+            ios_cpe:
+            - cpe1.pk.lab
+            - cpe2.pk.lab
+            - cpe3.pk.lab
             ios_pe:
             - pe2.pk.lab
             - pe3.pk.lab
@@ -1297,7 +1130,7 @@ hostvars:
             - pe2.pk.lab
             - pe3.pk.lab
             - bras1.pk.lab
-            ungrouped: *id019
+            ungrouped: *id020
             xr:
             - pe1.pk.lab
         inventory_dir: /home/pk/net-auto-sol/inventory
@@ -1308,7 +1141,7 @@ hostvars:
         -   ip: 192.168.0.1
         -   ip: 192.168.0.2
         -   ip: 192.168.1.251
-        omit: __omit_place_holder__5caf73663039dae5f0cddca99520d3fe07b31835
+        omit: __omit_place_holder__8e08404ef384521b0a5384da85205f57e730a044
         playbook_dir: /home/pk/net-auto-sol/data-model
         snmp-server:
         -   community: public
@@ -1323,7 +1156,6 @@ hostvars:
         ansible_host: 10.0.0.252
         ansible_inventory_sources:
         - /home/pk/net-auto-sol/inventory/hosts
-        ansible_limit: pe2.pk.lab
         ansible_network_os: ios
         ansible_playbook_python: /usr/bin/python3
         ansible_run_tags:
@@ -1344,6 +1176,9 @@ hostvars:
         - catalyst
         groups:
             all:
+            - cpe1.pk.lab
+            - cpe2.pk.lab
+            - cpe3.pk.lab
             - sw1.pk.lab
             - pe1.pk.lab
             - p1.pk.lab
@@ -1362,6 +1197,10 @@ hostvars:
             - pe2.pk.lab
             - pe3.pk.lab
             - bras1.pk.lab
+            ios_cpe:
+            - cpe1.pk.lab
+            - cpe2.pk.lab
+            - cpe3.pk.lab
             ios_pe:
             - pe2.pk.lab
             - pe3.pk.lab
@@ -1371,7 +1210,7 @@ hostvars:
             - pe2.pk.lab
             - pe3.pk.lab
             - bras1.pk.lab
-            ungrouped: *id019
+            ungrouped: *id020
             xr:
             - pe1.pk.lab
         inventory_dir: /home/pk/net-auto-sol/inventory
@@ -1382,298 +1221,23 @@ hostvars:
         -   ip: 192.168.0.1
         -   ip: 192.168.0.2
         -   ip: 192.168.1.251
-        omit: __omit_place_holder__5caf73663039dae5f0cddca99520d3fe07b31835
+        omit: __omit_place_holder__8e08404ef384521b0a5384da85205f57e730a044
         playbook_dir: /home/pk/net-auto-sol/data-model
         snmp-server:
         -   community: public
             ip: 192.168.0.3
         -   community: public
             ip: 192.168.0.4
-interface_result:
-    changed: false
-    msg: All items completed
-    results:
-    -   ansible_loop_var: item
-        changed: false
-        failed: false
-        item:
-            key: GigabitEthernet1
-            value:
-                description: ''
-                is_enabled: true
-                is_up: true
-                last_flapped: -1.0
-                mac_address: '50:00:00:02:00:00'
-                mtu: 1500
-                speed: 1000
-        msg: All assertions passed
-    -   ansible_loop_var: item
-        changed: false
-        failed: false
-        item:
-            key: GigabitEthernet2
-            value:
-                description: ''
-                is_enabled: true
-                is_up: true
-                last_flapped: -1.0
-                mac_address: '50:00:00:02:00:01'
-                mtu: 1500
-                speed: 1000
-        msg: All assertions passed
-    -   ansible_loop_var: item
-        changed: false
-        failed: false
-        item:
-            key: GigabitEthernet3
-            value:
-                description: ''
-                is_enabled: true
-                is_up: true
-                last_flapped: -1.0
-                mac_address: '50:00:00:02:00:02'
-                mtu: 1500
-                speed: 1000
-        msg: All assertions passed
-    -   ansible_loop_var: item
-        changed: false
-        failed: false
-        item:
-            key: GigabitEthernet4
-            value:
-                description: ''
-                is_enabled: true
-                is_up: true
-                last_flapped: -1.0
-                mac_address: '50:00:00:02:00:03'
-                mtu: 1500
-                speed: 1000
-        msg: All assertions passed
-    -   ansible_loop_var: item
-        changed: false
-        failed: false
-        item:
-            key: Loopback0
-            value:
-                description: ''
-                is_enabled: true
-                is_up: true
-                last_flapped: -1.0
-                mac_address: ''
-                mtu: 1514
-                speed: 8000
-        msg: All assertions passed
-inventory_dir: /home/pk/net-auto-sol/inventory
-inventory_file: /home/pk/net-auto-sol/inventory/hosts
-inventory_hostname: pe2.pk.lab
-inventory_hostname_short: pe2
-napalm_bgp_neighbors:
-    global:
-        peers:
-            10.10.10.4:
-                address_family:
-                    ipv4 unicast:
-                        accepted_prefixes: 0
-                        received_prefixes: 0
-                        sent_prefixes: 0
-                    vpnv4 unicast:
-                        accepted_prefixes: 0
-                        received_prefixes: 0
-                        sent_prefixes: 0
-                description: p1.********.lab
-                is_enabled: true
-                is_up: true
-                local_as: 65001
-                remote_as: 65001
-                remote_id: 10.10.10.4
-                uptime: 1641600
-        router_id: 10.10.10.2
-napalm_facts:
-    ansible_facts:
-        napalm_bgp_neighbors:
-            global:
-                peers:
-                    10.10.10.4:
-                        address_family:
-                            ipv4 unicast:
-                                accepted_prefixes: 0
-                                received_prefixes: 0
-                                sent_prefixes: 0
-                            vpnv4 unicast:
-                                accepted_prefixes: 0
-                                received_prefixes: 0
-                                sent_prefixes: 0
-                        description: p1.********.lab
-                        is_enabled: true
-                        is_up: true
-                        local_as: 65001
-                        remote_as: 65001
-                        remote_id: 10.10.10.4
-                        uptime: 1641600
-                router_id: 10.10.10.2
-        napalm_facts:
-            fqdn: pe2.********.lab.********.lab
-            hostname: pe2.********.lab
-            interface_list:
-            - GigabitEthernet1
-            - GigabitEthernet2
-            - GigabitEthernet3
-            - GigabitEthernet4
-            - Loopback0
-            model: CSR1000V
-            os_version: CSR1000V Software (X86_64_LINUX_IOSD-UNIVERSALK9-M), Version
-                15.5(2)S2, RELEASE SOFTWARE (fc1)
-            serial_number: 9G82IZA1QBP
-            uptime: 2157840
-            vendor: Cisco
-        napalm_fqdn: pe2.********.lab.********.lab
-        napalm_hostname: pe2.********.lab
-        napalm_interface_list:
-        - GigabitEthernet1
-        - GigabitEthernet2
-        - GigabitEthernet3
-        - GigabitEthernet4
-        - Loopback0
-        napalm_interfaces:
-            GigabitEthernet1:
-                description: ''
-                is_enabled: true
-                is_up: true
-                last_flapped: -1.0
-                mac_address: '50:00:00:02:00:00'
-                mtu: 1500
-                speed: 1000
-            GigabitEthernet2:
-                description: ''
-                is_enabled: true
-                is_up: true
-                last_flapped: -1.0
-                mac_address: '50:00:00:02:00:01'
-                mtu: 1500
-                speed: 1000
-            GigabitEthernet3:
-                description: ''
-                is_enabled: true
-                is_up: true
-                last_flapped: -1.0
-                mac_address: '50:00:00:02:00:02'
-                mtu: 1500
-                speed: 1000
-            GigabitEthernet4:
-                description: ''
-                is_enabled: true
-                is_up: true
-                last_flapped: -1.0
-                mac_address: '50:00:00:02:00:03'
-                mtu: 1500
-                speed: 1000
-            Loopback0:
-                description: ''
-                is_enabled: true
-                is_up: true
-                last_flapped: -1.0
-                mac_address: ''
-                mtu: 1514
-                speed: 8000
-        napalm_interfaces_ip:
-            GigabitEthernet1:
-                ipv4:
-                    10.0.0.52:
-                        prefix_length: 24
-            GigabitEthernet2:
-                ipv4:
-                    10.0.1.5:
-                        prefix_length: 31
-            Loopback0:
-                ipv4:
-                    10.10.10.2:
-                        prefix_length: 32
-        napalm_model: CSR1000V
-        napalm_os_version: CSR1000V Software (X86_64_LINUX_IOSD-UNIVERSALK9-M), Version
-            15.5(2)S2, RELEASE SOFTWARE (fc1)
-        napalm_serial_number: 9G82IZA1QBP
-        napalm_uptime: 2157840
-        napalm_vendor: Cisco
-    changed: false
-    failed: false
-napalm_fqdn: pe2.********.lab.********.lab
-napalm_hostname: pe2.********.lab
-napalm_interface_list:
-- GigabitEthernet1
-- GigabitEthernet2
-- GigabitEthernet3
-- GigabitEthernet4
-- Loopback0
-napalm_interfaces:
-    GigabitEthernet1:
-        description: ''
-        is_enabled: true
-        is_up: true
-        last_flapped: -1.0
-        mac_address: '50:00:00:02:00:00'
-        mtu: 1500
-        speed: 1000
-    GigabitEthernet2:
-        description: ''
-        is_enabled: true
-        is_up: true
-        last_flapped: -1.0
-        mac_address: '50:00:00:02:00:01'
-        mtu: 1500
-        speed: 1000
-    GigabitEthernet3:
-        description: ''
-        is_enabled: true
-        is_up: true
-        last_flapped: -1.0
-        mac_address: '50:00:00:02:00:02'
-        mtu: 1500
-        speed: 1000
-    GigabitEthernet4:
-        description: ''
-        is_enabled: true
-        is_up: true
-        last_flapped: -1.0
-        mac_address: '50:00:00:02:00:03'
-        mtu: 1500
-        speed: 1000
-    Loopback0:
-        description: ''
-        is_enabled: true
-        is_up: true
-        last_flapped: -1.0
-        mac_address: ''
-        mtu: 1514
-        speed: 8000
-napalm_interfaces_ip:
-    GigabitEthernet1:
-        ipv4:
-            10.0.0.52:
-                prefix_length: 24
-    GigabitEthernet2:
-        ipv4:
-            10.0.1.5:
-                prefix_length: 31
-    Loopback0:
-        ipv4:
-            10.10.10.2:
-                prefix_length: 32
-napalm_model: CSR1000V
-napalm_os_version: CSR1000V Software (X86_64_LINUX_IOSD-UNIVERSALK9-M), Version 15.5(2)S2,
-    RELEASE SOFTWARE (fc1)
-napalm_serial_number: 9G82IZA1QBP
-napalm_uptime: 2157840
-napalm_vendor: Cisco
+inventory_hostname: localhost
+inventory_hostname_short: localhost
 nodes: *id016
 ntp-server: *id017
-omit: __omit_place_holder__5caf73663039dae5f0cddca99520d3fe07b31835
-play_hosts: *id020
+omit: __omit_place_holder__8e08404ef384521b0a5384da85205f57e730a044
+play_hosts: *id021
 playbook_dir: /home/pk/net-auto-sol/data-model
-result:
-    changed: true
-    failed: false
-    msg: "-license udi pid CSR1000V sn 9G82IZA1QBP\n-interface GigabitEthernet3\n\
-        \ -no ip address\n -negotiation auto\n-interface GigabitEthernet4\n -no ip\
-        \ address\n -negotiation auto"
-role_names: *id021
-snmp-server: *id018
+role_name: cpe_router
+role_names: *id022
+role_path: /home/pk/net-auto-sol/data-model/cpe_router
+role_uuid: 00000000-0003-761d-b1e9-000000000023
+services: *id018
+snmp-server: *id019

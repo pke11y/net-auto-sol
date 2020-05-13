@@ -1,7 +1,5 @@
 ---
 - hosts: localhost
-  # hosts: mpls
-  # connection: network_cli
   gather_facts: no
   vars_files:
     - fabric.yml

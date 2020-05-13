@@ -1,0 +1,10 @@
+*** Tue May 12 10:07:28 IST 2020 pe2.pk.lab Interface Report:
+GigabitEthernet1:
+  is_enabled: True
+  is_up: True
+*** ------ pe2.pk.lab Interface Report:
+*** Tue May 12 10:07:29 IST 2020 pe2.pk.lab Interface Report:
+Loopback0:
+  is_enabled: True
+  is_up: True
+*** ------ pe2.pk.lab Interface Report:

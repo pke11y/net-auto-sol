@@ -1,0 +1,26 @@
+cpe_nodes:
+{% for vpn_type, vpn_data in services.items() %}
+{% if vpn_type == 'l3vpn' %}
+{% for service_type, service_vrfs in vpn_data.items() %}
+{% for vrf in service_vrfs %}
+{% for site in vrf['sites'] %}
+  {{ site['site_name'] }}:
+{% for cpe_name, cpe_data in site['nodes'].items() %}
+  {{ cpe_name }}:
+    routerid: {{ cpe_data['routerid'] }}
+    mgmt: {{ cpe_data['mgmt'] }}
+    {{ service_type }}:
+      interfaces:
+{% for link in site['links'] %}
+{% if link['a_end'] == cpe_name %}
+          {{ link['a_end_intf'] }}: 
+            ip: {{ link['wan_ip_pfx'] | ipaddr('1') }}
+            cost: 5
+{% endif %}
+{% endfor %}
+{% endfor %}
+{% endfor %}
+{% endfor %}
+{% endfor %}
+{% endif %}
+{% endfor %}

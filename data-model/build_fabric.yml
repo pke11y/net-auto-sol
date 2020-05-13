@@ -1,6 +1,9 @@
 #
-# Deploy eBGP peering for L3VPN
+# Build base infrastructure configurations and services. 
+# Deploy the full configuration to the nodes.
+# 
 # This playbook is dependent on running 'create_data_model.yml' to produce 'nodes.yml'
+#
 ---
 - hosts: mpls
   connection: network_cli
@@ -58,28 +61,18 @@
         content: "{{ vars | to_nice_yaml }}"
         dest: "{{playbook_dir}}/facts.yml"
       delegate_to: localhost
-#     - name: CONFIGURATION DEPLOYMENT SUMMARY REPORT
-#       blockinfile:
-#         create: yes
-#         path: "{{playbook_dir}}/results/{{inventory_hostname}}_deployment_report.txt"
-#         # state: present
-#         # insertafter: EOF
-#         marker: "*** {mark} {{inventory_hostname}} Deployment Report:"
-#         marker_begin: "{{ lookup('pipe','date') }}"
-#         # marker_end: "------"
-#         block: |
-#           item_loop: {{item}}
-# #          item 0:{{ item[0] }}
-# #          item 1:{{ item[1] }}
-
-# #          {% for if_name, if_data in item[0].items() %}
-# #              {{if_name}}:
-# #                is_up: {{if_data}} 
-# #          {% endfor %}
-#         #  BGP: {{item.1.results}}
-#       loop: 
-#         - "{{ interface_result.results }}"
-#         - "{{ bgp_result.results }}"
+    # - name: CONFIGURATION INTERFACE DEPLOYMENT SUMMARY REPORT
+    #   blockinfile:
+    #     create: yes
+    #     path: "{{playbook_dir}}/results/{{inventory_hostname}}_interface_report.txt"
+    #     marker: "*** {mark} {{inventory_hostname}} Interface Report:"
+    #     marker_begin: "{{ lookup('pipe','date') }}"
+    #     marker_end: "------"
+    #     block: |
+    #       {{item['item']['key']}}:
+    #         is_enabled: {{item['item']['value']['is_enabled']}}
+    #         is_up: {{item['item']['value']['is_up']}}
+    #   loop: "{{ interface_result.results }}"
     - name: CONFIGURATION DEPLOYMENT SUMMARY REPORT
       template: src=./templates/deployment_summary.j2 dest={{playbook_dir}}/results/{{inventory_hostname}}_deployment_report.txt
 

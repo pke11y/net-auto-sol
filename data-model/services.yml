@@ -19,7 +19,7 @@ services:
             nodes:
               cpe1.pk.lab: 
                 routerid: 10.10.10.11
-                mgmt: 10.0.0.0.56
+                mgmt: 10.0.0.56
             links:
               - a_end: "cpe1.pk.lab"
                 a_end_intf: "FastEthernet0/0.1031"
@@ -30,7 +30,7 @@ services:
             nodes:
               cpe2.pk.lab: 
                 routerid: 10.10.10.12
-                mgmt: 10.0.0.0.57
+                mgmt: 10.0.0.57
             links:
               - a_end: "cpe2.pk.lab"
                 a_end_intf: "FastEthernet0/0.1032"
@@ -41,7 +41,7 @@ services:
             nodes:
               cpe3.pk.lab: 
                 routerid: 10.10.10.13
-                mgmt: 10.0.0.0.58
+                mgmt: 10.0.0.58
             links:
               - a_end: "cpe3.pk.lab"
                 a_end_intf: "FastEthernet0/0.1033"
@@ -67,3 +67,7 @@ services:
                   b_end: "pe1.pk.lab"
                   b_end_intf: "GigabitEthernet0/0/0/2"
                   wan_ip_pfx: "10.0.4.0/30"
+              nodes:
+                cpe1.pk.lab: 
+                  routerid: 10.10.10.11
+                  mgmt: 10.0.0.56
