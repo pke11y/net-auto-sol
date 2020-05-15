@@ -51,14 +51,12 @@ router bgp {{ nodes[inventory_hostname]['asn'] }}
   remote-as {{ node_dict['asn'] }}
   description {{ hostname }}
   update-source Loopback0
-  address-family vpnv4 unicast
   !
 {% elif not nodes[inventory_hostname]['is_rr'] == true and node_dict['type'] == 'p' %}
  neighbor {{ node_dict['routerid'] }}
   remote-as {{ node_dict['asn'] }}
   description {{ hostname }}
   update-source Loopback0
-  address-family vpnv4 unicast
   !
 {% endif %}
 {% endfor %}

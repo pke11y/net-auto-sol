@@ -11,7 +11,7 @@ cpe1.pk.lab:
         FastEthernet0/0.2031:
             cost: 5
             ip: 10.0.4.1
-            remote_intf: GigabitEthernet0/0/0/2
+            remote_intf: GigabitEthernet0/0/0/3
             remote_node: pe1.pk.lab
             service_type: internet
     mgmt: 10.0.0.56

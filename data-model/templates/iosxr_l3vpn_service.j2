@@ -4,14 +4,19 @@
 {#--------VRF DEFINITION-------------#}
 {% for service_type, service_vrfs in vpn_data.items() %}
 {% for vrf in service_vrfs %}
-ip vrf {{ vrf['vrf_name'] }}
- rd {{ nodes[inventory_hostname]['routerid'] }}:{{ vrf['rd'] }}
+vrf {{ vrf['vrf_name'] }}
+ description L3VPN service for {{ vrf['vrf_name'].split('_')[1] }}
+ address-family ipv4 unicast
+  import route-target
 {% for rt_in in vrf['rt_import']  %}
- route-target import {{ rt_in }}
+   {{ rt_in }}
 {% endfor %}
+  !
+  export route-target
 {% for rt_out in vrf['rt_export']  %}
- route-target export {{ rt_out }}
+   {{ rt_out }}
 {% endfor %}
+  !
 {% endfor %}
 !
 {% endfor %}
@@ -25,9 +30,8 @@ ip vrf {{ vrf['vrf_name'] }}
 {% if link['b_end'] == inventory_hostname %}
 interface {{ link['b_end_intf'] }}
  description WAN L3VPN service for {{ vrf['customer'] }} site: {{ site['site_name'] }}
- ip vrf forwarding {{ vrf['vrf_name'] }}
+ vrf {{ vrf['vrf_name'] }}
  ip address {{ link['wan_ip_pfx'] | ipaddr('2') | ipaddr('address') }} 255.255.255.252
- negotiation auto
 !
 {% endif %}
 {% endfor %}
@@ -38,9 +42,8 @@ interface {{ link['b_end_intf'] }}
 {% if link['b_end'] == inventory_hostname %}
 interface {{ link['b_end_intf'] }}
  description WAN L3VPN service for {{ site['customer'] }} site: {{ site['site_name'] }}
- ip vrf forwarding {{ vrf['vrf_name'] }}
+ vrf {{ vrf['vrf_name'] }}
  ip address {{ link['wan_ip_pfx'] | ipaddr('2') | ipaddr('address') }} 255.255.255.252
- negotiation auto
 !
 {% endif %}
 {% endfor %}
@@ -51,35 +54,52 @@ interface {{ link['b_end_intf'] }}
 {#--------END VRF INTERFACES-------------#}
 {#----------------BGP VRF----------------#}
 router bgp {{ nodes[inventory_hostname]['asn'] }}
+ address-family vpnv4 unicast
+ !
 {% for service_type, service_vrfs in vpn_data.items() %}
 {% for vrf in service_vrfs %}
 {% if service_type == 'wan' %}
 {% for site in vrf['sites'] %}
 {% for link in site['links'] %}
 {% if link['b_end'] == inventory_hostname %}
- address-family ipv4 vrf {{ vrf['vrf_name'] }}
-  redistribute connected
-  neighbor {{ link['wan_ip_pfx'] | ipaddr('1') | ipaddr('address') }} remote-as {{ vrf['remote_asn'] }}
-  neighbor {{ link['wan_ip_pfx'] | ipaddr('1') | ipaddr('address') }} description WAN L3VPN service for {{ vrf['customer'] }} site: {{ site['site_name'] }}
-  neighbor {{ link['wan_ip_pfx'] | ipaddr('1') | ipaddr('address') }} activate
- exit-address-family  
+  neighbor {{ link['wan_ip_pfx'] | ipaddr('1') | ipaddr('address') }}
+   description WAN L3VPN service for {{ vrf['customer'] }} site: {{ site['site_name'] }} 
+   remote-as {{ vrf['remote_asn'] }}
+   update-source {{ link['b_end_intf'] }}
 {% endif %}
 {% endfor %}
 {% endfor %}
+ !
 {% elif service_type == 'internet' %}
 {% for site in vrf['sites'] %}
 {% for link in site['links'] %}
 {% if link['b_end'] == inventory_hostname %}
- address-family ipv4 vrf {{ vrf['vrf_name'] }}
-  redistribute connected
-  neighbor {{ link['wan_ip_pfx'] | ipaddr('1') | ipaddr('address') }} remote-as {{ site['asn'] }}
-  neighbor {{ link['wan_ip_pfx'] | ipaddr('1') | ipaddr('address') }} description INTERNET L3VPN service for {{ site['customer'] }} site: {{ site['site_name'] }}
-  neighbor {{ link['wan_ip_pfx'] | ipaddr('1') | ipaddr('address') }} activate
- exit-address-family
+  neighbor {{ link['wan_ip_pfx'] | ipaddr('1') | ipaddr('address') }}
+   description Internet L3VPN service for {{ site['customer'] }} site: {{ site['site_name'] }} 
+   remote-as {{ site['asn'] }}
+   update-source {{ link['b_end_intf'] }}
+ !
 {% endif %}
 {% endfor %}
 {% endfor %}
 {% endif %}
+{% endfor %}
+{% endfor %}
+{#--------- END BGP NEIGHBOR--------------#}
+{#--------- DEFINE VRF--------------#}
+{% for service_type, service_vrfs in vpn_data.items() %}
+{% for vrf in service_vrfs %}
+{% for site in vrf['sites'] %}
+{% for link in site['links'] %}
+{% if link['b_end'] == inventory_hostname %}
+ vrf {{ vrf['vrf_name'] }}
+  rd {{ nodes[inventory_hostname]['routerid'] }}:{{ vrf['rd'] }}
+  address-family ipv4 unicast
+   redistribute connected
+{% endif %}
+{% endfor %}
+{% endfor %}
+ !
 {% endfor %}
 {% endfor %}
 {#------------END BGP VRF ----------------#}

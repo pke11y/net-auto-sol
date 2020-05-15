@@ -1,0 +1,14 @@
+--- 
++++ 
+@@ -41,6 +41,11 @@
+  description WAN L3VPN service for ACME site: SITE_A
+  vrf VRF_ACME
+  ipv4 address 10.0.3.2 255.255.255.252
++!
++interface GigabitEthernet0/0/0/3
++ description WAN L3VPN service for ACME site: SITE_A
++ vrf VRF_INTERNET
++ ipv4 address 10.0.4.2 255.255.255.252
+ !
+ interface preconfigure GigabitEthernet0/0/0/3
+  description WAN L3VPN service for ACME site: SITE_A
