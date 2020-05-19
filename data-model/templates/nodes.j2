@@ -31,7 +31,8 @@ nodes:
 {% for vrf in intraservice_vrfs %}
         {{ vrf['vrf_name'] }}:
             type: vpnv4
-            description: {{ vrf['description'] }} 
+            description: {{ vrf['description'] }}
+            state: {{ vrf['state'] }}
             rd: {{ vrf['rd'] }}
             rt_import: 
 {% for rt_in in vrf['rt_import'] %}
@@ -61,7 +62,8 @@ nodes:
 {% for vrf in service_vrfs %}
         {{ vrf['vrf_name'] }}:
             type: vpnv4
-            description: {{ vrf['description'] }} 
+            description: {{ vrf['description'] }}
+            state: {{ vrf['state'] }}
             rd: {{ vrf['rd'] }}
             rt_import: 
 {% for rt_in in vrf['rt_import'] %}

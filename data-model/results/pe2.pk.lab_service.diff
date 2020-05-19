@@ -1,3 +1,0 @@
-+router bgp 65001
-+ address-family ipv4 vrf VRF_ACME
-+  redistribute connected

@@ -1,34 +1,45 @@
-[csr]
-p1.pk.lab ansible_host=10.0.0.50
-pe2.pk.lab ansible_host=10.0.0.52
-pe3.pk.lab ansible_host=10.0.0.53
-#bras1.pk.lab ansible_host=10.0.0.54
-
-[xr]
+[xrpe]
 pe1.pk.lab ansible_host=10.0.0.51
 
-[catalyst]
-sw1.pk.lab ansible_host=10.0.0.252
+[iosp]
+p1.pk.lab ansible_host=10.0.0.50
 
-[ios_pe]
+[iospe]
 pe2.pk.lab ansible_host=10.0.0.52
 pe3.pk.lab ansible_host=10.0.0.53
 
+[ioscpe]
+cpe1.pk.lab ansible_host=10.0.0.56
+cpe2.pk.lab ansible_host=10.0.0.57
+cpe3.pk.lab ansible_host=10.0.0.58
+
 [mpls:children]
-ios
-xr
+coreedge
+cpe
 
-[ios:children]
-csr
+[cpe:children]
+ioscpe
 
-[csr:children]
-ios_pe
+[coreedge:children]
+iosp
+iospe
+xrpe
 
-[csr:vars]
+[cpe:children]
+ioscpe
+
+[ioscpe:vars]
 ansible_network_os=ios
+#ansible_ssh_common_args=-o KexAlgorithms=+diffie-hellman-group1-sha1 -c aes256-cbc
+ansible_ssh_common_args='-F /home/pk/.ssh/config'
+ansible_control_path_dir=/home/pk/.ssh/controlmasters
+ansible_scp_if_ssh=true
 
-[xr:vars]
+[xrpe:vars]
 ansible_network_os=iosxr
 
-[catalyst:vars]
+[iospe:vars]
+ansible_network_os=ios
+
+[iosp:vars]
 ansible_network_os=ios

@@ -7,6 +7,7 @@ services:
     wan:
       - vrf_name: "VRF_ACME"
         description: "TEST VRF"
+        state: "touch"
         customer: "ACME"
         remote_asn: "65101"
         rd: "100"
@@ -51,6 +52,7 @@ services:
     internet:
       - vrf_name: "VRF_INTERNET"
         description: "SHARED INTERNET VRF"
+        state: "touch"        
         rd: "2000"
         rt_import:
           - "65001:2000"
@@ -65,7 +67,7 @@ services:
                 - a_end: "cpe1.pk.lab"
                   a_end_intf: "FastEthernet0/0.2031"
                   b_end: "pe1.pk.lab"
-                  b_end_intf: "GigabitEthernet0/0/0/3"
+                  b_end_intf: "GigabitEthernet0/0/0/1"
                   wan_ip_pfx: "10.0.4.0/30"
               nodes:
                 cpe1.pk.lab: 

@@ -3,22 +3,22 @@
 - name: GET THE SERVICE CPE ROUTERS 
   set_fact:
     cpe_routers: "{{ services | get_service_cpe_routers }}"
+  tags: [ cpe ]
 - name: ADD NEW CPE ROUTER INTO PLAY RUNTIME INVENTORY
   add_host:
     name: "{{item.key}}"
     groups: ios_cpe
     ansible_host: "{{item.value.mgmt}}"
     routerid: "{{item.value.routerid}}"
+    network_os: ios
+  tags: [ cpe ]
   loop: "{{ cpe_routers | dict2items }}"
-- name: DEBUG VARIABLES 
-  copy:
-    content: "{{ vars | to_nice_yaml }}"
-    dest: "{{playbook_dir}}/facts.yml"
-  delegate_to: localhost
 - name: CREATE CPE NODE DATA MODEL
   copy:
     content: "{{ cpe_routers | to_nice_yaml }}"
     dest: "{{playbook_dir}}/cpe_nodes.yml"
+  tags: [ cpe ]
 - name: CREATE FULL CPE CONFIGURATION
   template: src={{role_path}}/templates/ios_cpe_template.j2 dest=./results/{{item}}.cfg
-  loop: "{{groups['ios_cpe']}}"
+  loop: "{{groups['ioscpe']}}"
+  tags: [ cpe ]

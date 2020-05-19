@@ -12,7 +12,8 @@ nodes:
     vrfs:
         VRF_OAM:
             type: vpnv4
-            description: OOB MGMT VRF 
+            description: OOB MGMT VRF
+            state: started
             rd: 10
             rt_import: 
               - 65001:10
@@ -24,12 +25,13 @@ nodes:
                 description: "OUT OF BAND OAM INTRA SERVICE for IP CORE"
         VRF_ACME:
             type: vpnv4
-            description: TEST VRF 
+            description: TEST VRF
+            state: touch
             rd: 100
             rt_import: 
               - 65001:100
             rt_export:
-              - 65001:101
+              - 65001:100
             vrf_interfaces:
               GigabitEthernet0/0/0/2:
                 ip: 10.0.3.2/30
@@ -37,14 +39,15 @@ nodes:
                 description: "WAN L3VPN service for ACME site: SITE_A"
         VRF_INTERNET:
             type: vpnv4
-            description: SHARED INTERNET VRF 
+            description: SHARED INTERNET VRF
+            state: touch
             rd: 2000
             rt_import: 
               - 65001:2000
             rt_export:
-              - 65001:2001
+              - 65001:2000
             vrf_interfaces:
-              GigabitEthernet0/0/0/2:
+              GigabitEthernet0/0/0/1:
                 ip: 10.0.4.2/30
                 remote_asn: 65101
                 description: "INTERNET L3VPN service for ACME site: SITE_A"
@@ -61,7 +64,8 @@ nodes:
     vrfs:
         VRF_OAM:
             type: vpnv4
-            description: OOB MGMT VRF 
+            description: OOB MGMT VRF
+            state: started
             rd: 10
             rt_import: 
               - 65001:10
@@ -73,12 +77,13 @@ nodes:
                 description: "OUT OF BAND OAM INTRA SERVICE for IP CORE"
         VRF_ACME:
             type: vpnv4
-            description: TEST VRF 
+            description: TEST VRF
+            state: touch
             rd: 100
             rt_import: 
               - 65001:100
             rt_export:
-              - 65001:101
+              - 65001:100
             vrf_interfaces:
               GigabitEthernet3:
                 ip: 10.0.3.6/30
@@ -86,12 +91,13 @@ nodes:
                 description: "WAN L3VPN service for ACME site: SITE_B"
         VRF_INTERNET:
             type: vpnv4
-            description: SHARED INTERNET VRF 
+            description: SHARED INTERNET VRF
+            state: touch
             rd: 2000
             rt_import: 
               - 65001:2000
             rt_export:
-              - 65001:2001
+              - 65001:2000
             vrf_interfaces:
   pe3.pk.lab:
     routerid: 10.10.10.3
@@ -109,7 +115,8 @@ nodes:
     vrfs:
         VRF_OAM:
             type: vpnv4
-            description: OOB MGMT VRF 
+            description: OOB MGMT VRF
+            state: started
             rd: 10
             rt_import: 
               - 65001:10
@@ -121,12 +128,13 @@ nodes:
                 description: "OUT OF BAND OAM INTRA SERVICE for IP CORE"
         VRF_ACME:
             type: vpnv4
-            description: TEST VRF 
+            description: TEST VRF
+            state: touch
             rd: 100
             rt_import: 
               - 65001:100
             rt_export:
-              - 65001:101
+              - 65001:100
             vrf_interfaces:
               GigabitEthernet4:
                 ip: 10.0.3.10/30
@@ -134,12 +142,13 @@ nodes:
                 description: "WAN L3VPN service for ACME site: SITE_C"
         VRF_INTERNET:
             type: vpnv4
-            description: SHARED INTERNET VRF 
+            description: SHARED INTERNET VRF
+            state: touch
             rd: 2000
             rt_import: 
               - 65001:2000
             rt_export:
-              - 65001:2001
+              - 65001:2000
             vrf_interfaces:
   bras1.pk.lab:
     routerid: 10.10.10.5
@@ -154,7 +163,8 @@ nodes:
     vrfs:
         VRF_OAM:
             type: vpnv4
-            description: OOB MGMT VRF 
+            description: OOB MGMT VRF
+            state: started
             rd: 10
             rt_import: 
               - 65001:10
@@ -166,21 +176,23 @@ nodes:
                 description: "OUT OF BAND OAM INTRA SERVICE for IP CORE"
         VRF_ACME:
             type: vpnv4
-            description: TEST VRF 
+            description: TEST VRF
+            state: touch
             rd: 100
             rt_import: 
               - 65001:100
             rt_export:
-              - 65001:101
+              - 65001:100
             vrf_interfaces:
         VRF_INTERNET:
             type: vpnv4
-            description: SHARED INTERNET VRF 
+            description: SHARED INTERNET VRF
+            state: touch
             rd: 2000
             rt_import: 
               - 65001:2000
             rt_export:
-              - 65001:2001
+              - 65001:2000
             vrf_interfaces:
   p1.pk.lab:
     routerid: 10.10.10.4
@@ -201,7 +213,8 @@ nodes:
     vrfs:
         VRF_OAM:
             type: vpnv4
-            description: OOB MGMT VRF 
+            description: OOB MGMT VRF
+            state: started
             rd: 10
             rt_import: 
               - 65001:10

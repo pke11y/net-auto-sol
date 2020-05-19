@@ -5,50 +5,6 @@
 # 
 #
 ---
-# - hosts: mpls
-#   connection: network_cli
-#   gather_facts: no
-#   vars_files:
-#     - nodes.yml
-#     - services.yml
-#   tasks:
-#     - name: CREATE CONFIG DIRECTORY
-#       local_action: file path={{playbook_dir}}/results state=directory
-#       run_once: true
-#       check_mode: no
-#     - name: CREATE CONFIG
-#       template: src=./templates/{{ansible_network_os}}-mpls-template.j2 dest={{playbook_dir}}/results/{{inventory_hostname}}_l3vpn.cfg
-#     - name: CREATE DIFF FILES
-#       local_action: file path={{playbook_dir}}/results/{{inventory_hostname}}.diff state=touch
-#       check_mode: no
-#     - name: DEPLOY CONFIG TO DEVICES
-#       napalm_install_config:
-#         hostname: "{{ inventory_hostname }}"
-#         username: "{{ ansible_user }}"
-#         dev_os: "{{ ansible_network_os }}"
-#         password: "{{ ansible_ssh_pass }}"
-#         config_file: "{{playbook_dir}}/results/{{inventory_hostname}}.cfg"
-#         commit_changes: True
-#         replace_config: True
-#         get_diffs: True
-#         diff_file: "{{playbook_dir}}/results/{{inventory_hostname}}.diff"
-#       register: result
-#     - name:  GET NAPALM FACTS 
-#       napalm_get_facts:
-#         hostname: "{{ansible_host}}"
-#         username: "{{ansible_user}}"
-#         dev_os: "{{ansible_network_os}}"
-#         password: "{{ ansible_ssh_pass }}"
-#         filter: ['facts', 'interfaces', 'interfaces_ip', 'bgp_neighbors']
-#       register: napalm_facts
-#     # - name: DEBUG VARIABLES 
-#     #   copy:
-#     #     content: "{{ vars | to_nice_yaml }}"
-#     #     dest: "{{playbook_dir}}/facts.yml"
-#     #   delegate_to: localhost
-#     - name: CONFIGURATION DEPLOYMENT SUMMARY REPORT
-#       template: src=./templates/deployment_summary.j2 dest={{playbook_dir}}/results/{{inventory_hostname}}_deployment_report.txt
-
 - name: PLAY TO BUILD CPE FOR L3VPN SERVICE
   hosts: localhost
   gather_facts: no
@@ -59,14 +15,55 @@
     - name: BUILD CPE INVENTORY and CONFIGURATION
       include_role:
         name: cpe_router
-    - name: DEBUG VARIABLES 
-      copy:
-        content: "{{ vars | to_nice_yaml }}"
-        dest: "{{playbook_dir}}/facts.yml"
       # delegate_to: localhost
+      tags: [ cpe ]
+    # - name: DEBUG VARIABLES 
+    #   copy:
+    #     content: "{{ vars | to_nice_yaml }}"
+    #     dest: "{{playbook_dir}}/facts.yml"     
+      # tags: [ cpe ]
+    - name: DEPLOY CPE CONFIG TO DEVICES
+      napalm_install_config:
+        hostname: "{{ hostvars[item]['ansible_host'] }}"
+        username: "{{ ansible_user }}"
+        dev_os: "{{ hostvars[item]['ansible_network_os'] }}"
+        password: "{{ ansible_ssh_pass }}"
+        config_file: "{{playbook_dir}}/results/{{item}}.cfg"
+        commit_changes: True
+        replace_config: True
+        get_diffs: False
+        diff_file: 
+      loop: "{{groups['ioscpe']}}"
+      tags: [ cpe ]
+    - name: SET CPE BOOT CONFIG AND RELOAD CPE
+      ios_command:
+        commands:
+          - command: 'copy flash:/candidate_config.txt nvram:startup-config'
+            prompt: '[startup\-config]'
+            answer: "\r"
+          - command: reload
+            check_all: True
+            prompt: 
+              - Save\?
+              - confirm
+            answer: 
+              - n
+              - y
+        provider:
+          host: "{{ hostvars[item]['ansible_host'] }}"
+          username: "{{ ansible_user }}"
+          password: "{{ ansible_ssh_pass }}"
+          timeout: 15
+      loop: "{{groups['ioscpe']}}"   
+      tags: [ cpe, reload ]
+    # - name: WAIT 300 seconds FOR CPE REBOOT, DELAY 10 TO SHUTDOWN
+    #   wait_for_connection:
+    #     delay: 10
+    #     timeout: 300
+    #   tags: [ cpe ]
 
 - name: PLAY TO BUILD PE FOR L3VPN SERVICE
-  hosts: mpls
+  hosts: coreedge
   connection: network_cli  
   gather_facts: no
   vars_files:
@@ -90,6 +87,31 @@
         get_diffs: True
         diff_file: "{{playbook_dir}}/results/{{inventory_hostname}}_service.diff"
       register: service_deploy
+    # - name: DEBUG DEPLOYMENT
+    #   debug:
+    #     var: service_deploy
+    - name:  GET NAPALM FACTS 
+      napalm_get_facts:
+        hostname: "{{ansible_host}}"
+        username: "{{ansible_user}}"
+        dev_os: "{{ansible_network_os}}"
+        password: "{{ ansible_ssh_pass }}"
+        filter: ['facts', 'interfaces', 'interfaces_ip', 'bgp_neighbors']
+      register: napalm_facts
+    - name: DEBUG VARIABLES 
+      copy:
+        content: "{{ vars | to_nice_yaml }}"
+        dest: "{{playbook_dir}}/facts.yml"
+      when: inventory_hostname == "pe2.pk.lab"          
+    - name: VALIDATE BGP
+      include_tasks: validate_bgp_task.yml
+      # loop: "{{ nodes[inventory_hostname]['vrfs'] | dict2items }}"
+      loop: "{{ hostvars[inventory_hostname]['ansible_facts']['napalm_bgp_neighbors'] | dict2items }}"
+      when: not vrf_item.key == 'global' 
+      loop_control:
+        loop_var: vrf_item
+  
+
 # - hosts: localhost
 #   gather_facts: no
 #   vars_files:

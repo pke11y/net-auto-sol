@@ -44,12 +44,12 @@ interface FastEthernet0/0
 !         
 interface FastEthernet0/0.200
  encapsulation dot1Q 200
- ip address 10.0.0.56 255.255.255.0
+ ip address {{cpe_routers[item]['mgmt']}} 255.255.255.0
 !
 {% for intf_name, intf_data in cpe_routers[item]['interfaces'].items() %}
 interface {{ intf_name }}
  encapsulation dot1Q {{ intf_name.split('.')[1] }}
- ip address {{ intf_data['ip'] | ipaddr('address') }} {{ intf_data['ip'] | ipaddr('netmask') }}
+ ip address {{ intf_data['ip'] | ipaddr('address') }} 255.255.255.252
 !
 {% endfor %}
 router bgp {{ cpe_routers[item]['asn'] }}
@@ -73,6 +73,7 @@ ip route 0.0.0.0 0.0.0.0 10.0.0.253
 !
 !
 ip http server
+ip scp server enable
 !
 !
 control-plane

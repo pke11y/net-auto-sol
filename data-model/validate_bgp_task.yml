@@ -1,0 +1,27 @@
+#
+# These tasks validate BGP peering status and assume 'connection: network_cli' transport
+# NAPALM 'get_facts' is a prerequisite to running these tasks
+#
+---
+# - name: VALIDATE BGP SESSIONS ARE UP
+#   debug: 
+#     msg: "Neighbor {{ item.key }} is_up: {{ item['value']['is_up'] }} for VRF: {{ vrf_item.key }}"
+#   loop: "{{ hostvars[inventory_hostname]['ansible_facts']['napalm_bgp_neighbors'][vrf_item.key]['peers']  | dict2items }}"
+#   when: item['value']['is_enabled'] | bool
+- name: VALIDATE BGP SESSIONS ARE UP
+  assert: 
+    that:
+      - "{{ item['value']['is_up'] == true }}"
+    fail_msg: "BGP peer {{ item['key'] }} is down"
+    success_msg: "BGP peer {{ item['key'] }} is up"
+  register: bgp_result
+  loop: "{{ hostvars[inventory_hostname]['ansible_facts']['napalm_bgp_neighbors'][vrf_item.key]['peers']  | dict2items }}"
+  when: item['value']['is_enabled'] | bool
+- name: VALIDATE BGP SESSIONS ARE RECEIVING PREFIXES
+  assert:
+    that:
+      - "{{ item['value']['address_family']['vpnv4 unicast']['received_prefixes'] > 0 }}"
+    fail_msg: "{{ item['key'] }} is not receiving any prefixes"
+    success_msg: "{{ item['key'] }} received {{ item['value']['address_family']['vpnv4 unicast']['received_prefixes'] }} prefixes"
+  loop: "{{ hostvars[inventory_hostname]['ansible_facts']['napalm_bgp_neighbors'][vrf_item.key]['peers']  | dict2items }}"
+  when: item['value']['is_enabled'] | bool
