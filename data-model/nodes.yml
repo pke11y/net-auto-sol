@@ -40,7 +40,7 @@ nodes:
         VRF_INTERNET:
             type: vpnv4
             description: SHARED INTERNET VRF
-            state: touch
+            state: absent
             rd: 2000
             rt_import: 
               - 65001:2000
@@ -92,7 +92,7 @@ nodes:
         VRF_INTERNET:
             type: vpnv4
             description: SHARED INTERNET VRF
-            state: touch
+            state: absent
             rd: 2000
             rt_import: 
               - 65001:2000
@@ -143,7 +143,7 @@ nodes:
         VRF_INTERNET:
             type: vpnv4
             description: SHARED INTERNET VRF
-            state: touch
+            state: absent
             rd: 2000
             rt_import: 
               - 65001:2000
@@ -187,7 +187,7 @@ nodes:
         VRF_INTERNET:
             type: vpnv4
             description: SHARED INTERNET VRF
-            state: touch
+            state: absent
             rd: 2000
             rt_import: 
               - 65001:2000

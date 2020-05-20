@@ -1,0 +1,45 @@
+#
+# These tasks validate service connectivity using ICMP ping packets
+# 
+#
+---
+- name: VALIDATE IP REACHABILITY
+  napalm_ping:
+    hostname: "{{ansible_host}}"
+    username: "{{ansible_user}}"
+    dev_os: "{{ansible_network_os}}"
+    password: "{{ ansible_ssh_pass }}"
+    destination: "{{ item }}"
+  register: test
+  loop: "{{ service_test_item['value'] }}"
+  tags: [deploy_ping]
+- name: SERVICE PING TEST RESULTS
+  blockinfile:
+    create: yes
+    path: "{{playbook_dir}}/results/ping_test/{{inventory_hostname}}.icmp"
+    marker: "{mark}"
+    marker_begin: "***  L3VPN IP Reachability Report: {{ lookup('pipe','date') }} "
+    marker_end: "*** END\n"
+    block: |
+      FROM: {{ inventory_hostname }} 
+      TO: {{ item.item }} 
+      SUMMARY:
+      {% if item.ping_results.get('success') %}
+          Pkt Tx:   {{ item.ping_results['success']['probes_sent'] }}
+          Pkt Loss: {{ item.ping_results['success']['packet_loss'] }}
+          RTT:
+            MIN: {{ item.ping_results['success']['rtt_min'] }}, MAX: {{ item.ping_results['success']['rtt_max'] }}, AVG: {{ item.ping_results['success']['rtt_avg'] }}, STDDEV: {{ item.ping_results['success']['rtt_stddev'] }}
+          RESULTS:
+      {% if item.ping_results['success']['probes_sent'] == item.ping_results['success']['packet_loss'] %}
+                {{ item.ping_results['success']['packet_loss']|int / item.ping_results['success']['probes_sent']|int * 100|int  }}% Packet Loss - FAILED
+      {% else %}
+                {{ item.ping_results['success']['packet_loss']|int / item.ping_results['success']['probes_sent']|int * 100|int  }}% Packet Loss 
+      {% for ping in item.ping_results['success']['results']%}
+                IP: {{ ping['ip_address'] }} RTT: {{ ping['rtt'] }}
+      {% endfor %}
+      {% endif %}
+      {% else %}
+                FAILED - Network is unreachable
+      {% endif %}
+  loop: "{{ test.results }}"
+  tags: [deploy_ping]

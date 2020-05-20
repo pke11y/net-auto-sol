@@ -52,7 +52,7 @@ services:
     internet:
       - vrf_name: "VRF_INTERNET"
         description: "SHARED INTERNET VRF"
-        state: "touch"        
+        state: "absent"        
         rd: "2000"
         rt_import:
           - "65001:2000"

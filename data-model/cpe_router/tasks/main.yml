@@ -4,14 +4,14 @@
   set_fact:
     cpe_routers: "{{ services | get_service_cpe_routers }}"
   tags: [ cpe ]
-- name: ADD NEW CPE ROUTER INTO PLAY RUNTIME INVENTORY
-  add_host:
-    name: "{{item.key}}"
-    groups: ios_cpe
-    ansible_host: "{{item.value.mgmt}}"
-    routerid: "{{item.value.routerid}}"
-    network_os: ios
-  tags: [ cpe ]
+# - name: ADD NEW CPE ROUTER INTO PLAY RUNTIME INVENTORY
+#   add_host:
+#     name: "{{item.key}}"
+#     groups: ioscpe
+#     ansible_host: "{{item.value.mgmt}}"
+#     routerid: "{{item.value.routerid}}"
+#     network_os: ios
+#   tags: [ cpe ]
   loop: "{{ cpe_routers | dict2items }}"
 - name: CREATE CPE NODE DATA MODEL
   copy:

@@ -55,6 +55,7 @@ interface {{ intf_name }}
 router bgp {{ cpe_routers[item]['asn'] }}
  bgp router-id {{ cpe_routers[item]['routerid'] }}
  bgp log-neighbor-changes
+ redistribute connected
 {% for intf_name, intf_data in cpe_routers[item]['interfaces'].items() %}
  neighbor {{ intf_data['ip'] | ipmath(1) }} remote-as {{ nodes[intf_data['remote_node']]['asn'] }}
  neighbor {{ intf_data['ip'] | ipmath(1) }} description to {{ intf_data['remote_node'] }}

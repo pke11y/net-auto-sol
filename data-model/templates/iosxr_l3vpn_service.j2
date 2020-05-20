@@ -66,6 +66,9 @@ router bgp {{ nodes[inventory_hostname]['asn'] }}
    description WAN L3VPN service for {{ vrf['customer'] }} site: {{ site['site_name'] }} 
    remote-as {{ vrf['remote_asn'] }}
    update-source {{ link['b_end_intf'] }}
+   address-family ipv4 unicast
+    route-policy ALLOW-ALL in
+    route-policy ALLOW-ALL out
 {% endif %}
 {% endfor %}
 {% endfor %}
@@ -78,6 +81,9 @@ router bgp {{ nodes[inventory_hostname]['asn'] }}
    description Internet L3VPN service for {{ site['customer'] }} site: {{ site['site_name'] }} 
    remote-as {{ site['asn'] }}
    update-source {{ link['b_end_intf'] }}
+   address-family ipv4 unicast
+    route-policy ALLOW-ALL in
+    route-policy ALLOW-ALL out   
  !
 {% endif %}
 {% endfor %}

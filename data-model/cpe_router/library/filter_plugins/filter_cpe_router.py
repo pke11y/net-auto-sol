@@ -4,7 +4,7 @@
 from ipaddress import IPv4Address, IPv4Network
 
 def get_service_cpe_routers(services):
-    """ Return a list of CPE routers (as dicts)
+    """ Return a dict of CPE routers
     """
     cpe_routers = {}
     for vpn_type, vpn_data in services.items():

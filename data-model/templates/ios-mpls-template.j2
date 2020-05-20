@@ -17,6 +17,8 @@ ip domain name {{ domain_name }}
 !
 subscriber templating
 !
+mpls ip
+mpls label protocol ldp
 {% for hostname, node_dict in nodes.items() %}
 {% if nodes[inventory_hostname]['is_rr'] == true and node_dict['type'] == 'pe' %}
 mpls ldp neighbor {{ node_dict['routerid'] }} password CISCO
@@ -36,6 +38,7 @@ username {{username}} privilege {{user_dict['privilege']}} password 0 {{user_dic
 !
 redundancy
 !
+ip cef distributed
 !
 interface Loopback0
  ip address {{nodes[inventory_hostname]['routerid']}} 255.255.255.255
@@ -43,7 +46,6 @@ interface Loopback0
 !
 interface GigabitEthernet1
  ip address {{nodes[inventory_hostname]['mgmt']}} 255.255.255.0
- ip ospf 1 area 0
  negotiation auto
 !
 {% for intf_name, intf_dict in nodes[inventory_hostname]['interfaces'].items() %}

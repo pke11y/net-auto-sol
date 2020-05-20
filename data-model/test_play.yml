@@ -1,0 +1,34 @@
+---
+- name: TEST PLAY
+  hosts: localhost
+  gather_facts: no
+  vars_files:
+    - test_facts.yml
+    - nodes.yml
+    - services.yml
+  tasks:
+    # - name: DEBUG VARIABLES 
+    #   copy:
+    #     content: "{{ vars | to_nice_yaml }}"
+    #     dest: "{{playbook_dir}}/test_facts.yml"    
+    # - debug: 
+    #     # var: "{{ hostvars['pe2.pk.lab']['ansible_facts']['napalm_bgp_neighbors'][vrf_item.key]['peers'] }}"
+    #     var=testhostvars['pe2.pk.lab']['ansible_facts']['napalm_bgp_neighbors']
+    # - name: VALIDATE BGP
+    #   include_tasks: test_validate_bgp_task.yml
+    #   loop: "{{ nodes['pe2.pk.lab']['vrfs'] | dict2items }}"
+    #   when: vrf_item.value['state'] == 'touch' 
+    #   loop_control:
+    #     loop_var: vrf_item
+    # - debug:
+    #     msg: "{{ lookup('vars', 'wan_ip_pfx')}}"
+    #     # var: nodes['pe2.pk.lab']['vrfs']
+    #   # loop: "{{ service['l3vpn'] | dict2items }} "
+    - debug:
+        # msg: "{{ item.value['sites'] | map(attribute='links') | list }}"
+        msg: "{{ item.value }}"
+        # msg: "{{ item.value | subelements('sites', skip_missing=True) }}"
+        # msg: "{{ 'touch' | map('extract', item.value, 'sites') | list }}"
+        # msg: "{{ lookup('subelements', item.value['sites'], 'links', {'skip_missing': True}) }}"
+      loop: "{{ services['l3vpn'] | dict2items }} "
+      # loop: "{{ services['l3vpn'].values() | }}"
