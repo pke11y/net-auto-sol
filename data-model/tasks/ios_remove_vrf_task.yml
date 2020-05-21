@@ -1,0 +1,14 @@
+#
+# These tasks remove an IOS IP VRF from service and assume 'connection: network_cli' transport
+#
+---
+- name: EXECUTE CONFIG REMOVAL FROM IOS XE DEVICE
+  ios_vrf:
+    name: "{{ item.key }}"
+    state: absent
+  register: ios_vrf_remove
+  tags: [remove_vrf]
+- name: DEBUG IOS VRF CONFIG REMOVAL
+  debug:
+    var: ios_vrf_remove
+  tags: [remove_vrf]

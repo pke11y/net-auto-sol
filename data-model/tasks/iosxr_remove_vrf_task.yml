@@ -1,0 +1,33 @@
+#
+# These tasks remove an IOS IP VRF from service and assume 'connection: network_cli' transport
+#
+---
+- name: CREATE CONFIG TO REMOVE IOS XR VRF
+  template: src=./templates/{{ansible_network_os}}_l3vpn_remove.j2 dest=./results/{{inventory_hostname}}_{{item.key}}_remove.cfg
+  tags: [step2, remove_vrf]
+# - name: EXECUTE CONFIG REMOVAL FROM XR DEVICE
+#   iosxr_config:
+#     src: ./results/{{inventory_hostname}}_{{item.key}}_remove.cfg
+#   register: xr_vrf_remove
+#   tags: [step2, remove_vrf]
+- name: CREATE DIFF FILES
+  local_action: file path={{playbook_dir}}/results/{{inventory_hostname}}_remove.diff state=touch
+  check_mode: no
+  tags: [step2, remove_vrf]
+- name: EXECUTE CONFIG REMOVAL FROM XR DEVICE
+  napalm_install_config:
+    hostname: "{{ inventory_hostname }}"
+    username: "{{ ansible_user }}"
+    dev_os: "{{ ansible_network_os }}"
+    password: "{{ ansible_ssh_pass }}"
+    config_file: "{{playbook_dir}}/results/{{inventory_hostname}}_{{item.key}}_remove.cfg"
+    commit_changes: True
+    replace_config: False
+    get_diffs: True
+    diff_file: "{{playbook_dir}}/results/{{inventory_hostname}}_remove.diff"
+  register: service_remove
+  tags: [step2, remove_vrf]
+- name: DEBUG CONFIG REMOVAL
+  debug:
+    var: service_remove
+  tags: [step2, remove_vrf]

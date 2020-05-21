@@ -33,7 +33,6 @@ ansible_network_os=ios
 #ansible_ssh_common_args=-o KexAlgorithms=+diffie-hellman-group1-sha1 -c aes256-cbc
 ansible_ssh_common_args='-F /home/pk/.ssh/config'
 ansible_control_path_dir=/home/pk/.ssh/controlmasters
-ansible_scp_if_ssh=true
 
 [xrpe:vars]
 ansible_network_os=iosxr
