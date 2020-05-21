@@ -1,0 +1,14 @@
+
+no vrf {{ item.key }}
+!
+{% for intf_name in item['value']['vrf_interfaces'] %}
+no interface {{ intf_name }}
+!
+{% endfor %}
+router bgp {{ nodes[inventory_hostname]['asn'] }}
+ !
+{% for intf_name, intf_data in item['value']['vrf_interfaces'].items() %}
+  no neighbor {{ intf_data['ip'] | ipaddr('1') | ipaddr('address') }}
+  !
+{% endfor %}
+  no vrf {{ item.key }}

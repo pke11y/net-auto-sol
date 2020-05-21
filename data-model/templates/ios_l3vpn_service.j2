@@ -13,8 +13,8 @@ ip vrf {{ vrf['vrf_name'] }}
 {% for rt_out in vrf['rt_export']  %}
  route-target export {{ rt_out }}
 {% endfor %}
-{% elif vrf['state'] == 'absent' %}
-no ip vrf {{ vrf['vrf_name'] }}
+{#% elif vrf['state'] == 'absent' %}
+no ip vrf {{ vrf['vrf_name'] }#}
 {% endif %}
 {% endfor %}
 !

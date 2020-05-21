@@ -3,7 +3,7 @@ service timestamps debug datetime msec
 service timestamps log datetime msec
 no service password-encryption
 !
-hostname cpe3.pk.lab
+hostname {{ item }}
 !
 boot-start-marker
 boot-end-marker
@@ -35,7 +35,7 @@ ip ssh version 2
 !
 !
 interface Loopback0
- ip address 10.10.10.13 255.255.255.255
+ ip address {{cpe_routers[item]['routerid']}} 255.255.255.255
 !
 interface FastEthernet0/0
  no ip address
@@ -44,21 +44,27 @@ interface FastEthernet0/0
 !         
 interface FastEthernet0/0.200
  encapsulation dot1Q 200
- ip address 10.0.0.58 255.255.255.0
+ ip address {{cpe_routers[item]['mgmt']}} 255.255.255.0
 !
-interface FastEthernet0/0.1033
- encapsulation dot1Q 1033
- ip address 10.0.3.9 255.255.255.252
+{% for intf_name, intf_data in cpe_routers[item]['interfaces'].items() %}
+interface {{ intf_name }}
+ encapsulation dot1Q {{ intf_name.split('.')[1] }}
+ ip address {{ intf_data['ip'] | ipaddr('address') }} 255.255.255.252
 !
-router bgp 65101
- bgp router-id 10.10.10.13
+{% endfor %}
+router bgp {{ cpe_routers[item]['asn'] }}
+ bgp router-id {{ cpe_routers[item]['routerid'] }}
  bgp log-neighbor-changes
  redistribute connected
- neighbor 10.0.3.10 remote-as 65001
- neighbor 10.0.3.10 description to pe3.pk.lab
+{% for intf_name, intf_data in cpe_routers[item]['interfaces'].items() %}
+ neighbor {{ intf_data['ip'] | ipmath(1) }} remote-as {{ nodes[intf_data['remote_node']]['asn'] }}
+ neighbor {{ intf_data['ip'] | ipmath(1) }} description to {{ intf_data['remote_node'] }}
+{% endfor %}
  !        
  address-family ipv4
-  neighbor 10.0.3.10 activate
+{% for intf_name, intf_data in cpe_routers[item]['interfaces'].items() %}
+  neighbor {{ intf_data['ip'] | ipmath(1) }} activate
+{% endfor %}
   no auto-summary
   no synchronization
  exit-address-family
