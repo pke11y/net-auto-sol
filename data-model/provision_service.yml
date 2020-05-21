@@ -15,13 +15,7 @@
     - name: BUILD CPE INVENTORY and CONFIGURATION
       include_role:
         name: cpe_router
-      # delegate_to: localhost
       tags: [ cpe ]
-    # - name: DEBUG VARIABLES 
-    #   copy:
-    #     content: "{{ vars | to_nice_yaml }}"
-    #     dest: "{{playbook_dir}}/facts.yml"     
-      # tags: [ cpe ]
     - name: DEPLOY CPE CONFIG TO DEVICES
       napalm_install_config:
         hostname: "{{ hostvars[item]['ansible_host'] }}"
@@ -66,10 +60,39 @@
   hosts: coreedge
   connection: network_cli  
   gather_facts: no
+  roles:
+    - ansible-pyats
   vars_files:
     - nodes.yml
     - services.yml
   tasks:
+    - name: GET ALL VRF DATA FROM CLI
+      cli_command:
+        command: "show bgp vpnv4 unicast all"
+      register: vpnv4_routes
+      tags: [step3, check_state]
+    - name: PARSE VPNV4 ROUTES
+      set_fact:
+        parsed_vpnv4_routes: "{{ vpnv4_routes.stdout | pyats_parser('show bgp vpnv4 unicast all', 'iosxe') }}"
+      tags: [step3, check_state]
+    - name: INCLUDE CPE NODES
+      include_vars: 
+        file: ./data_models/cpe_nodes.yml
+        name: cpe_nodes
+      tags: [step3, check_state]
+    - name: SET CPE NODES ALLOWED VRF
+      set_fact: 
+        allowed_vrfs: "{{ cpe_nodes | get_cpe_allowed_vrfs }}"
+      tags: [step3, check_state]      
+    - name: CHECK CPE NODE STATUS IN THE CORE
+      assert: 
+        that:
+          - "{{ parsed_vpnv4_routes | find_vrfs_with_ip(cpe_nodes[item]['mgmt'] + '/32', allowed_vrfs[item]) | length }} == 0"
+        fail_msg: "{{ item }} is connected to another VPN service"
+        success_msg: "{{ item }} is only connected to {{ allowed_vrfs[item] }}"
+      register: bgp_result
+      loop: "{{groups['ioscpe']}}"
+      tags: [step3, check_state]     
     - name: CREATE PE SERVICE CONFIGURATION
       template: src=./templates/{{ansible_network_os}}_l3vpn_service.j2 dest=./results/{{inventory_hostname}}_service.cfg
     - name: CREATE DIFF FILES
@@ -101,7 +124,7 @@
     #     dest: "{{playbook_dir}}/facts.yml"
     #   when: inventory_hostname == "pe2.pk.lab"          
     - name: CHECK BGP SERVICE STATUS
-      include_tasks: validate_bgp_task.yml
+      include_tasks: ./tasks/validate_bgp_task.yml
       # loop: "{{ nodes[inventory_hostname]['vrfs'] | dict2items }}"
       loop: "{{ hostvars[inventory_hostname]['ansible_facts']['napalm_bgp_neighbors'] | dict2items }}"
       when: not vrf_item.key == 'global' 
@@ -126,7 +149,7 @@
       check_mode: no          # always run
       tags: [deploy_ping]
     - name: TEST CONNECTIVITY FROM CPE TO ALL PE
-      include_tasks: service_ping_task.yml
+      include_tasks: ./tasks/service_ping_task.yml
       loop: "{{ services | get_service_test_ip | dict2items }}"
       loop_control:
         loop_var: service_test_item
@@ -140,8 +163,7 @@
     - nodes.yml
   tasks:
     - name: REMOVE SERVICES
-      # include_tasks: {{ansible_network_os}}_remove_vrf_task.yml
-      debug: msg="{{item.key}}"
+      include_tasks: ./tasks/{{ansible_network_os}}_remove_vrf_task.yml
       loop: "{{ nodes[inventory_hostname]['vrfs'] | dict2items }}"
       when: item.value['state'] == 'absent'
-      tags: [remove_vrf]
+      tags: [step2, remove_vrf]
