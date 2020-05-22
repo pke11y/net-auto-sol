@@ -1,6 +1,6 @@
 
 # Deploy MPLS/VPN Services
-These playbooks are submissions for 'exercise 3 - Data Models' as part of the Building Network Automation Solutions course on ipspace.net.
+These playbooks are submissions for exercise 3 and 4 as part of the Building Network Automation Solutions course on ipspace.net.
 
 ## Overview
 The overall objective of the playbooks is to deploy MPLS infrastructure and internal services onto a service provider IP/MPLS core network to provision and deploy enterprise L3VPN services. 
