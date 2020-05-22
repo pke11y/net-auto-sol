@@ -39,7 +39,7 @@ The **intra-service.yml** data model represents the internal L3VPN services for 
 
 - **intra_services**: a dictionary of internal MPLS services
   - **l3vpn**: a dictionary of L3VPN management services
-    - **oam**: a list of internal VRF's built as a central services L3VPN. Each VRF has a `vrf_name`, `description`, `customer` name along with the BGP/MPLS core config parameters such as 'remote_asn',  `rd`, `rt_import` and `rt_export`. The WAN will interconnect one or more core nodes, represented in `nodes` dict which is a key/value structure of IP routers and their 'interface' that is connected to the service. IP address for interfaces for this service are retrieved from the 'mgmt' field of each node.     
+    - **oam**: a list of internal VRF's built as a central services L3VPN. Each VRF has a `vrf_name`, `description`, `customer` name along with the BGP/MPLS core config parameters such as `remote_asn`,  `rd`, `rt_import` and `rt_export`. The WAN will interconnect one or more core nodes, represented in `nodes` dict which is a key/value structure of IP routers and their 'interface' that is connected to the service. IP address for interfaces for this service are retrieved from the 'mgmt' field of each node.     
 
 #### Common Services Data Model
 All common network services are described in the **common.yml**. Potential services include `snmp`, `syslog`, `ntp` and `dns`. These services are deployed on all core nodes.
@@ -60,7 +60,7 @@ The **service.yml** data model represents the MPLS production services supported
 #### CPE Node Data Model
 Customer Premise Equipment (CPE) is required to provide the service demarcation at the customer site. The `cpe_router` role will generate the **cpe_nodes.yml** data model. 
 
-Each CPE will have a `customer`, `routerid`, `asn` and IPv4 `mgmt` address. The 'interfaces' dict contains the WAn interfaces and their assocaited `cost`, `ip` and `service_type` e.g. (wan/Internet). In addition, the `remote_intf`, `remote_node` and `remote_vrf` detail the remote end of the WAN interconnection into the MPLS core network at the PE router.
+Each CPE will have a `customer`, `routerid`, `asn` and IPv4 `mgmt` address. The `interfaces` dict contains the WAn interfaces and their assocaited `cost`, `ip` and `service_type` e.g. (wan/Internet). In addition, the `remote_intf`, `remote_node` and `remote_vrf` detail the remote end of the WAN interconnection into the MPLS core network at the PE router.
 
 No LAN interfaces are considered in the data model as their implementation is customer specific for now. 
 
@@ -85,6 +85,6 @@ All configuration outputs are stored in the **results** folder.
 - **vrf_reports**: diff reports for existing and intended L3VPN services 
 
 ## Learning
-- **services.yml** data model was cumbersome to traverse. Additional loops required to loop between service types. A better option might be to capture 'type' as an attribute of VRF. 
+- **services.yml** data model was cumbersome to traverse. Additional loops required to loop between service types. A better option might be to capture `type` as an attribute of VRF. 
 - Different data model per service type also required more business logic in the templates to determine the service. This is unavoidable due to the nature of the shared L3VPN among many customers and a dedicated L3VPN for one customer e.g. shared VPN has the `customer` and 'asn' attributes at `site` level, whereas the dedicated VPN has the `customer` and `asn` attributes at `vrf` level. However, a data model should be consistent to reduce the complexity associated with processing. 
 - splitting the playbook into multiple plays meant I had to import the data models for each play (using `var_files`), which seems like a waste of processing.
