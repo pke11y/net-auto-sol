@@ -17,7 +17,7 @@ intra_services:
           - "65001:11"
         nodes:
           p1.pk.lab:
-            interface: "GigabitEthernet4"
+            interface: "GigabitEthernet4" 
           pe1.pk.lab:
             interface: "GigabitEthernet0/0/0/2"
           pe2.pk.lab:

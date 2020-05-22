@@ -9,8 +9,8 @@
   hosts: localhost
   gather_facts: no
   vars_files:
-    - nodes.yml
-    - services.yml
+    - ./data_models/nodes.yml
+    - ./data_models/services.yml
   tasks:
     - name: BUILD CPE INVENTORY and CONFIGURATION
       include_role:
@@ -63,8 +63,8 @@
   roles:
     - ansible-pyats
   vars_files:
-    - nodes.yml
-    - services.yml
+    - ./data_models/nodes.yml
+    - ./data_models/services.yml
   tasks:
     - name: GET ALL VPNV4 UNICAST DATA FROM CLI
       cli_command:
@@ -144,7 +144,7 @@
   gather_facts: no
   connection: network_cli  
   vars_files:
-    - services.yml
+    - ./data_models/services.yml
   tasks:
     - name: CREATE REPORT DIRECTORY
       local_action: file path={{playbook_dir}}/results/ping_test state=directory
@@ -168,7 +168,7 @@
   gather_facts: no
   connection: network_cli  
   vars_files:
-    - nodes.yml
+    - ./data_models/nodes.yml
   tasks:
     - name: CREATE REMOVE CONFIG DIRECTORY
       local_action: file path={{playbook_dir}}/results/remove_config state=directory
@@ -188,8 +188,8 @@
   roles:
     - ansible-pyats
   vars_files:
-    - services.yml
-    - nodes.yml
+    - ./data_models/services.yml
+    - ./data_models/nodes.yml
   tasks:
     - name: REPORT VRF DIFF
       include_tasks: ./tasks/{{ansible_network_os}}_get_vrf_task.yml
