@@ -2,9 +2,9 @@
 - hosts: localhost
   gather_facts: no
   vars_files:
-    - fabric.yml
-    - services.yml
-    - intra-services.yml
+    - ./data_models/fabric.yml
+    - ./data_models/services.yml
+    - ./data_models/intra-services.yml
   tasks:
     - name: "CREATE NODE DATA MODEL FROM SERVICE & FABRIC MODELS"
-      template: src=./templates/nodes.j2 dest=./nodes.yml
+      template: src=./templates/nodes.j2 dest=./data_models/nodes.yml

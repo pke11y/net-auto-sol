@@ -5,21 +5,25 @@
 # This playbook is dependent on running 'create_data_model.yml' to produce 'nodes.yml'
 #
 ---
-- hosts: mpls
+- hosts: coreedge
   connection: network_cli
   gather_facts: no
   vars_files:
-    - nodes.yml
-    - common.yml
+    - ./data_models/nodes.yml
+    - ./data_models/common.yml
   tasks:
-    - name: CREATE CONFIG DIRECTORY
+    - name: CREATE RESULTS DIRECTORY
       local_action: file path={{playbook_dir}}/results state=directory
+      run_once: true
+      check_mode: no  
+    - name: CREATE CONFIG DIRECTORY
+      local_action: file path={{playbook_dir}}/results/config state=directory
       run_once: true
       check_mode: no
     - name: CREATE CONFIG
-      template: src=./templates/{{ansible_network_os}}-mpls-template.j2 dest={{playbook_dir}}/results/{{inventory_hostname}}.cfg
+      template: src=./templates/{{ansible_network_os}}-mpls-template.j2 dest={{playbook_dir}}/results/config/{{inventory_hostname}}.cfg
     - name: CREATE DIFF FILES
-      local_action: file path={{playbook_dir}}/results/{{inventory_hostname}}.diff state=touch
+      local_action: file path={{playbook_dir}}/results/config/{{inventory_hostname}}.diff state=touch
       check_mode: no
     - name: DEPLOY CONFIG TO DEVICES
       napalm_install_config:
@@ -27,12 +31,56 @@
         username: "{{ ansible_user }}"
         dev_os: "{{ ansible_network_os }}"
         password: "{{ ansible_ssh_pass }}"
-        config_file: "{{playbook_dir}}/results/{{inventory_hostname}}.cfg"
+        config_file: "{{playbook_dir}}/results/config/{{inventory_hostname}}.cfg"
         commit_changes: True
         replace_config: True
         get_diffs: True
-        diff_file: "{{playbook_dir}}/results/{{inventory_hostname}}.diff"
+        diff_file: "{{playbook_dir}}/results/config/{{inventory_hostname}}.diff"
       register: result
+
+# - name: RELOAD IOS XE P and PE ROUTERS
+#   hosts: ios_pe
+#   connection: network_cli
+#   gather_facts: no
+#   tasks:
+#     - name: SET BOOT CONFIG AND RELOAD ROUTER
+#       ios_command:
+#         commands:
+#           - command: 'copy flash:/candidate_config.txt nvram:startup-config'
+#             prompt: '[startup\-config]'
+#             answer: "\r"
+#           - command: reload
+#             check_all: True
+#             prompt: 
+#               - Save\?
+#               - confirm
+#             answer: 
+#               - n
+#               - y
+
+# - name: RELOAD IOS XR PE ROUTERS
+#   hosts: xr_pe
+#   connection: network_cli
+#   gather_facts: no
+#   tasks:
+#     - name: SET BOOT CONFIG AND RELOAD ROUTER
+#       ios_command:
+#         commands:
+#           - command: 'copy flash:/candidate_config.txt nvram:startup-config'
+#             prompt: '[startup\-config]'
+#             answer: "\r"
+#           - command: 'reload'
+#             prompt: 'confirm'
+#             answer: "y"
+
+- name: VALIDATE DEPLOYMENT
+  hosts: coreedge
+  connection: network_cli
+  gather_facts: no
+  vars_files:
+    - ./data_models/nodes.yml
+    - ./data_models/common.yml
+  tasks:
     - name:  GET NAPALM FACTS 
       napalm_get_facts:
         hostname: "{{ansible_host}}"
@@ -59,20 +107,11 @@
     - name: DEBUG VARIABLES 
       copy:
         content: "{{ vars | to_nice_yaml }}"
-        dest: "{{playbook_dir}}/facts.yml"
+        dest: "{{playbook_dir}}/test/facts.yml"
       delegate_to: localhost
-    # - name: CONFIGURATION INTERFACE DEPLOYMENT SUMMARY REPORT
-    #   blockinfile:
-    #     create: yes
-    #     path: "{{playbook_dir}}/results/{{inventory_hostname}}_interface_report.txt"
-    #     marker: "*** {mark} {{inventory_hostname}} Interface Report:"
-    #     marker_begin: "{{ lookup('pipe','date') }}"
-    #     marker_end: "------"
-    #     block: |
-    #       {{item['item']['key']}}:
-    #         is_enabled: {{item['item']['value']['is_enabled']}}
-    #         is_up: {{item['item']['value']['is_up']}}
-    #   loop: "{{ interface_result.results }}"
+    - name: CREATE REPORT DIRECTORY
+      local_action: file path={{playbook_dir}}/results/reports state=directory
+      run_once: true
+      check_mode: no          # always run      
     - name: CONFIGURATION DEPLOYMENT SUMMARY REPORT
-      template: src=./templates/deployment_summary.j2 dest={{playbook_dir}}/results/{{inventory_hostname}}_deployment_report.txt
-
+      template: src=./templates/deployment_summary.j2 dest={{playbook_dir}}/results/reports/{{inventory_hostname}}_cfg_deployment_report.txt

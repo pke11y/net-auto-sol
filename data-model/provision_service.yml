@@ -66,7 +66,7 @@
     - nodes.yml
     - services.yml
   tasks:
-    - name: GET ALL VRF DATA FROM CLI
+    - name: GET ALL VPNV4 UNICAST DATA FROM CLI
       cli_command:
         command: "show bgp vpnv4 unicast all"
       register: vpnv4_routes
@@ -90,13 +90,27 @@
           - "{{ parsed_vpnv4_routes | find_vrfs_with_ip(cpe_nodes[item]['mgmt'] + '/32', allowed_vrfs[item]) | length }} == 0"
         fail_msg: "{{ item }} is connected to another VPN service"
         success_msg: "{{ item }} is only connected to {{ allowed_vrfs[item] }}"
-      register: bgp_result
+      register: vpnv4_parsing_result
       loop: "{{groups['ioscpe']}}"
-      tags: [step3, check_state]     
+      tags: [step3, check_state]
+    - name: VPNv4 RESULT TEST
+      # debug: 
+      #   msg: "{{item.key}} and {{item.value}}"
+      fail:
+        msg: 'Deployment Failed'
+      loop: "{{ vpnv4_parsing_result.results.0 | dict2items }}"
+      when: 
+        - item.key == 'failed'
+        - item.value | bool
+      tags: [step3, check_state]
+    - name: CREATE SERVICE CONFIG DIRECTORY
+      local_action: file path={{playbook_dir}}/results/service_config state=directory
+      run_once: true
+      check_mode: no          # always run
     - name: CREATE PE SERVICE CONFIGURATION
-      template: src=./templates/{{ansible_network_os}}_l3vpn_service.j2 dest=./results/{{inventory_hostname}}_service.cfg
+      template: src=./templates/{{ansible_network_os}}_l3vpn_service.j2 dest=./results/service_config/{{inventory_hostname}}_service.cfg
     - name: CREATE DIFF FILES
-      local_action: file path={{playbook_dir}}/results/{{inventory_hostname}}_service.diff state=touch
+      local_action: file path={{playbook_dir}}/results/service_config/{{inventory_hostname}}_service.diff state=touch
       check_mode: no
     - name: DEPLOY PE CONFIG TO DEVICES
       napalm_install_config:
@@ -104,11 +118,11 @@
         username: "{{ ansible_user }}"
         dev_os: "{{ ansible_network_os }}"
         password: "{{ ansible_ssh_pass }}"
-        config_file: "{{playbook_dir}}/results/{{inventory_hostname}}_service.cfg"
+        config_file: "{{playbook_dir}}/results/service_config/{{inventory_hostname}}_service.cfg"
         commit_changes: True
         replace_config: False
         get_diffs: True
-        diff_file: "{{playbook_dir}}/results/{{inventory_hostname}}_service.diff"
+        diff_file: "{{playbook_dir}}/results/service_config/{{inventory_hostname}}_service.diff"
       register: service_deploy
     - name:  GET NAPALM FACTS 
       napalm_get_facts:
@@ -117,15 +131,9 @@
         dev_os: "{{ansible_network_os}}"
         password: "{{ ansible_ssh_pass }}"
         filter: ['facts', 'interfaces', 'interfaces_ip', 'bgp_neighbors']
-      register: napalm_facts
-    # - name: DEBUG VARIABLES 
-    #   copy:
-    #     content: "{{ vars | to_nice_yaml }}"
-    #     dest: "{{playbook_dir}}/facts.yml"
-    #   when: inventory_hostname == "pe2.pk.lab"          
+      register: napalm_facts       
     - name: CHECK BGP SERVICE STATUS
       include_tasks: ./tasks/validate_bgp_task.yml
-      # loop: "{{ nodes[inventory_hostname]['vrfs'] | dict2items }}"
       loop: "{{ hostvars[inventory_hostname]['ansible_facts']['napalm_bgp_neighbors'] | dict2items }}"
       when: not vrf_item.key == 'global' 
       loop_control:
@@ -162,8 +170,27 @@
   vars_files:
     - nodes.yml
   tasks:
+    - name: CREATE REMOVE CONFIG DIRECTORY
+      local_action: file path={{playbook_dir}}/results/remove_config state=directory
+      run_once: true
+      check_mode: no          # always run
+      tags: [step2, remove_vrf]
     - name: REMOVE SERVICES
       include_tasks: ./tasks/{{ansible_network_os}}_remove_vrf_task.yml
       loop: "{{ nodes[inventory_hostname]['vrfs'] | dict2items }}"
       when: item.value['state'] == 'absent'
       tags: [step2, remove_vrf]
+
+- name: PLAY TO REPORT EXTRANEOUS SERVICES
+  hosts: coreedge
+  gather_facts: no
+  connection: network_cli
+  roles:
+    - ansible-pyats
+  vars_files:
+    - services.yml
+    - nodes.yml
+  tasks:
+    - name: REPORT VRF DIFF
+      include_tasks: ./tasks/{{ansible_network_os}}_get_vrf_task.yml
+      tags: [step4, list_vrf]

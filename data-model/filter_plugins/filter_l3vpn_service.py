@@ -2,6 +2,7 @@
 # 
 #
 from ipaddress import IPv4Address, IPv4Network
+import re
 
 def get_service_test_ip(services):
     """ Parse the service data model to extract the PE IP addresses that should be reachable for all CPE's
@@ -53,8 +54,21 @@ def get_cpe_allowed_vrfs(cpenodes):
         cpe_allowed_vrfs[cpe_name] =  allowed_vrf_names                       
     return cpe_allowed_vrfs
 
+def parse_xr_vrf(stdout_lines):
+    """ Parse IOS XR VRF command
+        Return list of vrf names
+    """
+    existing_vrfs = []
+    patt = '^vrf\s(.*)'
+    for line in stdout_lines:
+        m = re.match(patt, line)
+        if m:
+            existing_vrfs.append(m.group(1))
+    return existing_vrfs
+
 class FilterModule(object):
     def filters(self):
         return {"get_service_test_ip": get_service_test_ip,
                 "find_vrfs_with_ip": find_vrfs_with_ip,
-                "get_cpe_allowed_vrfs":get_cpe_allowed_vrfs}
+                "get_cpe_allowed_vrfs": get_cpe_allowed_vrfs,
+                "parse_xr_vrf": parse_xr_vrf}

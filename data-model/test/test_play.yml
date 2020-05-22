@@ -10,7 +10,7 @@
     # - name: DEBUG VARIABLES 
     #   copy:
     #     content: "{{ vars | to_nice_yaml }}"
-    #     dest: "{{playbook_dir}}/test_facts.yml"    
+    #     dest: "{{playbook_dir}}/test/test_facts.yml"    
     # - debug: 
     #     # var: "{{ hostvars['pe2.pk.lab']['ansible_facts']['napalm_bgp_neighbors'][vrf_item.key]['peers'] }}"
     #     var=testhostvars['pe2.pk.lab']['ansible_facts']['napalm_bgp_neighbors']

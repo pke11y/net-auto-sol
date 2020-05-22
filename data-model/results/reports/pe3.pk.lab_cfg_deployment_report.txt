@@ -1,0 +1,24 @@
+Deployment Report:
+    pe3.pk.lab
+    Fri May 22 20:22:34 IST 2020  
+---------------------------------------
+Interfaces:
+    GigabitEthernet1:
+        is_enabled: True
+        is_up: True
+    GigabitEthernet2:
+        is_enabled: True
+        is_up: True
+    GigabitEthernet3:
+        is_enabled: True
+        is_up: True
+    GigabitEthernet4:
+        is_enabled: True
+        is_up: True
+    Loopback0:
+        is_enabled: True
+        is_up: True
+BGP:
+    Neighbor: 10.10.10.4        
+        is_up: True 
+        prefixes: {'received_prefixes': 0, 'accepted_prefixes': 0, 'sent_prefixes': 0}
