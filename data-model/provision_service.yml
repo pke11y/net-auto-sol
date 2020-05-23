@@ -66,47 +66,13 @@
     - ./data_models/nodes.yml
     - ./data_models/services.yml
   tasks:
-    - name: GET ALL VPNV4 UNICAST DATA FROM CLI
-      cli_command:
-        command: "show bgp vpnv4 unicast all"
-      register: vpnv4_routes
-      tags: [step3, check_state]
-    - name: PARSE VPNV4 ROUTES
-      set_fact:
-        parsed_vpnv4_routes: "{{ vpnv4_routes.stdout | pyats_parser('show bgp vpnv4 unicast all', 'iosxe') }}"
-      tags: [step3, check_state]
-    - name: INCLUDE CPE NODES
-      include_vars: 
-        file: ./data_models/cpe_nodes.yml
-        name: cpe_nodes
-      tags: [step3, check_state]
-    - name: SET CPE NODES ALLOWED VRF
-      set_fact: 
-        allowed_vrfs: "{{ cpe_nodes | get_cpe_allowed_vrfs }}"
+    - name: CHECK IF SERVICE CPE DEVICES EXIST IN OTHER VRFs
+      include_tasks: ./tasks/{{ansible_network_os}}_cpe_all_vrf_check_task.yml
       tags: [step3, check_state]      
-    - name: CHECK CPE NODE STATUS IN THE CORE
-      assert: 
-        that:
-          - "{{ parsed_vpnv4_routes | find_vrfs_with_ip(cpe_nodes[item]['mgmt'] + '/32', allowed_vrfs[item]) | length }} == 0"
-        fail_msg: "{{ item }} is connected to another VPN service"
-        success_msg: "{{ item }} is only connected to {{ allowed_vrfs[item] }}"
-      register: vpnv4_parsing_result
-      loop: "{{groups['ioscpe']}}"
-      tags: [step3, check_state]
-    - name: VPNv4 RESULT TEST
-      # debug: 
-      #   msg: "{{item.key}} and {{item.value}}"
-      fail:
-        msg: 'Deployment Failed'
-      loop: "{{ vpnv4_parsing_result.results.0 | dict2items }}"
-      when: 
-        - item.key == 'failed'
-        - item.value | bool
-      tags: [step3, check_state]
     - name: CREATE SERVICE CONFIG DIRECTORY
       local_action: file path={{playbook_dir}}/results/service_config state=directory
       run_once: true
-      check_mode: no          # always run
+      check_mode: no          
     - name: CREATE PE SERVICE CONFIGURATION
       template: src=./templates/{{ansible_network_os}}_l3vpn_service.j2 dest=./results/service_config/{{inventory_hostname}}_service.cfg
     - name: CREATE DIFF FILES
@@ -173,7 +139,7 @@
     - name: CREATE REMOVE CONFIG DIRECTORY
       local_action: file path={{playbook_dir}}/results/remove_config state=directory
       run_once: true
-      check_mode: no          # always run
+      check_mode: no          
       tags: [step2, remove_vrf]
     - name: REMOVE SERVICES
       include_tasks: ./tasks/{{ansible_network_os}}_remove_vrf_task.yml
