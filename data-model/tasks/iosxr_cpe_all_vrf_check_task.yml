@@ -1,48 +1,50 @@
 #
-# These tasks validate BGP peering status and assume 'connection: network_cli' transport
-# NAPALM 'get_facts' is a prerequisite to running these tasks
+# These tasks check if a CPE mgmt IP exists in other VPNv4 VRF's on an IOS XR device
+#
 #
 ---
 - name: GET ALL VPNV4 UNICAST DATA FROM CLI
   cli_command:
-    command: "show bgp vpnv4 unicast"
+    command: "show route vrf all ipv4"
   register: xr_vpnv4_routes
   tags: [step3, check_state]
-# - debug: var=xr_vpnv4_routes
 - name: PARSE VPNV4 ROUTES
   set_fact:
-    parsed_vpnv4_routes: "{{ xr_vpnv4_routes.stdout | pyats_parser('show bgp vpnv4 unicast', 'iosxr') }}"
-  when: xr_vpnv4_routes.results is defined
+    xr_parsed_vpnv4_routes: "{{ xr_vpnv4_routes.stdout | pyats_parser('show route vrf all ipv4', 'iosxr') }}"
+  when: xr_vpnv4_routes.stdout is defined
+  tags: [step3, check_state]
+- debug: var=xr_parsed_vpnv4_routes
   tags: [step3, check_state]
 - name: INCLUDE CPE NODES
   include_vars: 
     file: ./data_models/cpe_nodes.yml
     name: cpe_nodes
-  when: xr_vpnv4_routes.results is defined
+  when: xr_parsed_vpnv4_routes is defined
   tags: [step3, check_state]
 - name: SET CPE NODES ALLOWED VRF
   set_fact: 
     allowed_vrfs: "{{ cpe_nodes | get_cpe_allowed_vrfs }}"
-  when: xr_vpnv4_routes.results is defined
-  tags: [step3, check_state]      
+  when: xr_parsed_vpnv4_routes is defined
+  tags: [step3, check_state]
+# - debug: msg="{{ xr_parsed_vpnv4_routes | find_vrfs_with_ip(cpe_nodes[item]['mgmt']+'/32', allowed_vrfs[item]) | map(attribute=item) | length }}"
+#   loop: "{{groups['ioscpe']}}"
+#   tags: [step3, check_state]
 - name: CHECK CPE NODE STATUS IN THE CORE
   assert: 
     that:
-      - "{{ xr_parsed_vpnv4_routes | find_vrfs_with_ip(cpe_nodes[item]['mgmt'] + '/32', allowed_vrfs[item]) | length }} == 0"
+      - "{{ xr_parsed_vpnv4_routes | verify_vpnv4_status(cpe_nodes[item]['routerid']+'/32', allowed_vrfs[item]) | bool }}"
     fail_msg: "{{ item }} is connected to another VPN service"
     success_msg: "{{ item }} is only connected to {{ allowed_vrfs[item] }}"
-  register: xr_vpnv4_parsing_result
+  register: xr_vrf_check_result
   loop: "{{groups['ioscpe']}}"
-  when: xr_vpnv4_routes.results is defined
+  when: xr_parsed_vpnv4_routes is defined
   tags: [step3, check_state]
-- name: VPNv4 RESULT TEST
-  # debug: 
-  #   msg: "{{item.key}} and {{item.value}}"
-  fail:
-    msg: 'Deployment Failed'
-  loop: "{{ xr_vpnv4_parsing_result.results.0 | dict2items }}"
-  when: 
-    - item.key == 'failed'
-    - item.value | bool
-    - xr_vpnv4_routes.results is defined
-  tags: [step3, check_state]
+# - name: VPNv4 RESULT TEST
+#   fail:
+#     msg: 'Deployment Failed'
+#   loop: "{{ xr_vrf_check_result.results.0 | dict2items }}"
+#   when: 
+#     - item.key == 'failed'
+#     - item.value | bool
+#     - xr_vrf_check_result.results is defined
+#   tags: [step3, check_state]

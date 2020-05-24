@@ -285,3 +285,316 @@ SUMMARY:
           100.0% Packet Loss - FAILED
 *** END
 
+***  L3VPN IP Reachability Report: Sat May 23 20:56:41 IST 2020 
+FROM: cpe1.pk.lab 
+TO: 10.0.3.2 
+SUMMARY:
+    Pkt Tx:   5
+    Pkt Loss: 5
+    RTT:
+      MIN: 0.0, MAX: 0.0, AVG: 0.0, STDDEV: 0.0
+    RESULTS:
+          100.0% Packet Loss - FAILED
+*** END
+
+***  L3VPN IP Reachability Report: Sat May 23 20:56:45 IST 2020 
+FROM: cpe1.pk.lab 
+TO: 10.0.3.6 
+SUMMARY:
+    Pkt Tx:   5
+    Pkt Loss: 5
+    RTT:
+      MIN: 0.0, MAX: 0.0, AVG: 0.0, STDDEV: 0.0
+    RESULTS:
+          100.0% Packet Loss - FAILED
+*** END
+
+***  L3VPN IP Reachability Report: Sat May 23 20:56:47 IST 2020 
+FROM: cpe1.pk.lab 
+TO: 10.0.3.10 
+SUMMARY:
+    Pkt Tx:   5
+    Pkt Loss: 5
+    RTT:
+      MIN: 0.0, MAX: 0.0, AVG: 0.0, STDDEV: 0.0
+    RESULTS:
+          100.0% Packet Loss - FAILED
+*** END
+
+***  L3VPN IP Reachability Report: Sat May 23 20:57:07 IST 2020 
+FROM: cpe1.pk.lab 
+TO: 10.0.4.2 
+SUMMARY:
+    Pkt Tx:   5
+    Pkt Loss: 5
+    RTT:
+      MIN: 0.0, MAX: 0.0, AVG: 0.0, STDDEV: 0.0
+    RESULTS:
+          100.0% Packet Loss - FAILED
+*** END
+
+***  L3VPN IP Reachability Report: Sat May 23 21:12:15 IST 2020 
+FROM: cpe1.pk.lab 
+TO: 10.0.3.2 
+SUMMARY:
+    Pkt Tx:   5
+    Pkt Loss: 0
+    RTT:
+      MIN: 4.0, MAX: 16.0, AVG: 8.0, STDDEV: 0.0
+    RESULTS:
+          0.0% Packet Loss 
+          IP: 10.0.3.2 RTT: 0.0
+          IP: 10.0.3.2 RTT: 0.0
+          IP: 10.0.3.2 RTT: 0.0
+          IP: 10.0.3.2 RTT: 0.0
+          IP: 10.0.3.2 RTT: 0.0
+*** END
+
+***  L3VPN IP Reachability Report: Sat May 23 21:12:18 IST 2020 
+FROM: cpe1.pk.lab 
+TO: 10.0.3.6 
+SUMMARY:
+    Pkt Tx:   5
+    Pkt Loss: 5
+    RTT:
+      MIN: 0.0, MAX: 0.0, AVG: 0.0, STDDEV: 0.0
+    RESULTS:
+          100.0% Packet Loss - FAILED
+*** END
+
+***  L3VPN IP Reachability Report: Sat May 23 21:12:18 IST 2020 
+FROM: cpe1.pk.lab 
+TO: 10.0.3.10 
+SUMMARY:
+    Pkt Tx:   5
+    Pkt Loss: 5
+    RTT:
+      MIN: 0.0, MAX: 0.0, AVG: 0.0, STDDEV: 0.0
+    RESULTS:
+          100.0% Packet Loss - FAILED
+*** END
+
+***  L3VPN IP Reachability Report: Sat May 23 21:12:38 IST 2020 
+FROM: cpe1.pk.lab 
+TO: 10.0.4.2 
+SUMMARY:
+    Pkt Tx:   5
+    Pkt Loss: 5
+    RTT:
+      MIN: 0.0, MAX: 0.0, AVG: 0.0, STDDEV: 0.0
+    RESULTS:
+          100.0% Packet Loss - FAILED
+*** END
+
+***  L3VPN IP Reachability Report: Sun May 24 09:35:23 IST 2020 
+FROM: cpe1.pk.lab 
+TO: 10.0.3.2 
+SUMMARY:
+    Pkt Tx:   5
+    Pkt Loss: 0
+    RTT:
+      MIN: 4.0, MAX: 56.0, AVG: 16.0, STDDEV: 0.0
+    RESULTS:
+          0.0% Packet Loss 
+          IP: 10.0.3.2 RTT: 0.0
+          IP: 10.0.3.2 RTT: 0.0
+          IP: 10.0.3.2 RTT: 0.0
+          IP: 10.0.3.2 RTT: 0.0
+          IP: 10.0.3.2 RTT: 0.0
+*** END
+
+***  L3VPN IP Reachability Report: Sun May 24 09:35:26 IST 2020 
+FROM: cpe1.pk.lab 
+TO: 10.0.3.6 
+SUMMARY:
+    Pkt Tx:   5
+    Pkt Loss: 5
+    RTT:
+      MIN: 0.0, MAX: 0.0, AVG: 0.0, STDDEV: 0.0
+    RESULTS:
+          100.0% Packet Loss - FAILED
+*** END
+
+***  L3VPN IP Reachability Report: Sun May 24 09:35:27 IST 2020 
+FROM: cpe1.pk.lab 
+TO: 10.0.3.10 
+SUMMARY:
+    Pkt Tx:   5
+    Pkt Loss: 5
+    RTT:
+      MIN: 0.0, MAX: 0.0, AVG: 0.0, STDDEV: 0.0
+    RESULTS:
+          100.0% Packet Loss - FAILED
+*** END
+
+***  L3VPN IP Reachability Report: Sun May 24 09:35:46 IST 2020 
+FROM: cpe1.pk.lab 
+TO: 10.0.4.2 
+SUMMARY:
+    Pkt Tx:   5
+    Pkt Loss: 5
+    RTT:
+      MIN: 0.0, MAX: 0.0, AVG: 0.0, STDDEV: 0.0
+    RESULTS:
+          100.0% Packet Loss - FAILED
+*** END
+
+***  L3VPN IP Reachability Report: Sun May 24 09:56:53 IST 2020 
+FROM: cpe1.pk.lab 
+TO: 10.0.3.2 
+SUMMARY:
+    Pkt Tx:   5
+    Pkt Loss: 0
+    RTT:
+      MIN: 4.0, MAX: 8.0, AVG: 6.0, STDDEV: 0.0
+    RESULTS:
+          0.0% Packet Loss 
+          IP: 10.0.3.2 RTT: 0.0
+          IP: 10.0.3.2 RTT: 0.0
+          IP: 10.0.3.2 RTT: 0.0
+          IP: 10.0.3.2 RTT: 0.0
+          IP: 10.0.3.2 RTT: 0.0
+*** END
+
+***  L3VPN IP Reachability Report: Sun May 24 09:56:57 IST 2020 
+FROM: cpe1.pk.lab 
+TO: 10.0.3.6 
+SUMMARY:
+    Pkt Tx:   5
+    Pkt Loss: 5
+    RTT:
+      MIN: 0.0, MAX: 0.0, AVG: 0.0, STDDEV: 0.0
+    RESULTS:
+          100.0% Packet Loss - FAILED
+*** END
+
+***  L3VPN IP Reachability Report: Sun May 24 09:56:57 IST 2020 
+FROM: cpe1.pk.lab 
+TO: 10.0.3.10 
+SUMMARY:
+    Pkt Tx:   5
+    Pkt Loss: 5
+    RTT:
+      MIN: 0.0, MAX: 0.0, AVG: 0.0, STDDEV: 0.0
+    RESULTS:
+          100.0% Packet Loss - FAILED
+*** END
+
+***  L3VPN IP Reachability Report: Sun May 24 09:57:17 IST 2020 
+FROM: cpe1.pk.lab 
+TO: 10.0.4.2 
+SUMMARY:
+    Pkt Tx:   5
+    Pkt Loss: 5
+    RTT:
+      MIN: 0.0, MAX: 0.0, AVG: 0.0, STDDEV: 0.0
+    RESULTS:
+          100.0% Packet Loss - FAILED
+*** END
+
+***  L3VPN IP Reachability Report: Sun May 24 10:03:49 IST 2020 
+FROM: cpe1.pk.lab 
+TO: 10.0.3.2 
+SUMMARY:
+    Pkt Tx:   5
+    Pkt Loss: 0
+    RTT:
+      MIN: 4.0, MAX: 8.0, AVG: 5.0, STDDEV: 0.0
+    RESULTS:
+          0.0% Packet Loss 
+          IP: 10.0.3.2 RTT: 0.0
+          IP: 10.0.3.2 RTT: 0.0
+          IP: 10.0.3.2 RTT: 0.0
+          IP: 10.0.3.2 RTT: 0.0
+          IP: 10.0.3.2 RTT: 0.0
+*** END
+
+***  L3VPN IP Reachability Report: Sun May 24 10:03:52 IST 2020 
+FROM: cpe1.pk.lab 
+TO: 10.0.3.6 
+SUMMARY:
+    Pkt Tx:   5
+    Pkt Loss: 5
+    RTT:
+      MIN: 0.0, MAX: 0.0, AVG: 0.0, STDDEV: 0.0
+    RESULTS:
+          100.0% Packet Loss - FAILED
+*** END
+
+***  L3VPN IP Reachability Report: Sun May 24 10:03:53 IST 2020 
+FROM: cpe1.pk.lab 
+TO: 10.0.3.10 
+SUMMARY:
+    Pkt Tx:   5
+    Pkt Loss: 5
+    RTT:
+      MIN: 0.0, MAX: 0.0, AVG: 0.0, STDDEV: 0.0
+    RESULTS:
+          100.0% Packet Loss - FAILED
+*** END
+
+***  L3VPN IP Reachability Report: Sun May 24 10:04:12 IST 2020 
+FROM: cpe1.pk.lab 
+TO: 10.0.4.2 
+SUMMARY:
+    Pkt Tx:   5
+    Pkt Loss: 5
+    RTT:
+      MIN: 0.0, MAX: 0.0, AVG: 0.0, STDDEV: 0.0
+    RESULTS:
+          100.0% Packet Loss - FAILED
+*** END
+
+***  L3VPN IP Reachability Report: Sun May 24 17:08:01 IST 2020 
+FROM: cpe1.pk.lab 
+TO: 10.0.3.2 
+SUMMARY:
+    Pkt Tx:   5
+    Pkt Loss: 0
+    RTT:
+      MIN: 4.0, MAX: 12.0, AVG: 8.0, STDDEV: 0.0
+    RESULTS:
+          0.0% Packet Loss 
+          IP: 10.0.3.2 RTT: 0.0
+          IP: 10.0.3.2 RTT: 0.0
+          IP: 10.0.3.2 RTT: 0.0
+          IP: 10.0.3.2 RTT: 0.0
+          IP: 10.0.3.2 RTT: 0.0
+*** END
+
+***  L3VPN IP Reachability Report: Sun May 24 17:08:04 IST 2020 
+FROM: cpe1.pk.lab 
+TO: 10.0.3.6 
+SUMMARY:
+    Pkt Tx:   5
+    Pkt Loss: 5
+    RTT:
+      MIN: 0.0, MAX: 0.0, AVG: 0.0, STDDEV: 0.0
+    RESULTS:
+          100.0% Packet Loss - FAILED
+*** END
+
+***  L3VPN IP Reachability Report: Sun May 24 17:08:05 IST 2020 
+FROM: cpe1.pk.lab 
+TO: 10.0.3.10 
+SUMMARY:
+    Pkt Tx:   5
+    Pkt Loss: 5
+    RTT:
+      MIN: 0.0, MAX: 0.0, AVG: 0.0, STDDEV: 0.0
+    RESULTS:
+          100.0% Packet Loss - FAILED
+*** END
+
+***  L3VPN IP Reachability Report: Sun May 24 17:08:24 IST 2020 
+FROM: cpe1.pk.lab 
+TO: 10.0.4.2 
+SUMMARY:
+    Pkt Tx:   5
+    Pkt Loss: 5
+    RTT:
+      MIN: 0.0, MAX: 0.0, AVG: 0.0, STDDEV: 0.0
+    RESULTS:
+          100.0% Packet Loss - FAILED
+*** END
+

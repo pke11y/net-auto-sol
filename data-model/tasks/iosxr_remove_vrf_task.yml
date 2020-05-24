@@ -11,7 +11,7 @@
 #   register: xr_vrf_remove
 #   tags: [step2, remove_vrf]
 - name: CREATE DIFF FILES
-  local_action: file path={{playbook_dir}}/results/remove/remove_config/{{inventory_hostname}}_remove.diff state=touch
+  local_action: file path={{playbook_dir}}/results/remove_config/{{inventory_hostname}}_remove.diff state=touch
   check_mode: no
   tags: [step2, remove_vrf]
 - name: EXECUTE CONFIG REMOVAL FROM XR DEVICE

@@ -1,20 +1,9 @@
 --- 
 +++ 
-@@ -2,6 +2,28 @@
+@@ -13,6 +13,17 @@
+   !
+  !
  !
- hostname pe1.pk.lab
- domain name pk.lab
-+vrf VRF_ACME
-+ description L3VPN service for ACME
-+ address-family ipv4 unicast
-+  import route-target
-+   65001:100
-+  !
-+  export route-target
-+   65001:100
-+  !
-+ !
-+!
 +vrf VRF_INTERNET
 + description L3VPN service for INTERNET
 + address-family ipv4 unicast
@@ -29,7 +18,7 @@
  snmp-server host 192.168.0.3 traps version 2c public
  snmp-server host 192.168.0.4 traps version 2c public
  snmp-server trap-timeout 3
-@@ -14,6 +36,16 @@
+@@ -25,6 +36,11 @@
  !
  interface GigabitEthernet0/0/0/0
   ipv4 address 10.0.1.1 255.255.255.254
@@ -38,27 +27,13 @@
 + description WAN L3VPN service for ACME site: SITE_A
 + vrf VRF_INTERNET
 + ipv4 address 10.0.4.2 255.255.255.252
-+!
-+interface GigabitEthernet0/0/0/2
-+ description WAN L3VPN service for ACME site: SITE_A
-+ vrf VRF_ACME
-+ ipv4 address 10.0.3.2 255.255.255.252
  !
- !
- route-policy ALLOW-ALL
-@@ -39,10 +71,40 @@
+ interface GigabitEthernet0/0/0/2
+  description WAN L3VPN service for ACME site: SITE_A
+@@ -64,6 +80,15 @@
+    route-policy ALLOW-ALL out
+   !
   !
-  address-family vpnv4 unicast
-  !
-+ neighbor 10.0.3.1
-+  remote-as 65101
-+  description WAN L3VPN service for ACME site: SITE_A
-+  update-source GigabitEthernet0/0/0/2
-+  address-family ipv4 unicast
-+   route-policy ALLOW-ALL in
-+   route-policy ALLOW-ALL out
-+  !
-+ !
 + neighbor 10.0.4.1
 +  remote-as 65101
 +  description Internet L3VPN service for ACME site: SITE_A
@@ -71,19 +46,16 @@
   neighbor 10.10.10.4
    remote-as 65001
    description p1.pk.lab
-   update-source Loopback0
-+ !
-+ vrf VRF_ACME
-+  rd 10.10.10.1:100
+@@ -71,6 +96,12 @@
+  !
+  vrf VRF_ACME
+   rd 10.10.10.1:100
 +  address-family ipv4 unicast
 +   redistribute connected
 +  !
 + !
 + vrf VRF_INTERNET
 +  rd 10.10.10.1:2000
-+  address-family ipv4 unicast
-+   redistribute connected
-+  !
-  !
- !
- mpls ldp
+   address-family ipv4 unicast
+    redistribute connected
+   !

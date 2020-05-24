@@ -1,6 +1,6 @@
 --- 
 +++ 
-@@ -14,17 +14,6 @@
+@@ -13,17 +13,6 @@
    !
   !
  !
@@ -18,7 +18,7 @@
  snmp-server host 192.168.0.3 traps version 2c public
  snmp-server host 192.168.0.4 traps version 2c public
  snmp-server trap-timeout 3
-@@ -37,11 +26,6 @@
+@@ -36,11 +25,6 @@
  !
  interface GigabitEthernet0/0/0/0
   ipv4 address 10.0.1.1 255.255.255.254
@@ -30,7 +30,7 @@
  !
  interface GigabitEthernet0/0/0/2
   description WAN L3VPN service for ACME site: SITE_A
-@@ -90,15 +74,6 @@
+@@ -80,15 +64,6 @@
     route-policy ALLOW-ALL out
    !
   !
@@ -46,7 +46,7 @@
   neighbor 10.10.10.4
    remote-as 65001
    description p1.pk.lab
-@@ -108,12 +83,6 @@
+@@ -96,12 +71,6 @@
   !
   vrf VRF_ACME
    rd 10.10.10.1:100
