@@ -1,0 +1,6 @@
+ping-report/customer_dia_mfw_utf8.csv
+ping-report/customer_dia_mfw_utf8_test.csv
+ping-report/ping-vars.yml
+summary-report/filter_plugins/__pycache__/
+summary-report/roles/ansible-pyats
+ping-report/results/
