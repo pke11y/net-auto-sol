@@ -1,0 +1,38 @@
+# Create Connectivity Report
+# 
+#
+---
+- name: "Read data from Excel file and return a dictionary"
+  hosts: localhost
+  connection: local
+  tasks:
+  - name: "Read data" 
+    read_csv:
+      path: customer_dia_mfw_utf8.csv
+      key: Subnet
+      unique: yes
+    register: customers
+  - name: "Add IP Addresses within subnet"
+    set_fact:
+      cust_data: "{{ customers.dict | addiprange }}"
+  - debug:
+      var: cust_data
+
+- name: "Generate Report"
+  hosts: localhost
+  connection: local
+  tasks:
+  - name: "Iterate through customers"
+    include_tasks: ping_host.yml
+    loop: "{{ cust_data | dict2items }}"
+    ignore_errors: true
+    loop_control:
+      loop_var: cust_item
+  - name: "Offline print vars for debug"
+    copy:
+      content: "{{vars | to_nice_yaml(indent=4)}}"
+      dest: "{{playbook_dir}}/results/ping-vars.yml"
+  - name: "Create Report"
+    template: src={{playbook_dir}}/templates/ping-report.j2 dest={{playbook_dir}}/results/mns_report.txt
+  # - name: "Filter Failed IP"
+  #   template: src={{playbook_dir}}/templates/ping-filter.j2 dest={{playbook_dir}}/customer_dia_mfw_filter.csv

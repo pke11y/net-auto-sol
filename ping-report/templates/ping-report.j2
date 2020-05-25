@@ -1,0 +1,61 @@
+{% macro pingreturn(code) %}
+{% if code == 0 %}
+Success
+{% elif code == 1 %}
+Failed
+{% else %}
+Unknown
+{% endif %}
+{% endmacro%}
+#
+{% macro mint(code) %}
+{% if regex_search("internet", ignorecase=True) %}
+1
+{% else %}
+0
+{% endif %}
+{% endmacro%}
+#
+{% macro mfw(code) %}
+{% if regex_search("firewall", ignorecase=True) %}
+1
+{% else %}
+0
+{% endif %}
+{% endmacro%}
+#
+{% set ttx = namespace(totaltx = 0) %}
+{% set trx = namespace(totalrx = 0) %}
+{% set minttx = namespace(minttotaltx = 0) %}
+{% set mintrx = namespace(minttotalrx = 0) %}
+{% set mfwtx = namespace(mfwtotaltx = 0) %}
+{% set mfwrx = namespace(mfwtotalrx = 0) %}
+{% for prefix, custdict in cust_data.items()%}
+{{'\n'}}Customer Name: {{custdict['Customer']}} Site: {{custdict['Site']}}
+Product: {{custdict['Solution Type'] | default('N/A')}}
+{% set id = custdict['ID'] %}
+{% set ctx = namespace(custtotaltx = 0) %}
+{% set crx = namespace(custtotalrx = 0) %}
+{#{% for pingresult in vars.cust_results[id].results %}#}
+{##}{% for pingresult in vars[id].results %}
+{##}IP: {{pingresult.item}} Status: {{pingreturn(pingresult.rc)}} Result: {{ pingresult.stdout_lines[pingresult.rc-2]}}
+{% set itemresult = pingresult.stdout_lines[pingresult.rc-2] | regex_findall('\\d+') %}
+{% set ctx.custtotaltx = ctx.custtotaltx + itemresult[0] | int %}
+{% set crx.custtotalrx = crx.custtotalrx + itemresult[1] | int %}
+{% if custdict['Solution Type'] | regex_search("internet", ignorecase=True) %}
+{% set minttx.minttotaltx =  minttx.minttotaltx + itemresult[0] | int %}
+{% set mintrx.minttotalrx = mintrx.minttotalrx + itemresult[1] | int %}
+{% endif %}
+{% if custdict['Solution Type'] | regex_search("firewall", ignorecase=True) %}
+{% set mfwtx.mfwtotaltx =  mfwtx.mfwtotaltx + itemresult[0] | int %}
+{% set mfwrx.mfwtotalrx = mfwrx.mfwtotalrx + itemresult[1] | int %}
+{% endif %}
+{##}{% endfor %}
+{{custdict['Customer']}} SUMMARY: TX:{{ctx.custtotaltx}} SUCCESS:{{crx.custtotalrx}} FAILED:{{ctx.custtotaltx - crx.custtotalrx}}
+{% set ttx.totaltx = ttx.totaltx + ctx.custtotaltx %}
+{% set trx.totalrx = trx.totalrx + crx.custtotalrx %}
+{% endfor %}
+{{'\n'}}
+INTERNET: TX:{{minttx.minttotaltx}} SUCCESS:{{mintrx.minttotalrx}} FAILED:{{minttx.minttotaltx - mintrx.minttotalrx}}
+FIREWALL: TX:{{mfwtx.mfwtotaltx}} SUCCESS:{{mfwrx.mfwtotalrx}} FAILED:{{mfwtx.mfwtotaltx - mfwrx.mfwtotalrx}}
+SUMMARY: TX:{{ttx.totaltx}} SUCCESS:{{trx.totalrx}} FAILED:{{ttx.totaltx - trx.totalrx}}

@@ -1,0 +1,11 @@
+---
+- name: "Try to reach managed device {{cust_item.value.Customer}}"
+  shell: "ping -c 1 -W 1 {{item}}"
+  ignore_errors: true
+  register: result
+  loop: "{{ cust_item.value.PublicIPs }}"
+- set_fact: {"{{ cust_item.value.ID }}":"{{ result }}"}
+# - set_fact: {"cust_results": {"{{ cust_item.value.ID }}":"{{ result }}"}}
+# - set_fact: "{{ {'cust_results': {cust_item.value.ID:result}} }}"
+# - set_fact: "{{ {'a':{'foo':1, 'bar':2}, 'b':2} | combine({'a':{'bar':3, 'baz':4}}) }}"
+# - set_fact: "{{ {'cust_results': {'':''}} | combine({'cust_results':{cust_item.value.ID:result}}) }}"
