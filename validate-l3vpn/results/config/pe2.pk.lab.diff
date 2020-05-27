@@ -1,0 +1,9 @@
++mpls ip
++ip cef distributed
+-license udi pid CSR1000V sn 9G82IZA1QBP
+-interface GigabitEthernet3
+ -no ip address
+ -negotiation auto
+-interface GigabitEthernet4
+ -no ip address
+ -negotiation auto

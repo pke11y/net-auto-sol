@@ -1,0 +1,66 @@
+*** VRF REPORT: Fri May 22 19:39:57 IST 2020 
+NODE: pe3.pk.lab 
+-------------------------
+EXISTING: 
+    ['VRF_ACME', 'VRF_INTERNET']
+EXPECTED: 
+    ['VRF_OAM', 'VRF_ACME', 'VRF_INTERNET']
+DIFF: 
+    []
+*** END
+
+*** VRF REPORT: Fri May 22 19:44:12 IST 2020 
+NODE: pe3.pk.lab 
+-------------------------
+EXISTING: 
+    VRF_ACME
+    VRF_INTERNET
+EXPECTED:
+    ['VRF_OAM', 'VRF_ACME', 'VRF_INTERNET']
+    ['VRF_OAM', 'VRF_ACME', 'VRF_INTERNET']
+DIFF: 
+    ['VRF_OAM']
+*** END
+
+*** VRF REPORT: Fri May 22 19:46:17 IST 2020 
+NODE: pe3.pk.lab 
+-------------------------
+EXISTING: 
+    VRF_ACME
+    VRF_INTERNET
+EXPECTED:
+    VRF_OAM
+    VRF_ACME
+    VRF_INTERNET
+DIFF: 
+    ['VRF_OAM']
+*** END
+
+*** VRF REPORT: Fri May 22 19:52:47 IST 2020 
+NODE: pe3.pk.lab 
+-------------------------
+EXISTING: (on the node)
+    VRF_ACME
+    VRF_INTERNET
+EXPECTED: (in service provisioning file)
+    VRF_OAM
+    VRF_ACME
+    VRF_INTERNET
+DIFF: 
+    ['VRF_OAM']
+*** END
+
+*** VRF REPORT: Fri May 22 19:53:47 IST 2020 
+NODE: pe3.pk.lab 
+-------------------------
+EXISTING: (on the node)
+    VRF_ACME
+    VRF_INTERNET
+EXPECTED: (in service provisioning file)
+    VRF_OAM
+    VRF_ACME
+    VRF_INTERNET
+DIFF: 
+    ['VRF_OAM']
+*** END
+

@@ -1,0 +1,98 @@
+nodes:
+{% for node_type, nodes_vals in nodes.items() %}
+{% for node_name, node_data in nodes_vals.items() %}
+  {{node_name}}:
+    routerid: {{node_data['routerid']}}
+    mgmt: {{node_data['mgmt']}}
+    asn: {{ node_data['asn'] }}
+    type: {{ node_type }}
+{% if node_type == 'p': %}
+    is_rr: True
+{% else: %}
+    is_rr: False
+{% endif %}
+    interfaces:
+{% for link in links %}
+{% if link['a_end'] == node_name: %}
+        {{ link['a_end_intf'] }}: 
+          ip: {{ link['link_ip_pfx'] | ipaddr('0') }}
+          cost: {{ link['cost'] }}
+{% elif link['b_end'] == node_name %}
+        {{ link['b_end_intf'] }}: 
+          ip: {{ link['link_ip_pfx'] | ipaddr('1') }}
+          cost: {{link['cost']}}
+{% endif %}
+{% endfor %}
+{# ---INTRA SERVICES--- #}
+{% for vpn_type, intravpn_data in intra_services.items() %}
+{% if vpn_type == 'l3vpn' %}
+    vrfs:
+{% for intraservice_type, intraservice_vrfs in intravpn_data.items() %}
+{% for vrf in intraservice_vrfs %}
+        {{ vrf['vrf_name'] }}:
+            type: vpnv4
+            description: {{ vrf['description'] }}
+            state: {{ vrf['state'] }}
+            rd: {{ vrf['rd'] }}
+            rt_import: 
+{% for rt_in in vrf['rt_import'] %}
+              - {{ rt_in }}
+{% endfor %}
+            rt_export:
+{% for rt_out in vrf['rt_export'] %}
+              - {{ rt_out }}
+{% endfor %}
+            vrf_interfaces:
+{% for node_hostname, vrf_nodes in vrf['nodes'].items() %}
+{% if node_hostname == node_name %}
+              {{ vrf_nodes['interface'] }}:
+                ip: {{node_data['mgmt']}}/24
+                description: "OUT OF BAND OAM INTRA SERVICE for {{ vrf['customer'] }}"
+{% endif %}
+{% endfor %}
+{% endfor %}
+{% endfor %}
+{% endif %}
+{% endfor %}
+{# ---PRODUCTION CUSTOMER SERVICES--- #}
+{% if node_type == 'pe' %}
+{% for vpn_type, vpn_data in services.items() %}
+{% if vpn_type == 'l3vpn' %}
+{% for service_type, service_vrfs in vpn_data.items() %}
+{% for vrf in service_vrfs %}
+        {{ vrf['vrf_name'] }}:
+            type: vpnv4
+            description: {{ vrf['description'] }}
+            state: {{ vrf['state'] }}
+            rd: {{ vrf['rd'] }}
+            rt_import: 
+{% for rt_in in vrf['rt_import'] %}
+              - {{ rt_in }}
+{% endfor %}
+            rt_export:
+{% for rt_out in vrf['rt_export'] %}
+              - {{ rt_out }}
+{% endfor %}
+            vrf_interfaces:
+{% for site in vrf['sites'] %}
+{% for link in site['links'] %}
+{% if link['b_end'] == node_name: %}
+              {{ link['b_end_intf'] }}:
+                ip: {{ link['wan_ip_pfx'] | ipaddr('2') }}
+{% if service_type == 'wan' %}
+                remote_asn: {{ vrf['remote_asn'] }}
+                description: "WAN L3VPN service for {{ vrf['customer'] }} site: {{ site['site_name'] }}"
+{% elif service_type == 'internet' %}
+                remote_asn: {{ site['asn'] }}
+                description: "INTERNET L3VPN service for {{ site['customer'] }} site: {{ site['site_name'] }}"
+{% endif %}
+{% endif %}
+{% endfor %}
+{% endfor %}
+{% endfor %}
+{% endfor %}
+{% endif %}
+{% endfor %}
+{% endif %}
+{% endfor %}
+{% endfor %}

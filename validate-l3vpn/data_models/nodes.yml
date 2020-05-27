@@ -1,0 +1,226 @@
+nodes:
+  pe1.pk.lab:
+    routerid: 10.10.10.1
+    mgmt: 10.0.0.51
+    asn: 65001
+    type: pe
+    is_rr: False
+    interfaces:
+        GigabitEthernet0/0/0/0: 
+          ip: 10.0.1.1/31
+          cost: 5
+    vrfs:
+        VRF_OAM:
+            type: vpnv4
+            description: OOB MGMT VRF
+            state: started
+            rd: 10
+            rt_import: 
+              - 65001:10
+            rt_export:
+              - 65001:11
+            vrf_interfaces:
+              GigabitEthernet0/0/0/2:
+                ip: 10.0.0.51/24
+                description: "OUT OF BAND OAM INTRA SERVICE for IP CORE"
+        VRF_ACME:
+            type: vpnv4
+            description: TEST VRF
+            state: touch
+            rd: 100
+            rt_import: 
+              - 65001:100
+            rt_export:
+              - 65001:100
+            vrf_interfaces:
+              GigabitEthernet0/0/0/2:
+                ip: 10.0.3.2/30
+                remote_asn: 65101
+                description: "WAN L3VPN service for ACME site: SITE_A"
+        VRF_INTERNET:
+            type: vpnv4
+            description: SHARED INTERNET VRF
+            state: absent
+            rd: 2000
+            rt_import: 
+              - 65001:2000
+            rt_export:
+              - 65001:2000
+            vrf_interfaces:
+              GigabitEthernet0/0/0/1:
+                ip: 10.0.4.2/30
+                remote_asn: 65101
+                description: "INTERNET L3VPN service for ACME site: SITE_A"
+  pe2.pk.lab:
+    routerid: 10.10.10.2
+    mgmt: 10.0.0.52
+    asn: 65001
+    type: pe
+    is_rr: False
+    interfaces:
+        GigabitEthernet2: 
+          ip: 10.0.1.5/31
+          cost: 5
+    vrfs:
+        VRF_OAM:
+            type: vpnv4
+            description: OOB MGMT VRF
+            state: started
+            rd: 10
+            rt_import: 
+              - 65001:10
+            rt_export:
+              - 65001:11
+            vrf_interfaces:
+              GigabitEthernet4:
+                ip: 10.0.0.52/24
+                description: "OUT OF BAND OAM INTRA SERVICE for IP CORE"
+        VRF_ACME:
+            type: vpnv4
+            description: TEST VRF
+            state: touch
+            rd: 100
+            rt_import: 
+              - 65001:100
+            rt_export:
+              - 65001:100
+            vrf_interfaces:
+              GigabitEthernet3:
+                ip: 10.0.3.6/30
+                remote_asn: 65101
+                description: "WAN L3VPN service for ACME site: SITE_B"
+        VRF_INTERNET:
+            type: vpnv4
+            description: SHARED INTERNET VRF
+            state: absent
+            rd: 2000
+            rt_import: 
+              - 65001:2000
+            rt_export:
+              - 65001:2000
+            vrf_interfaces:
+  pe3.pk.lab:
+    routerid: 10.10.10.3
+    mgmt: 10.0.0.53
+    asn: 65001
+    type: pe
+    is_rr: False
+    interfaces:
+        GigabitEthernet2: 
+          ip: 10.0.1.3/31
+          cost: 5
+        GigabitEthernet3: 
+          ip: 10.0.1.6/31
+          cost: 5
+    vrfs:
+        VRF_OAM:
+            type: vpnv4
+            description: OOB MGMT VRF
+            state: started
+            rd: 10
+            rt_import: 
+              - 65001:10
+            rt_export:
+              - 65001:11
+            vrf_interfaces:
+              GigabitEthernet4:
+                ip: 10.0.0.53/24
+                description: "OUT OF BAND OAM INTRA SERVICE for IP CORE"
+        VRF_ACME:
+            type: vpnv4
+            description: TEST VRF
+            state: touch
+            rd: 100
+            rt_import: 
+              - 65001:100
+            rt_export:
+              - 65001:100
+            vrf_interfaces:
+              GigabitEthernet4:
+                ip: 10.0.3.10/30
+                remote_asn: 65101
+                description: "WAN L3VPN service for ACME site: SITE_C"
+        VRF_INTERNET:
+            type: vpnv4
+            description: SHARED INTERNET VRF
+            state: absent
+            rd: 2000
+            rt_import: 
+              - 65001:2000
+            rt_export:
+              - 65001:2000
+            vrf_interfaces:
+  bras1.pk.lab:
+    routerid: 10.10.10.5
+    mgmt: 10.0.0.54
+    asn: 65001
+    type: pe
+    is_rr: False
+    interfaces:
+        GigabitEthernet2: 
+          ip: 10.0.1.7/31
+          cost: 5
+    vrfs:
+        VRF_OAM:
+            type: vpnv4
+            description: OOB MGMT VRF
+            state: started
+            rd: 10
+            rt_import: 
+              - 65001:10
+            rt_export:
+              - 65001:11
+            vrf_interfaces:
+              GigabitEthernet4:
+                ip: 10.0.0.54/24
+                description: "OUT OF BAND OAM INTRA SERVICE for IP CORE"
+        VRF_ACME:
+            type: vpnv4
+            description: TEST VRF
+            state: touch
+            rd: 100
+            rt_import: 
+              - 65001:100
+            rt_export:
+              - 65001:100
+            vrf_interfaces:
+        VRF_INTERNET:
+            type: vpnv4
+            description: SHARED INTERNET VRF
+            state: absent
+            rd: 2000
+            rt_import: 
+              - 65001:2000
+            rt_export:
+              - 65001:2000
+            vrf_interfaces:
+  p1.pk.lab:
+    routerid: 10.10.10.4
+    mgmt: 10.0.0.50
+    asn: 65001
+    type: p
+    is_rr: True
+    interfaces:
+        GigabitEthernet2: 
+          ip: 10.0.1.0/31
+          cost: 5
+        GigabitEthernet4: 
+          ip: 10.0.1.4/31
+          cost: 5
+        GigabitEthernet3: 
+          ip: 10.0.1.2/31
+          cost: 5
+    vrfs:
+        VRF_OAM:
+            type: vpnv4
+            description: OOB MGMT VRF
+            state: started
+            rd: 10
+            rt_import: 
+              - 65001:10
+            rt_export:
+              - 65001:11
+            vrf_interfaces:
+              GigabitEthernet4:
+                ip: 10.0.0.50/24
+                description: "OUT OF BAND OAM INTRA SERVICE for IP CORE"

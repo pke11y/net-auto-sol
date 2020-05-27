@@ -1,0 +1,90 @@
+version 12.4
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname {{ item }}
+!
+boot-start-marker
+boot-end-marker
+!
+logging buffered 4096 informational
+enable password pk
+!         
+no aaa new-model
+no network-clock-participate slot 1 
+no network-clock-participate wic 0 
+ip cef
+!
+!
+!
+!
+no ip domain lookup
+ip domain name pk.lab
+ip auth-proxy max-nodata-conns 3
+ip admission max-nodata-conns 3
+!
+!
+username pk privilege 15 password 0 pk
+!         
+!
+ip ssh version 2
+! 
+!
+!
+!
+!
+interface Loopback0
+ ip address {{cpe_routers[item]['routerid']}} 255.255.255.255
+!
+interface FastEthernet0/0
+ no ip address
+ duplex auto
+ speed auto
+!         
+interface FastEthernet0/0.200
+ encapsulation dot1Q 200
+ ip address {{cpe_routers[item]['mgmt']}} 255.255.255.0
+!
+{% for intf_name, intf_data in cpe_routers[item]['interfaces'].items() %}
+interface {{ intf_name }}
+ encapsulation dot1Q {{ intf_name.split('.')[1] }}
+ ip address {{ intf_data['ip'] | ipaddr('address') }} 255.255.255.252
+!
+{% endfor %}
+router bgp {{ cpe_routers[item]['asn'] }}
+ bgp router-id {{ cpe_routers[item]['routerid'] }}
+ bgp log-neighbor-changes
+ redistribute connected
+{% for intf_name, intf_data in cpe_routers[item]['interfaces'].items() %}
+ neighbor {{ intf_data['ip'] | ipmath(1) }} remote-as {{ nodes[intf_data['remote_node']]['asn'] }}
+ neighbor {{ intf_data['ip'] | ipmath(1) }} description to {{ intf_data['remote_node'] }}
+{% endfor %}
+ !        
+ address-family ipv4
+{% for intf_name, intf_data in cpe_routers[item]['interfaces'].items() %}
+  neighbor {{ intf_data['ip'] | ipmath(1) }} activate
+{% endfor %}
+  no auto-summary
+  no synchronization
+ exit-address-family
+!
+ip forward-protocol nd
+ip route 0.0.0.0 0.0.0.0 10.0.0.253
+!
+!
+ip http server
+ip scp server enable
+!
+!
+control-plane
+!
+!
+line con 0
+ exec-timeout 0 0
+line aux 0
+line vty 0 4
+ login local
+!         
+!
+end

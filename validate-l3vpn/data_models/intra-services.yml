@@ -1,0 +1,28 @@
+#
+# Internal L3VPN Service
+#
+---
+intra_services:
+  l3vpn:
+    oam:
+      - vrf_name: "VRF_OAM"
+        description: "OOB MGMT VRF"
+        state: "started"
+        customer: "IP CORE"
+        remote_asn: "65001"        
+        rd: "10"
+        rt_import:
+          - "65001:10"
+        rt_export:
+          - "65001:11"
+        nodes:
+          p1.pk.lab:
+            interface: "GigabitEthernet4" 
+          pe1.pk.lab:
+            interface: "GigabitEthernet0/0/0/2"
+          pe2.pk.lab:
+            interface: "GigabitEthernet4"
+          pe3.pk.lab:
+            interface: "GigabitEthernet4"
+          bras1.pk.lab:
+            interface: "GigabitEthernet4"          

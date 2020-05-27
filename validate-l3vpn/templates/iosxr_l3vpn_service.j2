@@ -1,0 +1,113 @@
+
+{% for vpn_type, vpn_data in services.items() %}
+{% if vpn_type == 'l3vpn' %}
+{#--------VRF DEFINITION-------------#}
+{% for service_type, service_vrfs in vpn_data.items() %}
+{% for vrf in service_vrfs %}
+vrf {{ vrf['vrf_name'] }}
+ description L3VPN service for {{ vrf['vrf_name'].split('_')[1] }}
+ address-family ipv4 unicast
+  import route-target
+{% for rt_in in vrf['rt_import']  %}
+   {{ rt_in }}
+{% endfor %}
+  !
+  export route-target
+{% for rt_out in vrf['rt_export']  %}
+   {{ rt_out }}
+{% endfor %}
+  !
+{% endfor %}
+!
+{% endfor %}
+{#--------END VRF DEFINITION-------------#}
+{#--------VRF INTERFACES-------------#}
+{% for service_type, service_vrfs in vpn_data.items() %}
+{% for vrf in service_vrfs %}
+{% if service_type == 'wan' %}
+{% for site in vrf['sites'] %}
+{% for link in site['links'] %}
+{% if link['b_end'] == inventory_hostname %}
+interface {{ link['b_end_intf'] }}
+ description WAN L3VPN service for {{ vrf['customer'] }} site: {{ site['site_name'] }}
+ vrf {{ vrf['vrf_name'] }}
+ ip address {{ link['wan_ip_pfx'] | ipaddr('2') | ipaddr('address') }} 255.255.255.252
+!
+{% endif %}
+{% endfor %}
+{% endfor %}
+{% elif service_type == 'internet' %}
+{% for site in vrf['sites'] %}
+{% for link in site['links'] %}
+{% if link['b_end'] == inventory_hostname %}
+interface {{ link['b_end_intf'] }}
+ description WAN L3VPN service for {{ site['customer'] }} site: {{ site['site_name'] }}
+ vrf {{ vrf['vrf_name'] }}
+ ip address {{ link['wan_ip_pfx'] | ipaddr('2') | ipaddr('address') }} 255.255.255.252
+!
+{% endif %}
+{% endfor %}
+{% endfor %}
+{% endif %}
+{% endfor %}
+{% endfor %}
+{#--------END VRF INTERFACES-------------#}
+{#----------------BGP VRF----------------#}
+router bgp {{ nodes[inventory_hostname]['asn'] }}
+ address-family vpnv4 unicast
+ !
+{% for service_type, service_vrfs in vpn_data.items() %}
+{% for vrf in service_vrfs %}
+{% if service_type == 'wan' %}
+{% for site in vrf['sites'] %}
+{% for link in site['links'] %}
+{% if link['b_end'] == inventory_hostname %}
+  neighbor {{ link['wan_ip_pfx'] | ipaddr('1') | ipaddr('address') }}
+   description WAN L3VPN service for {{ vrf['customer'] }} site: {{ site['site_name'] }} 
+   remote-as {{ vrf['remote_asn'] }}
+   update-source {{ link['b_end_intf'] }}
+   address-family ipv4 unicast
+    route-policy ALLOW-ALL in
+    route-policy ALLOW-ALL out
+{% endif %}
+{% endfor %}
+{% endfor %}
+ !
+{% elif service_type == 'internet' %}
+{% for site in vrf['sites'] %}
+{% for link in site['links'] %}
+{% if link['b_end'] == inventory_hostname %}
+  neighbor {{ link['wan_ip_pfx'] | ipaddr('1') | ipaddr('address') }}
+   description Internet L3VPN service for {{ site['customer'] }} site: {{ site['site_name'] }} 
+   remote-as {{ site['asn'] }}
+   update-source {{ link['b_end_intf'] }}
+   address-family ipv4 unicast
+    route-policy ALLOW-ALL in
+    route-policy ALLOW-ALL out   
+ !
+{% endif %}
+{% endfor %}
+{% endfor %}
+{% endif %}
+{% endfor %}
+{% endfor %}
+{#--------- END BGP NEIGHBOR--------------#}
+{#--------- DEFINE VRF--------------#}
+{% for service_type, service_vrfs in vpn_data.items() %}
+{% for vrf in service_vrfs %}
+{% for site in vrf['sites'] %}
+{% for link in site['links'] %}
+{% if link['b_end'] == inventory_hostname %}
+ vrf {{ vrf['vrf_name'] }}
+  rd {{ nodes[inventory_hostname]['routerid'] }}:{{ vrf['rd'] }}
+  address-family ipv4 unicast
+   redistribute connected
+{% endif %}
+{% endfor %}
+{% endfor %}
+ !
+{% endfor %}
+{% endfor %}
+{#------------END BGP VRF ----------------#}
+{% endif %}
+{% endfor %}

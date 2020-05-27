@@ -1,0 +1,119 @@
+Building configuration...
+!! IOS XR Configuration 6.1.2
+!! Last configuration change at Wed May 20 23:24:19 2020 by pk
+!
+hostname pe1.pk.lab
+domain name pk.lab
+vrf VRF_ACME
+ description L3VPN service for ACME
+ address-family ipv4 unicast
+  import route-target
+   65001:100
+  !
+  export route-target
+   65001:100
+   65001:101
+  !
+ !
+!
+snmp-server host 192.168.0.3 traps version 2c public
+snmp-server host 192.168.0.4 traps version 2c public
+snmp-server trap-timeout 3
+snmp-server trap-source Loopback0
+interface Loopback0
+ ipv4 address 10.10.10.1 255.255.255.255
+!
+interface MgmtEth0/0/CPU0/0
+ ipv4 address 10.0.0.51 255.255.255.0
+!
+interface GigabitEthernet0/0/0/0
+ ipv4 address 10.0.1.1 255.255.255.254
+!
+interface GigabitEthernet0/0/0/1
+ description WAN L3VPN service for ACME site: SITE_A
+ vrf VRF_INTERNET
+ ipv4 address 10.0.4.2 255.255.255.252
+ shutdown
+!
+interface GigabitEthernet0/0/0/2
+ description WAN L3VPN service for ACME site: SITE_A
+ vrf VRF_ACME
+ ipv4 address 10.0.3.2 255.255.255.252
+!
+route-policy PASS-ALL
+  pass
+end-policy
+!
+route-policy ALLOW-ALL
+  pass
+end-policy
+!
+router static
+ address-family ipv4 unicast
+  0.0.0.0/0 10.0.0.253
+ !
+!
+router ospf 1
+ area 0
+  interface Loopback0
+  !
+  interface GigabitEthernet0/0/0/0
+  !
+  interface GigabitEthernet0/0/0/1
+  !
+  interface GigabitEthernet0/0/0/2
+  !
+ !
+!
+router bgp 65001
+ bgp router-id 10.10.10.1
+ address-family ipv4 unicast
+ !
+ address-family vpnv4 unicast
+ !
+ neighbor 10.0.3.1
+  remote-as 65101
+  description WAN L3VPN service for ACME site: SITE_A
+  update-source GigabitEthernet0/0/0/2
+  ignore-connected-check
+  address-family ipv4 unicast
+   route-policy ALLOW-ALL in
+   route-policy ALLOW-ALL out
+  !
+ !
+ neighbor 10.0.4.1
+  remote-as 65101
+  description Internet L3VPN service for ACME site: SITE_A
+  update-source GigabitEthernet0/0/0/1
+  address-family ipv4 unicast
+   route-policy ALLOW-ALL in
+   route-policy ALLOW-ALL out
+  !
+ !
+ neighbor 10.10.10.4
+  remote-as 65001
+  description p1.pk.lab
+  update-source Loopback0
+  address-family vpnv4 unicast
+  !
+ !
+ vrf VRF_ACME
+  rd 10.10.10.1:100
+  address-family ipv4 unicast
+   redistribute connected
+  !
+ !
+!
+mpls ldp
+ router-id 10.10.10.1
+ neighbor
+  password encrypted 032772382520
+ !
+ interface GigabitEthernet0/0/0/0
+ !
+!
+xml agent tty
+ iteration off
+!
+ssh server v2
+end

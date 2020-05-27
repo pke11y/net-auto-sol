@@ -1,0 +1,48 @@
+#
+# These tasks check if a CPE mgmt IP exists in other VPNv4 VRF's on an IOS XE device
+# 
+#
+---
+- name: GET ALL VPNV4 UNICAST DATA FROM CLI
+  cli_command:
+    command: "show bgp vpnv4 unicast all"
+  register: vpnv4_routes
+  tags: [step3, check_state]
+- debug: var=vpnv4_routes
+- name: PARSE VPNV4 ROUTES
+  set_fact:
+    parsed_vpnv4_routes: "{{ vpnv4_routes.stdout | pyats_parser('show bgp vpnv4 unicast all', 'iosxe') }}"
+  when: vpnv4_routes.stdout is defined
+  tags: [step3, check_state]
+- name: INCLUDE CPE NODES
+  include_vars: 
+    file: ./data_models/cpe_nodes.yml
+    name: cpe_nodes
+  when: parsed_vpnv4_routes is defined
+  tags: [step3, check_state]
+- name: SET CPE NODES ALLOWED VRF
+  set_fact: 
+    allowed_vrfs: "{{ cpe_nodes | get_cpe_allowed_vrfs }}"
+  when: parsed_vpnv4_routes is defined
+  tags: [step3, check_state]
+- debug: var=parsed_vpnv4_routes
+  tags: [step3, check_state]
+- name: CHECK CPE NODE STATUS IN THE CORE
+  assert: 
+    that:
+      - "{{ parsed_vpnv4_routes | verify_vpnv4_status(cpe_nodes[item]['routerid']+'/32', allowed_vrfs[item]) | bool }}"
+    fail_msg: "{{ item }} is connected to another VPN service"
+    success_msg: "{{ item }} is only connected to {{ allowed_vrfs[item] }}"
+  register: vrf_check_result
+  loop: "{{groups['ioscpe']}}"
+  when: parsed_vpnv4_routes is defined
+  tags: [step3, check_state]
+# - name: VPNv4 RESULT TEST
+#   fail:
+#     msg: 'Deployment Failed'
+#   loop: "{{ vrf_check_result.results.0 | dict2items }}"
+#   when: 
+#     - item.key == 'failed'
+#     - item.value | bool
+#     - vrf_check_result.results is defined
+#   tags: [step3, check_state]

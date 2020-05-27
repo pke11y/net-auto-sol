@@ -1,0 +1,16 @@
+Deployment Report:
+    {{inventory_hostname}}
+    {{ lookup('pipe','date') }}  
+---------------------------------------
+Interfaces:
+{% for if_dict in interface_result.results %}
+    {{if_dict['item']['key']}}:
+        is_enabled: {{if_dict['item']['value']['is_enabled']}}
+        is_up: {{if_dict['item']['value']['is_up']}}
+{% endfor %}
+BGP:
+{% for bgp_dict in bgp_result.results %}
+    Neighbor: {{bgp_dict['item']['key']}}        
+        is_up: {{bgp_dict['item']['value']['is_up']}} 
+        prefixes: {{bgp_dict['item']['value']['address_family']['ipv4 unicast']}}
+{% endfor %}

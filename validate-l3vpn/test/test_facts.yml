@@ -1,0 +1,2257 @@
+testhostvars:
+    cpe1.pk.lab:
+        ansible_check_mode: false
+        ansible_control_path_dir: /home/pk/.ssh/controlmasters
+        ansible_diff_mode: false
+        ansible_facts: {}
+        ansible_forks: 5
+        ansible_host: 10.0.0.56
+        ansible_inventory_sources:
+        - /home/pk/net-auto-sol/inventory/hosts
+        ansible_network_os: ios
+        ansible_playbook_python: /usr/bin/python3
+        ansible_run_tags:
+        - all
+        ansible_scp_if_ssh: 'true'
+        ansible_skip_tags: []
+        ansible_ssh_common_args: -F /home/pk/.ssh/config
+        ansible_ssh_pass: pk
+        ansible_user: pk
+        ansible_verbosity: 0
+        ansible_version:
+            full: 2.8.5
+            major: 2
+            minor: 8
+            revision: 5
+            string: 2.8.5
+        dns:
+        -   domain: pk.lab
+        group_names:
+        - cpe
+        - ios_cpe
+        - ioscpe
+        - mpls
+        groups:
+            all:
+            - cpe1.pk.lab
+            - cpe2.pk.lab
+            - cpe3.pk.lab
+            - p1.pk.lab
+            - pe2.pk.lab
+            - pe3.pk.lab
+            - pe1.pk.lab
+            coreedge:
+            - p1.pk.lab
+            - pe2.pk.lab
+            - pe3.pk.lab
+            - pe1.pk.lab
+            cpe:
+            - cpe1.pk.lab
+            - cpe2.pk.lab
+            - cpe3.pk.lab
+            ios_cpe:
+            - cpe1.pk.lab
+            - cpe2.pk.lab
+            - cpe3.pk.lab
+            ioscpe:
+            - cpe1.pk.lab
+            - cpe2.pk.lab
+            - cpe3.pk.lab
+            iosp:
+            - p1.pk.lab
+            iospe:
+            - pe2.pk.lab
+            - pe3.pk.lab
+            mpls:
+            - cpe1.pk.lab
+            - cpe2.pk.lab
+            - cpe3.pk.lab
+            - p1.pk.lab
+            - pe2.pk.lab
+            - pe3.pk.lab
+            - pe1.pk.lab
+            xrpe:
+            - pe1.pk.lab
+        inventory_dir: /home/pk/net-auto-sol/inventory
+        inventory_file: /home/pk/net-auto-sol/inventory/hosts
+        inventory_hostname: cpe1.pk.lab
+        inventory_hostname_short: cpe1
+        network_os: ios
+        ntp-server:
+        -   ip: 192.168.0.1
+        -   ip: 192.168.0.2
+        -   ip: 192.168.1.251
+        omit: __omit_place_holder__e3feaf9fb86b765ea5de3114f8e1812a8d2cc596
+        playbook_dir: /home/pk/net-auto-sol/data-model
+        routerid: 10.10.10.11
+        snmp-server:
+        -   community: public
+            ip: 192.168.0.3
+        -   community: public
+            ip: 192.168.0.4
+    cpe2.pk.lab:
+        ansible_check_mode: false
+        ansible_control_path_dir: /home/pk/.ssh/controlmasters
+        ansible_diff_mode: false
+        ansible_facts: {}
+        ansible_forks: 5
+        ansible_host: 10.0.0.57
+        ansible_inventory_sources:
+        - /home/pk/net-auto-sol/inventory/hosts
+        ansible_network_os: ios
+        ansible_playbook_python: /usr/bin/python3
+        ansible_run_tags:
+        - all
+        ansible_scp_if_ssh: 'true'
+        ansible_skip_tags: []
+        ansible_ssh_common_args: -F /home/pk/.ssh/config
+        ansible_ssh_pass: pk
+        ansible_user: pk
+        ansible_verbosity: 0
+        ansible_version:
+            full: 2.8.5
+            major: 2
+            minor: 8
+            revision: 5
+            string: 2.8.5
+        dns:
+        -   domain: pk.lab
+        group_names:
+        - cpe
+        - ios_cpe
+        - ioscpe
+        - mpls
+        groups:
+            all:
+            - cpe1.pk.lab
+            - cpe2.pk.lab
+            - cpe3.pk.lab
+            - p1.pk.lab
+            - pe2.pk.lab
+            - pe3.pk.lab
+            - pe1.pk.lab
+            coreedge:
+            - p1.pk.lab
+            - pe2.pk.lab
+            - pe3.pk.lab
+            - pe1.pk.lab
+            cpe:
+            - cpe1.pk.lab
+            - cpe2.pk.lab
+            - cpe3.pk.lab
+            ios_cpe:
+            - cpe1.pk.lab
+            - cpe2.pk.lab
+            - cpe3.pk.lab
+            ioscpe:
+            - cpe1.pk.lab
+            - cpe2.pk.lab
+            - cpe3.pk.lab
+            iosp:
+            - p1.pk.lab
+            iospe:
+            - pe2.pk.lab
+            - pe3.pk.lab
+            mpls:
+            - cpe1.pk.lab
+            - cpe2.pk.lab
+            - cpe3.pk.lab
+            - p1.pk.lab
+            - pe2.pk.lab
+            - pe3.pk.lab
+            - pe1.pk.lab
+            xrpe:
+            - pe1.pk.lab
+        inventory_dir: /home/pk/net-auto-sol/inventory
+        inventory_file: /home/pk/net-auto-sol/inventory/hosts
+        inventory_hostname: cpe2.pk.lab
+        inventory_hostname_short: cpe2
+        network_os: ios
+        ntp-server:
+        -   ip: 192.168.0.1
+        -   ip: 192.168.0.2
+        -   ip: 192.168.1.251
+        omit: __omit_place_holder__e3feaf9fb86b765ea5de3114f8e1812a8d2cc596
+        playbook_dir: /home/pk/net-auto-sol/data-model
+        routerid: 10.10.10.12
+        snmp-server:
+        -   community: public
+            ip: 192.168.0.3
+        -   community: public
+            ip: 192.168.0.4
+    cpe3.pk.lab:
+        ansible_check_mode: false
+        ansible_control_path_dir: /home/pk/.ssh/controlmasters
+        ansible_diff_mode: false
+        ansible_facts: {}
+        ansible_forks: 5
+        ansible_host: 10.0.0.58
+        ansible_inventory_sources:
+        - /home/pk/net-auto-sol/inventory/hosts
+        ansible_network_os: ios
+        ansible_playbook_python: /usr/bin/python3
+        ansible_run_tags:
+        - all
+        ansible_scp_if_ssh: 'true'
+        ansible_skip_tags: []
+        ansible_ssh_common_args: -F /home/pk/.ssh/config
+        ansible_ssh_pass: pk
+        ansible_user: pk
+        ansible_verbosity: 0
+        ansible_version:
+            full: 2.8.5
+            major: 2
+            minor: 8
+            revision: 5
+            string: 2.8.5
+        dns:
+        -   domain: pk.lab
+        group_names:
+        - cpe
+        - ios_cpe
+        - ioscpe
+        - mpls
+        groups:
+            all:
+            - cpe1.pk.lab
+            - cpe2.pk.lab
+            - cpe3.pk.lab
+            - p1.pk.lab
+            - pe2.pk.lab
+            - pe3.pk.lab
+            - pe1.pk.lab
+            coreedge:
+            - p1.pk.lab
+            - pe2.pk.lab
+            - pe3.pk.lab
+            - pe1.pk.lab
+            cpe:
+            - cpe1.pk.lab
+            - cpe2.pk.lab
+            - cpe3.pk.lab
+            ios_cpe:
+            - cpe1.pk.lab
+            - cpe2.pk.lab
+            - cpe3.pk.lab
+            ioscpe:
+            - cpe1.pk.lab
+            - cpe2.pk.lab
+            - cpe3.pk.lab
+            iosp:
+            - p1.pk.lab
+            iospe:
+            - pe2.pk.lab
+            - pe3.pk.lab
+            mpls:
+            - cpe1.pk.lab
+            - cpe2.pk.lab
+            - cpe3.pk.lab
+            - p1.pk.lab
+            - pe2.pk.lab
+            - pe3.pk.lab
+            - pe1.pk.lab
+            xrpe:
+            - pe1.pk.lab
+        inventory_dir: /home/pk/net-auto-sol/inventory
+        inventory_file: /home/pk/net-auto-sol/inventory/hosts
+        inventory_hostname: cpe3.pk.lab
+        inventory_hostname_short: cpe3
+        network_os: ios
+        ntp-server:
+        -   ip: 192.168.0.1
+        -   ip: 192.168.0.2
+        -   ip: 192.168.1.251
+        omit: __omit_place_holder__e3feaf9fb86b765ea5de3114f8e1812a8d2cc596
+        playbook_dir: /home/pk/net-auto-sol/data-model
+        routerid: 10.10.10.13
+        snmp-server:
+        -   community: public
+            ip: 192.168.0.3
+        -   community: public
+            ip: 192.168.0.4
+    p1.pk.lab:
+        ansible_check_mode: false
+        ansible_diff_mode: false
+        ansible_facts:
+            napalm_bgp_neighbors:
+                global:
+                    peers:
+                        10.10.10.1:
+                            address_family:
+                                vpnv4 unicast:
+                                    accepted_prefixes: 1
+                                    received_prefixes: 1
+                                    sent_prefixes: 3
+                            description: pe1.********.lab
+                            is_enabled: true
+                            is_up: true
+                            local_as: 65001
+                            remote_as: 65001
+                            remote_id: 10.10.10.1
+                            uptime: 79454
+                        10.10.10.2:
+                            address_family:
+                                ipv4 unicast:
+                                    accepted_prefixes: 0
+                                    received_prefixes: 0
+                                    sent_prefixes: 0
+                                vpnv4 unicast:
+                                    accepted_prefixes: 1
+                                    received_prefixes: 1
+                                    sent_prefixes: 3
+                            description: pe2.********.lab
+                            is_enabled: true
+                            is_up: true
+                            local_as: 65001
+                            remote_as: 65001
+                            remote_id: 10.10.10.2
+                            uptime: 2246400
+                        10.10.10.3:
+                            address_family:
+                                ipv4 unicast:
+                                    accepted_prefixes: 0
+                                    received_prefixes: 0
+                                    sent_prefixes: 0
+                                vpnv4 unicast:
+                                    accepted_prefixes: 1
+                                    received_prefixes: 1
+                                    sent_prefixes: 3
+                            description: pe3.********.lab
+                            is_enabled: true
+                            is_up: true
+                            local_as: 65001
+                            remote_as: 65001
+                            remote_id: 10.10.10.3
+                            uptime: 2246400
+                        10.10.10.5:
+                            address_family:
+                                ipv4 unicast:
+                                    accepted_prefixes: -1
+                                    received_prefixes: -1
+                                    sent_prefixes: -1
+                                vpnv4 unicast:
+                                    accepted_prefixes: -1
+                                    received_prefixes: -1
+                                    sent_prefixes: -1
+                            description: bras1.********.lab
+                            is_enabled: true
+                            is_up: false
+                            local_as: 65001
+                            remote_as: 65001
+                            remote_id: 0.0.0.0
+                            uptime: -1
+                    router_id: 10.10.10.4
+            napalm_facts:
+                fqdn: p1.********.lab.********.lab
+                hostname: p1.********.lab
+                interface_list:
+                - GigabitEthernet1
+                - GigabitEthernet2
+                - GigabitEthernet3
+                - GigabitEthernet4
+                - Loopback0
+                model: CSR1000V
+                os_version: CSR1000V Software (X86_64_LINUX_IOSD-UNIVERSALK9-M), Version
+                    15.5(2)S2, RELEASE SOFTWARE (fc1)
+                serial_number: 9DD3VRL22SO
+                uptime: 2294160
+                vendor: Cisco
+            napalm_fqdn: p1.********.lab.********.lab
+            napalm_hostname: p1.********.lab
+            napalm_interface_list:
+            - GigabitEthernet1
+            - GigabitEthernet2
+            - GigabitEthernet3
+            - GigabitEthernet4
+            - Loopback0
+            napalm_interfaces:
+                GigabitEthernet1:
+                    description: ''
+                    is_enabled: true
+                    is_up: true
+                    last_flapped: -1.0
+                    mac_address: '50:00:00:01:00:00'
+                    mtu: 1500
+                    speed: 1000
+                GigabitEthernet2:
+                    description: ''
+                    is_enabled: true
+                    is_up: true
+                    last_flapped: -1.0
+                    mac_address: '50:00:00:01:00:01'
+                    mtu: 1500
+                    speed: 1000
+                GigabitEthernet3:
+                    description: ''
+                    is_enabled: true
+                    is_up: true
+                    last_flapped: -1.0
+                    mac_address: '50:00:00:01:00:02'
+                    mtu: 1500
+                    speed: 1000
+                GigabitEthernet4:
+                    description: ''
+                    is_enabled: true
+                    is_up: true
+                    last_flapped: -1.0
+                    mac_address: '50:00:00:01:00:03'
+                    mtu: 1500
+                    speed: 1000
+                Loopback0:
+                    description: ''
+                    is_enabled: true
+                    is_up: true
+                    last_flapped: -1.0
+                    mac_address: ''
+                    mtu: 1514
+                    speed: 8000
+            napalm_interfaces_ip:
+                GigabitEthernet1:
+                    ipv4:
+                        10.0.0.50:
+                            prefix_length: 24
+                GigabitEthernet2:
+                    ipv4:
+                        10.0.1.0:
+                            prefix_length: 31
+                GigabitEthernet3:
+                    ipv4:
+                        10.0.1.2:
+                            prefix_length: 31
+                GigabitEthernet4:
+                    ipv4:
+                        10.0.1.4:
+                            prefix_length: 31
+                Loopback0:
+                    ipv4:
+                        10.10.10.4:
+                            prefix_length: 32
+            napalm_model: CSR1000V
+            napalm_os_version: CSR1000V Software (X86_64_LINUX_IOSD-UNIVERSALK9-M),
+                Version 15.5(2)S2, RELEASE SOFTWARE (fc1)
+            napalm_serial_number: 9DD3VRL22SO
+            napalm_uptime: 2294160
+            napalm_vendor: Cisco
+        ansible_forks: 5
+        ansible_host: 10.0.0.50
+        ansible_inventory_sources:
+        - /home/pk/net-auto-sol/inventory/hosts
+        ansible_network_os: ios
+        ansible_playbook_python: /usr/bin/python3
+        ansible_run_tags:
+        - all
+        ansible_skip_tags: []
+        ansible_ssh_pass: pk
+        ansible_user: pk
+        ansible_verbosity: 0
+        ansible_version:
+            full: 2.8.5
+            major: 2
+            minor: 8
+            revision: 5
+            string: 2.8.5
+        dns:
+        -   domain: pk.lab
+        group_names:
+        - coreedge
+        - iosp
+        - mpls
+        groups:
+            all:
+            - cpe1.pk.lab
+            - cpe2.pk.lab
+            - cpe3.pk.lab
+            - p1.pk.lab
+            - pe2.pk.lab
+            - pe3.pk.lab
+            - pe1.pk.lab
+            coreedge:
+            - p1.pk.lab
+            - pe2.pk.lab
+            - pe3.pk.lab
+            - pe1.pk.lab
+            cpe:
+            - cpe1.pk.lab
+            - cpe2.pk.lab
+            - cpe3.pk.lab
+            ios_cpe:
+            - cpe1.pk.lab
+            - cpe2.pk.lab
+            - cpe3.pk.lab
+            ioscpe:
+            - cpe1.pk.lab
+            - cpe2.pk.lab
+            - cpe3.pk.lab
+            iosp:
+            - p1.pk.lab
+            iospe:
+            - pe2.pk.lab
+            - pe3.pk.lab
+            mpls:
+            - cpe1.pk.lab
+            - cpe2.pk.lab
+            - cpe3.pk.lab
+            - p1.pk.lab
+            - pe2.pk.lab
+            - pe3.pk.lab
+            - pe1.pk.lab
+            xrpe:
+            - pe1.pk.lab
+        inventory_dir: /home/pk/net-auto-sol/inventory
+        inventory_file: /home/pk/net-auto-sol/inventory/hosts
+        inventory_hostname: p1.pk.lab
+        inventory_hostname_short: p1
+        napalm_bgp_neighbors:
+            global:
+                peers:
+                    10.10.10.1:
+                        address_family:
+                            vpnv4 unicast:
+                                accepted_prefixes: 1
+                                received_prefixes: 1
+                                sent_prefixes: 3
+                        description: pe1.********.lab
+                        is_enabled: true
+                        is_up: true
+                        local_as: 65001
+                        remote_as: 65001
+                        remote_id: 10.10.10.1
+                        uptime: 79454
+                    10.10.10.2:
+                        address_family:
+                            ipv4 unicast:
+                                accepted_prefixes: 0
+                                received_prefixes: 0
+                                sent_prefixes: 0
+                            vpnv4 unicast:
+                                accepted_prefixes: 1
+                                received_prefixes: 1
+                                sent_prefixes: 3
+                        description: pe2.********.lab
+                        is_enabled: true
+                        is_up: true
+                        local_as: 65001
+                        remote_as: 65001
+                        remote_id: 10.10.10.2
+                        uptime: 2246400
+                    10.10.10.3:
+                        address_family:
+                            ipv4 unicast:
+                                accepted_prefixes: 0
+                                received_prefixes: 0
+                                sent_prefixes: 0
+                            vpnv4 unicast:
+                                accepted_prefixes: 1
+                                received_prefixes: 1
+                                sent_prefixes: 3
+                        description: pe3.********.lab
+                        is_enabled: true
+                        is_up: true
+                        local_as: 65001
+                        remote_as: 65001
+                        remote_id: 10.10.10.3
+                        uptime: 2246400
+                    10.10.10.5:
+                        address_family:
+                            ipv4 unicast:
+                                accepted_prefixes: -1
+                                received_prefixes: -1
+                                sent_prefixes: -1
+                            vpnv4 unicast:
+                                accepted_prefixes: -1
+                                received_prefixes: -1
+                                sent_prefixes: -1
+                        description: bras1.********.lab
+                        is_enabled: true
+                        is_up: false
+                        local_as: 65001
+                        remote_as: 65001
+                        remote_id: 0.0.0.0
+                        uptime: -1
+                router_id: 10.10.10.4
+        napalm_facts:
+            ansible_facts:
+                napalm_bgp_neighbors:
+                    global:
+                        peers:
+                            10.10.10.1:
+                                address_family:
+                                    vpnv4 unicast:
+                                        accepted_prefixes: 1
+                                        received_prefixes: 1
+                                        sent_prefixes: 3
+                                description: pe1.********.lab
+                                is_enabled: true
+                                is_up: true
+                                local_as: 65001
+                                remote_as: 65001
+                                remote_id: 10.10.10.1
+                                uptime: 79454
+                            10.10.10.2:
+                                address_family:
+                                    ipv4 unicast:
+                                        accepted_prefixes: 0
+                                        received_prefixes: 0
+                                        sent_prefixes: 0
+                                    vpnv4 unicast:
+                                        accepted_prefixes: 1
+                                        received_prefixes: 1
+                                        sent_prefixes: 3
+                                description: pe2.********.lab
+                                is_enabled: true
+                                is_up: true
+                                local_as: 65001
+                                remote_as: 65001
+                                remote_id: 10.10.10.2
+                                uptime: 2246400
+                            10.10.10.3:
+                                address_family:
+                                    ipv4 unicast:
+                                        accepted_prefixes: 0
+                                        received_prefixes: 0
+                                        sent_prefixes: 0
+                                    vpnv4 unicast:
+                                        accepted_prefixes: 1
+                                        received_prefixes: 1
+                                        sent_prefixes: 3
+                                description: pe3.********.lab
+                                is_enabled: true
+                                is_up: true
+                                local_as: 65001
+                                remote_as: 65001
+                                remote_id: 10.10.10.3
+                                uptime: 2246400
+                            10.10.10.5:
+                                address_family:
+                                    ipv4 unicast:
+                                        accepted_prefixes: -1
+                                        received_prefixes: -1
+                                        sent_prefixes: -1
+                                    vpnv4 unicast:
+                                        accepted_prefixes: -1
+                                        received_prefixes: -1
+                                        sent_prefixes: -1
+                                description: bras1.********.lab
+                                is_enabled: true
+                                is_up: false
+                                local_as: 65001
+                                remote_as: 65001
+                                remote_id: 0.0.0.0
+                                uptime: -1
+                        router_id: 10.10.10.4
+                napalm_facts:
+                    fqdn: p1.********.lab.********.lab
+                    hostname: p1.********.lab
+                    interface_list:
+                    - GigabitEthernet1
+                    - GigabitEthernet2
+                    - GigabitEthernet3
+                    - GigabitEthernet4
+                    - Loopback0
+                    model: CSR1000V
+                    os_version: CSR1000V Software (X86_64_LINUX_IOSD-UNIVERSALK9-M),
+                        Version 15.5(2)S2, RELEASE SOFTWARE (fc1)
+                    serial_number: 9DD3VRL22SO
+                    uptime: 2294160
+                    vendor: Cisco
+                napalm_fqdn: p1.********.lab.********.lab
+                napalm_hostname: p1.********.lab
+                napalm_interface_list:
+                - GigabitEthernet1
+                - GigabitEthernet2
+                - GigabitEthernet3
+                - GigabitEthernet4
+                - Loopback0
+                napalm_interfaces:
+                    GigabitEthernet1:
+                        description: ''
+                        is_enabled: true
+                        is_up: true
+                        last_flapped: -1.0
+                        mac_address: '50:00:00:01:00:00'
+                        mtu: 1500
+                        speed: 1000
+                    GigabitEthernet2:
+                        description: ''
+                        is_enabled: true
+                        is_up: true
+                        last_flapped: -1.0
+                        mac_address: '50:00:00:01:00:01'
+                        mtu: 1500
+                        speed: 1000
+                    GigabitEthernet3:
+                        description: ''
+                        is_enabled: true
+                        is_up: true
+                        last_flapped: -1.0
+                        mac_address: '50:00:00:01:00:02'
+                        mtu: 1500
+                        speed: 1000
+                    GigabitEthernet4:
+                        description: ''
+                        is_enabled: true
+                        is_up: true
+                        last_flapped: -1.0
+                        mac_address: '50:00:00:01:00:03'
+                        mtu: 1500
+                        speed: 1000
+                    Loopback0:
+                        description: ''
+                        is_enabled: true
+                        is_up: true
+                        last_flapped: -1.0
+                        mac_address: ''
+                        mtu: 1514
+                        speed: 8000
+                napalm_interfaces_ip:
+                    GigabitEthernet1:
+                        ipv4:
+                            10.0.0.50:
+                                prefix_length: 24
+                    GigabitEthernet2:
+                        ipv4:
+                            10.0.1.0:
+                                prefix_length: 31
+                    GigabitEthernet3:
+                        ipv4:
+                            10.0.1.2:
+                                prefix_length: 31
+                    GigabitEthernet4:
+                        ipv4:
+                            10.0.1.4:
+                                prefix_length: 31
+                    Loopback0:
+                        ipv4:
+                            10.10.10.4:
+                                prefix_length: 32
+                napalm_model: CSR1000V
+                napalm_os_version: CSR1000V Software (X86_64_LINUX_IOSD-UNIVERSALK9-M),
+                    Version 15.5(2)S2, RELEASE SOFTWARE (fc1)
+                napalm_serial_number: 9DD3VRL22SO
+                napalm_uptime: 2294160
+                napalm_vendor: Cisco
+            changed: false
+            failed: false
+        napalm_fqdn: p1.********.lab.********.lab
+        napalm_hostname: p1.********.lab
+        napalm_interface_list:
+        - GigabitEthernet1
+        - GigabitEthernet2
+        - GigabitEthernet3
+        - GigabitEthernet4
+        - Loopback0
+        napalm_interfaces:
+            GigabitEthernet1:
+                description: ''
+                is_enabled: true
+                is_up: true
+                last_flapped: -1.0
+                mac_address: '50:00:00:01:00:00'
+                mtu: 1500
+                speed: 1000
+            GigabitEthernet2:
+                description: ''
+                is_enabled: true
+                is_up: true
+                last_flapped: -1.0
+                mac_address: '50:00:00:01:00:01'
+                mtu: 1500
+                speed: 1000
+            GigabitEthernet3:
+                description: ''
+                is_enabled: true
+                is_up: true
+                last_flapped: -1.0
+                mac_address: '50:00:00:01:00:02'
+                mtu: 1500
+                speed: 1000
+            GigabitEthernet4:
+                description: ''
+                is_enabled: true
+                is_up: true
+                last_flapped: -1.0
+                mac_address: '50:00:00:01:00:03'
+                mtu: 1500
+                speed: 1000
+            Loopback0:
+                description: ''
+                is_enabled: true
+                is_up: true
+                last_flapped: -1.0
+                mac_address: ''
+                mtu: 1514
+                speed: 8000
+        napalm_interfaces_ip:
+            GigabitEthernet1:
+                ipv4:
+                    10.0.0.50:
+                        prefix_length: 24
+            GigabitEthernet2:
+                ipv4:
+                    10.0.1.0:
+                        prefix_length: 31
+            GigabitEthernet3:
+                ipv4:
+                    10.0.1.2:
+                        prefix_length: 31
+            GigabitEthernet4:
+                ipv4:
+                    10.0.1.4:
+                        prefix_length: 31
+            Loopback0:
+                ipv4:
+                    10.10.10.4:
+                        prefix_length: 32
+        napalm_model: CSR1000V
+        napalm_os_version: CSR1000V Software (X86_64_LINUX_IOSD-UNIVERSALK9-M), Version
+            15.5(2)S2, RELEASE SOFTWARE (fc1)
+        napalm_serial_number: 9DD3VRL22SO
+        napalm_uptime: 2294160
+        napalm_vendor: Cisco
+        ntp-server:
+        -   ip: 192.168.0.1
+        -   ip: 192.168.0.2
+        -   ip: 192.168.1.251
+        omit: __omit_place_holder__e3feaf9fb86b765ea5de3114f8e1812a8d2cc596
+        playbook_dir: /home/pk/net-auto-sol/data-model
+        service_deploy:
+            changed: false
+            failed: false
+            msg: ''
+        snmp-server:
+        -   community: public
+            ip: 192.168.0.3
+        -   community: public
+            ip: 192.168.0.4
+    pe1.pk.lab:
+        ansible_check_mode: false
+        ansible_diff_mode: false
+        ansible_facts:
+            napalm_bgp_neighbors:
+                VRF_ACME:
+                    peers: {}
+                    router_id: 10.10.10.1
+                VRF_INTERNET:
+                    peers: {}
+                    router_id: 10.10.10.1
+                global:
+                    peers:
+                        10.0.3.1:
+                            address_family:
+                                ipv4:
+                                    accepted_prefixes: 0
+                                    received_prefixes: 0
+                                    sent_prefixes: 0
+                            description: 'WAN L3VPN service for ACME site: SITE_A'
+                            is_enabled: false
+                            is_up: false
+                            local_as: 65001
+                            remote_as: 65101
+                            remote_id: 0.0.0.0
+                            uptime: -1
+                        10.0.4.1:
+                            address_family:
+                                ipv4:
+                                    accepted_prefixes: 0
+                                    received_prefixes: 0
+                                    sent_prefixes: 0
+                            description: 'Internet L3VPN service for ACME site: SITE_A'
+                            is_enabled: false
+                            is_up: false
+                            local_as: 65001
+                            remote_as: 65101
+                            remote_id: 0.0.0.0
+                            uptime: -1
+                        10.10.10.4:
+                            address_family:
+                                ipv4:
+                                    accepted_prefixes: 2
+                                    received_prefixes: 2
+                                    sent_prefixes: 1
+                            description: p1.********.lab
+                            is_enabled: false
+                            is_up: true
+                            local_as: 65001
+                            remote_as: 65001
+                            remote_id: 10.10.10.4
+                            uptime: 79452
+                    router_id: 10.10.10.1
+            napalm_facts:
+                fqdn: pe1.********.lab
+                hostname: pe1.********.lab
+                interface_list:
+                - GigabitEthernet0/0/0/0
+                - GigabitEthernet0/0/0/1
+                - GigabitEthernet0/0/0/2
+                - Loopback0
+                - MgmtEth0/0/CPU0/0
+                - Null0
+                model: ''
+                os_version: ''
+                serial_number: ''
+                uptime: 80772
+                vendor: Cisco
+            napalm_fqdn: pe1.********.lab
+            napalm_hostname: pe1.********.lab
+            napalm_interface_list:
+            - GigabitEthernet0/0/0/0
+            - GigabitEthernet0/0/0/1
+            - GigabitEthernet0/0/0/2
+            - Loopback0
+            - MgmtEth0/0/CPU0/0
+            - Null0
+            napalm_interfaces:
+                GigabitEthernet0/0/0/0:
+                    description: ''
+                    is_enabled: true
+                    is_up: true
+                    last_flapped: -1.0
+                    mac_address: '50:00:00:05:00:01'
+                    mtu: 1514
+                    speed: 1000
+                GigabitEthernet0/0/0/1:
+                    description: 'WAN L3VPN service for ACME site: SITE_A'
+                    is_enabled: false
+                    is_up: false
+                    last_flapped: -1.0
+                    mac_address: '50:00:00:05:00:02'
+                    mtu: 1514
+                    speed: 1000
+                GigabitEthernet0/0/0/2:
+                    description: 'WAN L3VPN service for ACME site: SITE_A'
+                    is_enabled: true
+                    is_up: true
+                    last_flapped: -1.0
+                    mac_address: '50:00:00:05:00:03'
+                    mtu: 1514
+                    speed: 1000
+                Loopback0:
+                    description: ''
+                    is_enabled: true
+                    is_up: true
+                    last_flapped: -1.0
+                    mac_address: ''
+                    mtu: 1500
+                    speed: 0
+                MgmtEth0/0/CPU0/0:
+                    description: ''
+                    is_enabled: true
+                    is_up: true
+                    last_flapped: -1.0
+                    mac_address: '50:00:00:05:00:00'
+                    mtu: 1514
+                    speed: 1000
+                Null0:
+                    description: ''
+                    is_enabled: true
+                    is_up: true
+                    last_flapped: -1.0
+                    mac_address: ''
+                    mtu: 1500
+                    speed: 0
+            napalm_interfaces_ip:
+                GigabitEthernet0/0/0/0:
+                    ipv4:
+                        10.0.1.1:
+                            prefix_length: 31
+                GigabitEthernet0/0/0/1:
+                    ipv4:
+                        10.0.4.2:
+                            prefix_length: 30
+                GigabitEthernet0/0/0/2:
+                    ipv4:
+                        10.0.3.2:
+                            prefix_length: 30
+                Loopback0:
+                    ipv4:
+                        10.10.10.1:
+                            prefix_length: 32
+                MgmtEth0/0/CPU0/0:
+                    ipv4:
+                        10.0.0.51:
+                            prefix_length: 24
+            napalm_model: ''
+            napalm_os_version: ''
+            napalm_serial_number: ''
+            napalm_uptime: 80772
+            napalm_vendor: Cisco
+        ansible_forks: 5
+        ansible_host: 10.0.0.51
+        ansible_inventory_sources:
+        - /home/pk/net-auto-sol/inventory/hosts
+        ansible_network_os: iosxr
+        ansible_playbook_python: /usr/bin/python3
+        ansible_run_tags:
+        - all
+        ansible_skip_tags: []
+        ansible_ssh_pass: pk
+        ansible_user: pk
+        ansible_verbosity: 0
+        ansible_version:
+            full: 2.8.5
+            major: 2
+            minor: 8
+            revision: 5
+            string: 2.8.5
+        dns:
+        -   domain: pk.lab
+        group_names:
+        - coreedge
+        - mpls
+        - xrpe
+        groups:
+            all:
+            - cpe1.pk.lab
+            - cpe2.pk.lab
+            - cpe3.pk.lab
+            - p1.pk.lab
+            - pe2.pk.lab
+            - pe3.pk.lab
+            - pe1.pk.lab
+            coreedge:
+            - p1.pk.lab
+            - pe2.pk.lab
+            - pe3.pk.lab
+            - pe1.pk.lab
+            cpe:
+            - cpe1.pk.lab
+            - cpe2.pk.lab
+            - cpe3.pk.lab
+            ios_cpe:
+            - cpe1.pk.lab
+            - cpe2.pk.lab
+            - cpe3.pk.lab
+            ioscpe:
+            - cpe1.pk.lab
+            - cpe2.pk.lab
+            - cpe3.pk.lab
+            iosp:
+            - p1.pk.lab
+            iospe:
+            - pe2.pk.lab
+            - pe3.pk.lab
+            mpls:
+            - cpe1.pk.lab
+            - cpe2.pk.lab
+            - cpe3.pk.lab
+            - p1.pk.lab
+            - pe2.pk.lab
+            - pe3.pk.lab
+            - pe1.pk.lab
+            xrpe:
+            - pe1.pk.lab
+        inventory_dir: /home/pk/net-auto-sol/inventory
+        inventory_file: /home/pk/net-auto-sol/inventory/hosts
+        inventory_hostname: pe1.pk.lab
+        inventory_hostname_short: pe1
+        napalm_bgp_neighbors:
+            VRF_ACME:
+                peers: {}
+                router_id: 10.10.10.1
+            VRF_INTERNET:
+                peers: {}
+                router_id: 10.10.10.1
+            global:
+                peers:
+                    10.0.3.1:
+                        address_family:
+                            ipv4:
+                                accepted_prefixes: 0
+                                received_prefixes: 0
+                                sent_prefixes: 0
+                        description: 'WAN L3VPN service for ACME site: SITE_A'
+                        is_enabled: false
+                        is_up: false
+                        local_as: 65001
+                        remote_as: 65101
+                        remote_id: 0.0.0.0
+                        uptime: -1
+                    10.0.4.1:
+                        address_family:
+                            ipv4:
+                                accepted_prefixes: 0
+                                received_prefixes: 0
+                                sent_prefixes: 0
+                        description: 'Internet L3VPN service for ACME site: SITE_A'
+                        is_enabled: false
+                        is_up: false
+                        local_as: 65001
+                        remote_as: 65101
+                        remote_id: 0.0.0.0
+                        uptime: -1
+                    10.10.10.4:
+                        address_family:
+                            ipv4:
+                                accepted_prefixes: 2
+                                received_prefixes: 2
+                                sent_prefixes: 1
+                        description: p1.********.lab
+                        is_enabled: false
+                        is_up: true
+                        local_as: 65001
+                        remote_as: 65001
+                        remote_id: 10.10.10.4
+                        uptime: 79452
+                router_id: 10.10.10.1
+        napalm_facts:
+            ansible_facts:
+                napalm_bgp_neighbors:
+                    VRF_ACME:
+                        peers: {}
+                        router_id: 10.10.10.1
+                    VRF_INTERNET:
+                        peers: {}
+                        router_id: 10.10.10.1
+                    global:
+                        peers:
+                            10.0.3.1:
+                                address_family:
+                                    ipv4:
+                                        accepted_prefixes: 0
+                                        received_prefixes: 0
+                                        sent_prefixes: 0
+                                description: 'WAN L3VPN service for ACME site: SITE_A'
+                                is_enabled: false
+                                is_up: false
+                                local_as: 65001
+                                remote_as: 65101
+                                remote_id: 0.0.0.0
+                                uptime: -1
+                            10.0.4.1:
+                                address_family:
+                                    ipv4:
+                                        accepted_prefixes: 0
+                                        received_prefixes: 0
+                                        sent_prefixes: 0
+                                description: 'Internet L3VPN service for ACME site:
+                                    SITE_A'
+                                is_enabled: false
+                                is_up: false
+                                local_as: 65001
+                                remote_as: 65101
+                                remote_id: 0.0.0.0
+                                uptime: -1
+                            10.10.10.4:
+                                address_family:
+                                    ipv4:
+                                        accepted_prefixes: 2
+                                        received_prefixes: 2
+                                        sent_prefixes: 1
+                                description: p1.********.lab
+                                is_enabled: false
+                                is_up: true
+                                local_as: 65001
+                                remote_as: 65001
+                                remote_id: 10.10.10.4
+                                uptime: 79452
+                        router_id: 10.10.10.1
+                napalm_facts:
+                    fqdn: pe1.********.lab
+                    hostname: pe1.********.lab
+                    interface_list:
+                    - GigabitEthernet0/0/0/0
+                    - GigabitEthernet0/0/0/1
+                    - GigabitEthernet0/0/0/2
+                    - Loopback0
+                    - MgmtEth0/0/CPU0/0
+                    - Null0
+                    model: ''
+                    os_version: ''
+                    serial_number: ''
+                    uptime: 80772
+                    vendor: Cisco
+                napalm_fqdn: pe1.********.lab
+                napalm_hostname: pe1.********.lab
+                napalm_interface_list:
+                - GigabitEthernet0/0/0/0
+                - GigabitEthernet0/0/0/1
+                - GigabitEthernet0/0/0/2
+                - Loopback0
+                - MgmtEth0/0/CPU0/0
+                - Null0
+                napalm_interfaces:
+                    GigabitEthernet0/0/0/0:
+                        description: ''
+                        is_enabled: true
+                        is_up: true
+                        last_flapped: -1.0
+                        mac_address: '50:00:00:05:00:01'
+                        mtu: 1514
+                        speed: 1000
+                    GigabitEthernet0/0/0/1:
+                        description: 'WAN L3VPN service for ACME site: SITE_A'
+                        is_enabled: false
+                        is_up: false
+                        last_flapped: -1.0
+                        mac_address: '50:00:00:05:00:02'
+                        mtu: 1514
+                        speed: 1000
+                    GigabitEthernet0/0/0/2:
+                        description: 'WAN L3VPN service for ACME site: SITE_A'
+                        is_enabled: true
+                        is_up: true
+                        last_flapped: -1.0
+                        mac_address: '50:00:00:05:00:03'
+                        mtu: 1514
+                        speed: 1000
+                    Loopback0:
+                        description: ''
+                        is_enabled: true
+                        is_up: true
+                        last_flapped: -1.0
+                        mac_address: ''
+                        mtu: 1500
+                        speed: 0
+                    MgmtEth0/0/CPU0/0:
+                        description: ''
+                        is_enabled: true
+                        is_up: true
+                        last_flapped: -1.0
+                        mac_address: '50:00:00:05:00:00'
+                        mtu: 1514
+                        speed: 1000
+                    Null0:
+                        description: ''
+                        is_enabled: true
+                        is_up: true
+                        last_flapped: -1.0
+                        mac_address: ''
+                        mtu: 1500
+                        speed: 0
+                napalm_interfaces_ip:
+                    GigabitEthernet0/0/0/0:
+                        ipv4:
+                            10.0.1.1:
+                                prefix_length: 31
+                    GigabitEthernet0/0/0/1:
+                        ipv4:
+                            10.0.4.2:
+                                prefix_length: 30
+                    GigabitEthernet0/0/0/2:
+                        ipv4:
+                            10.0.3.2:
+                                prefix_length: 30
+                    Loopback0:
+                        ipv4:
+                            10.10.10.1:
+                                prefix_length: 32
+                    MgmtEth0/0/CPU0/0:
+                        ipv4:
+                            10.0.0.51:
+                                prefix_length: 24
+                napalm_model: ''
+                napalm_os_version: ''
+                napalm_serial_number: ''
+                napalm_uptime: 80772
+                napalm_vendor: Cisco
+            changed: false
+            failed: false
+        napalm_fqdn: pe1.********.lab
+        napalm_hostname: pe1.********.lab
+        napalm_interface_list:
+        - GigabitEthernet0/0/0/0
+        - GigabitEthernet0/0/0/1
+        - GigabitEthernet0/0/0/2
+        - Loopback0
+        - MgmtEth0/0/CPU0/0
+        - Null0
+        napalm_interfaces:
+            GigabitEthernet0/0/0/0:
+                description: ''
+                is_enabled: true
+                is_up: true
+                last_flapped: -1.0
+                mac_address: '50:00:00:05:00:01'
+                mtu: 1514
+                speed: 1000
+            GigabitEthernet0/0/0/1:
+                description: 'WAN L3VPN service for ACME site: SITE_A'
+                is_enabled: false
+                is_up: false
+                last_flapped: -1.0
+                mac_address: '50:00:00:05:00:02'
+                mtu: 1514
+                speed: 1000
+            GigabitEthernet0/0/0/2:
+                description: 'WAN L3VPN service for ACME site: SITE_A'
+                is_enabled: true
+                is_up: true
+                last_flapped: -1.0
+                mac_address: '50:00:00:05:00:03'
+                mtu: 1514
+                speed: 1000
+            Loopback0:
+                description: ''
+                is_enabled: true
+                is_up: true
+                last_flapped: -1.0
+                mac_address: ''
+                mtu: 1500
+                speed: 0
+            MgmtEth0/0/CPU0/0:
+                description: ''
+                is_enabled: true
+                is_up: true
+                last_flapped: -1.0
+                mac_address: '50:00:00:05:00:00'
+                mtu: 1514
+                speed: 1000
+            Null0:
+                description: ''
+                is_enabled: true
+                is_up: true
+                last_flapped: -1.0
+                mac_address: ''
+                mtu: 1500
+                speed: 0
+        napalm_interfaces_ip:
+            GigabitEthernet0/0/0/0:
+                ipv4:
+                    10.0.1.1:
+                        prefix_length: 31
+            GigabitEthernet0/0/0/1:
+                ipv4:
+                    10.0.4.2:
+                        prefix_length: 30
+            GigabitEthernet0/0/0/2:
+                ipv4:
+                    10.0.3.2:
+                        prefix_length: 30
+            Loopback0:
+                ipv4:
+                    10.10.10.1:
+                        prefix_length: 32
+            MgmtEth0/0/CPU0/0:
+                ipv4:
+                    10.0.0.51:
+                        prefix_length: 24
+        napalm_model: ''
+        napalm_os_version: ''
+        napalm_serial_number: ''
+        napalm_uptime: 80772
+        napalm_vendor: Cisco
+        ntp-server:
+        -   ip: 192.168.0.1
+        -   ip: 192.168.0.2
+        -   ip: 192.168.1.251
+        omit: __omit_place_holder__e3feaf9fb86b765ea5de3114f8e1812a8d2cc596
+        playbook_dir: /home/pk/net-auto-sol/data-model
+        service_deploy:
+            changed: false
+            failed: false
+            msg: ''
+        snmp-server:
+        -   community: public
+            ip: 192.168.0.3
+        -   community: public
+            ip: 192.168.0.4
+    pe2.pk.lab:
+        ansible_check_mode: false
+        ansible_diff_mode: false
+        ansible_facts:
+            napalm_bgp_neighbors:
+                VRF_ACME:
+                    peers:
+                        10.0.3.5:
+                            address_family:
+                                vpnv4 unicast:
+                                    accepted_prefixes: -1
+                                    received_prefixes: -1
+                                    sent_prefixes: -1
+                            description: 'WAN L3VPN service for ACME site: SITE_B'
+                            is_enabled: true
+                            is_up: false
+                            local_as: 65001
+                            remote_as: 65101
+                            remote_id: 0.0.0.0
+                            uptime: -1
+                    router_id: 10.10.10.2
+                global:
+                    peers:
+                        10.10.10.4:
+                            address_family:
+                                ipv4 unicast:
+                                    accepted_prefixes: 0
+                                    received_prefixes: 0
+                                    sent_prefixes: 0
+                                vpnv4 unicast:
+                                    accepted_prefixes: 2
+                                    received_prefixes: 2
+                                    sent_prefixes: 1
+                            description: p1.********.lab
+                            is_enabled: true
+                            is_up: true
+                            local_as: 65001
+                            remote_as: 65001
+                            remote_id: 10.10.10.4
+                            uptime: 2246400
+                    router_id: 10.10.10.2
+            napalm_facts:
+                fqdn: pe2.********.lab.********.lab
+                hostname: pe2.********.lab
+                interface_list:
+                - GigabitEthernet1
+                - GigabitEthernet2
+                - GigabitEthernet3
+                - GigabitEthernet4
+                - Loopback0
+                model: CSR1000V
+                os_version: CSR1000V Software (X86_64_LINUX_IOSD-UNIVERSALK9-M), Version
+                    15.5(2)S2, RELEASE SOFTWARE (fc1)
+                serial_number: 9G82IZA1QBP
+                uptime: 2730660
+                vendor: Cisco
+            napalm_fqdn: pe2.********.lab.********.lab
+            napalm_hostname: pe2.********.lab
+            napalm_interface_list:
+            - GigabitEthernet1
+            - GigabitEthernet2
+            - GigabitEthernet3
+            - GigabitEthernet4
+            - Loopback0
+            napalm_interfaces:
+                GigabitEthernet1:
+                    description: ''
+                    is_enabled: true
+                    is_up: true
+                    last_flapped: -1.0
+                    mac_address: '50:00:00:02:00:00'
+                    mtu: 1500
+                    speed: 1000
+                GigabitEthernet2:
+                    description: ''
+                    is_enabled: true
+                    is_up: true
+                    last_flapped: -1.0
+                    mac_address: '50:00:00:02:00:01'
+                    mtu: 1500
+                    speed: 1000
+                GigabitEthernet3:
+                    description: 'WAN L3VPN service for ACME site: SITE_B'
+                    is_enabled: true
+                    is_up: true
+                    last_flapped: -1.0
+                    mac_address: '50:00:00:02:00:02'
+                    mtu: 1500
+                    speed: 1000
+                GigabitEthernet4:
+                    description: ''
+                    is_enabled: true
+                    is_up: true
+                    last_flapped: -1.0
+                    mac_address: '50:00:00:02:00:03'
+                    mtu: 1500
+                    speed: 1000
+                Loopback0:
+                    description: ''
+                    is_enabled: true
+                    is_up: true
+                    last_flapped: -1.0
+                    mac_address: ''
+                    mtu: 1514
+                    speed: 8000
+            napalm_interfaces_ip:
+                GigabitEthernet1:
+                    ipv4:
+                        10.0.0.52:
+                            prefix_length: 24
+                GigabitEthernet2:
+                    ipv4:
+                        10.0.1.5:
+                            prefix_length: 31
+                GigabitEthernet3:
+                    ipv4:
+                        10.0.3.6:
+                            prefix_length: 30
+                Loopback0:
+                    ipv4:
+                        10.10.10.2:
+                            prefix_length: 32
+            napalm_model: CSR1000V
+            napalm_os_version: CSR1000V Software (X86_64_LINUX_IOSD-UNIVERSALK9-M),
+                Version 15.5(2)S2, RELEASE SOFTWARE (fc1)
+            napalm_serial_number: 9G82IZA1QBP
+            napalm_uptime: 2730660
+            napalm_vendor: Cisco
+        ansible_forks: 5
+        ansible_host: 10.0.0.52
+        ansible_inventory_sources:
+        - /home/pk/net-auto-sol/inventory/hosts
+        ansible_network_os: ios
+        ansible_playbook_python: /usr/bin/python3
+        ansible_run_tags:
+        - all
+        ansible_skip_tags: []
+        ansible_ssh_pass: pk
+        ansible_user: pk
+        ansible_verbosity: 0
+        ansible_version:
+            full: 2.8.5
+            major: 2
+            minor: 8
+            revision: 5
+            string: 2.8.5
+        dns:
+        -   domain: pk.lab
+        group_names:
+        - coreedge
+        - iospe
+        - mpls
+        groups:
+            all:
+            - cpe1.pk.lab
+            - cpe2.pk.lab
+            - cpe3.pk.lab
+            - p1.pk.lab
+            - pe2.pk.lab
+            - pe3.pk.lab
+            - pe1.pk.lab
+            coreedge:
+            - p1.pk.lab
+            - pe2.pk.lab
+            - pe3.pk.lab
+            - pe1.pk.lab
+            cpe:
+            - cpe1.pk.lab
+            - cpe2.pk.lab
+            - cpe3.pk.lab
+            ios_cpe:
+            - cpe1.pk.lab
+            - cpe2.pk.lab
+            - cpe3.pk.lab
+            ioscpe:
+            - cpe1.pk.lab
+            - cpe2.pk.lab
+            - cpe3.pk.lab
+            iosp:
+            - p1.pk.lab
+            iospe:
+            - pe2.pk.lab
+            - pe3.pk.lab
+            mpls:
+            - cpe1.pk.lab
+            - cpe2.pk.lab
+            - cpe3.pk.lab
+            - p1.pk.lab
+            - pe2.pk.lab
+            - pe3.pk.lab
+            - pe1.pk.lab
+            xrpe:
+            - pe1.pk.lab
+        inventory_dir: /home/pk/net-auto-sol/inventory
+        inventory_file: /home/pk/net-auto-sol/inventory/hosts
+        inventory_hostname: pe2.pk.lab
+        inventory_hostname_short: pe2
+        napalm_bgp_neighbors:
+            VRF_ACME:
+                peers:
+                    10.0.3.5:
+                        address_family:
+                            vpnv4 unicast:
+                                accepted_prefixes: -1
+                                received_prefixes: -1
+                                sent_prefixes: -1
+                        description: 'WAN L3VPN service for ACME site: SITE_B'
+                        is_enabled: true
+                        is_up: false
+                        local_as: 65001
+                        remote_as: 65101
+                        remote_id: 0.0.0.0
+                        uptime: -1
+                router_id: 10.10.10.2
+            global:
+                peers:
+                    10.10.10.4:
+                        address_family:
+                            ipv4 unicast:
+                                accepted_prefixes: 0
+                                received_prefixes: 0
+                                sent_prefixes: 0
+                            vpnv4 unicast:
+                                accepted_prefixes: 2
+                                received_prefixes: 2
+                                sent_prefixes: 1
+                        description: p1.********.lab
+                        is_enabled: true
+                        is_up: true
+                        local_as: 65001
+                        remote_as: 65001
+                        remote_id: 10.10.10.4
+                        uptime: 2246400
+                router_id: 10.10.10.2
+        napalm_facts:
+            ansible_facts:
+                napalm_bgp_neighbors:
+                    VRF_ACME:
+                        peers:
+                            10.0.3.5:
+                                address_family:
+                                    vpnv4 unicast:
+                                        accepted_prefixes: -1
+                                        received_prefixes: -1
+                                        sent_prefixes: -1
+                                description: 'WAN L3VPN service for ACME site: SITE_B'
+                                is_enabled: true
+                                is_up: false
+                                local_as: 65001
+                                remote_as: 65101
+                                remote_id: 0.0.0.0
+                                uptime: -1
+                        router_id: 10.10.10.2
+                    global:
+                        peers:
+                            10.10.10.4:
+                                address_family:
+                                    ipv4 unicast:
+                                        accepted_prefixes: 0
+                                        received_prefixes: 0
+                                        sent_prefixes: 0
+                                    vpnv4 unicast:
+                                        accepted_prefixes: 2
+                                        received_prefixes: 2
+                                        sent_prefixes: 1
+                                description: p1.********.lab
+                                is_enabled: true
+                                is_up: true
+                                local_as: 65001
+                                remote_as: 65001
+                                remote_id: 10.10.10.4
+                                uptime: 2246400
+                        router_id: 10.10.10.2
+                napalm_facts:
+                    fqdn: pe2.********.lab.********.lab
+                    hostname: pe2.********.lab
+                    interface_list:
+                    - GigabitEthernet1
+                    - GigabitEthernet2
+                    - GigabitEthernet3
+                    - GigabitEthernet4
+                    - Loopback0
+                    model: CSR1000V
+                    os_version: CSR1000V Software (X86_64_LINUX_IOSD-UNIVERSALK9-M),
+                        Version 15.5(2)S2, RELEASE SOFTWARE (fc1)
+                    serial_number: 9G82IZA1QBP
+                    uptime: 2730660
+                    vendor: Cisco
+                napalm_fqdn: pe2.********.lab.********.lab
+                napalm_hostname: pe2.********.lab
+                napalm_interface_list:
+                - GigabitEthernet1
+                - GigabitEthernet2
+                - GigabitEthernet3
+                - GigabitEthernet4
+                - Loopback0
+                napalm_interfaces:
+                    GigabitEthernet1:
+                        description: ''
+                        is_enabled: true
+                        is_up: true
+                        last_flapped: -1.0
+                        mac_address: '50:00:00:02:00:00'
+                        mtu: 1500
+                        speed: 1000
+                    GigabitEthernet2:
+                        description: ''
+                        is_enabled: true
+                        is_up: true
+                        last_flapped: -1.0
+                        mac_address: '50:00:00:02:00:01'
+                        mtu: 1500
+                        speed: 1000
+                    GigabitEthernet3:
+                        description: 'WAN L3VPN service for ACME site: SITE_B'
+                        is_enabled: true
+                        is_up: true
+                        last_flapped: -1.0
+                        mac_address: '50:00:00:02:00:02'
+                        mtu: 1500
+                        speed: 1000
+                    GigabitEthernet4:
+                        description: ''
+                        is_enabled: true
+                        is_up: true
+                        last_flapped: -1.0
+                        mac_address: '50:00:00:02:00:03'
+                        mtu: 1500
+                        speed: 1000
+                    Loopback0:
+                        description: ''
+                        is_enabled: true
+                        is_up: true
+                        last_flapped: -1.0
+                        mac_address: ''
+                        mtu: 1514
+                        speed: 8000
+                napalm_interfaces_ip:
+                    GigabitEthernet1:
+                        ipv4:
+                            10.0.0.52:
+                                prefix_length: 24
+                    GigabitEthernet2:
+                        ipv4:
+                            10.0.1.5:
+                                prefix_length: 31
+                    GigabitEthernet3:
+                        ipv4:
+                            10.0.3.6:
+                                prefix_length: 30
+                    Loopback0:
+                        ipv4:
+                            10.10.10.2:
+                                prefix_length: 32
+                napalm_model: CSR1000V
+                napalm_os_version: CSR1000V Software (X86_64_LINUX_IOSD-UNIVERSALK9-M),
+                    Version 15.5(2)S2, RELEASE SOFTWARE (fc1)
+                napalm_serial_number: 9G82IZA1QBP
+                napalm_uptime: 2730660
+                napalm_vendor: Cisco
+            changed: false
+            failed: false
+        napalm_fqdn: pe2.********.lab.********.lab
+        napalm_hostname: pe2.********.lab
+        napalm_interface_list:
+        - GigabitEthernet1
+        - GigabitEthernet2
+        - GigabitEthernet3
+        - GigabitEthernet4
+        - Loopback0
+        napalm_interfaces:
+            GigabitEthernet1:
+                description: ''
+                is_enabled: true
+                is_up: true
+                last_flapped: -1.0
+                mac_address: '50:00:00:02:00:00'
+                mtu: 1500
+                speed: 1000
+            GigabitEthernet2:
+                description: ''
+                is_enabled: true
+                is_up: true
+                last_flapped: -1.0
+                mac_address: '50:00:00:02:00:01'
+                mtu: 1500
+                speed: 1000
+            GigabitEthernet3:
+                description: 'WAN L3VPN service for ACME site: SITE_B'
+                is_enabled: true
+                is_up: true
+                last_flapped: -1.0
+                mac_address: '50:00:00:02:00:02'
+                mtu: 1500
+                speed: 1000
+            GigabitEthernet4:
+                description: ''
+                is_enabled: true
+                is_up: true
+                last_flapped: -1.0
+                mac_address: '50:00:00:02:00:03'
+                mtu: 1500
+                speed: 1000
+            Loopback0:
+                description: ''
+                is_enabled: true
+                is_up: true
+                last_flapped: -1.0
+                mac_address: ''
+                mtu: 1514
+                speed: 8000
+        napalm_interfaces_ip:
+            GigabitEthernet1:
+                ipv4:
+                    10.0.0.52:
+                        prefix_length: 24
+            GigabitEthernet2:
+                ipv4:
+                    10.0.1.5:
+                        prefix_length: 31
+            GigabitEthernet3:
+                ipv4:
+                    10.0.3.6:
+                        prefix_length: 30
+            Loopback0:
+                ipv4:
+                    10.10.10.2:
+                        prefix_length: 32
+        napalm_model: CSR1000V
+        napalm_os_version: CSR1000V Software (X86_64_LINUX_IOSD-UNIVERSALK9-M), Version
+            15.5(2)S2, RELEASE SOFTWARE (fc1)
+        napalm_serial_number: 9G82IZA1QBP
+        napalm_uptime: 2730660
+        napalm_vendor: Cisco
+        ntp-server:
+        -   ip: 192.168.0.1
+        -   ip: 192.168.0.2
+        -   ip: 192.168.1.251
+        omit: __omit_place_holder__e3feaf9fb86b765ea5de3114f8e1812a8d2cc596
+        playbook_dir: /home/pk/net-auto-sol/data-model
+        service_deploy:
+            changed: false
+            failed: false
+            msg: ''
+        snmp-server:
+        -   community: public
+            ip: 192.168.0.3
+        -   community: public
+            ip: 192.168.0.4
+    pe3.pk.lab:
+        ansible_check_mode: false
+        ansible_diff_mode: false
+        ansible_facts:
+            napalm_bgp_neighbors:
+                VRF_ACME:
+                    peers:
+                        10.0.3.9:
+                            address_family:
+                                vpnv4 unicast:
+                                    accepted_prefixes: -1
+                                    received_prefixes: -1
+                                    sent_prefixes: -1
+                            description: 'WAN L3VPN service for ACME site: SITE_C'
+                            is_enabled: true
+                            is_up: false
+                            local_as: 65001
+                            remote_as: 65101
+                            remote_id: 0.0.0.0
+                            uptime: -1
+                    router_id: 10.10.10.3
+                global:
+                    peers:
+                        10.10.10.4:
+                            address_family:
+                                ipv4 unicast:
+                                    accepted_prefixes: 0
+                                    received_prefixes: 0
+                                    sent_prefixes: 0
+                                vpnv4 unicast:
+                                    accepted_prefixes: 2
+                                    received_prefixes: 2
+                                    sent_prefixes: 1
+                            description: p1.********.lab
+                            is_enabled: true
+                            is_up: true
+                            local_as: 65001
+                            remote_as: 65001
+                            remote_id: 10.10.10.4
+                            uptime: 2246400
+                    router_id: 10.10.10.3
+            napalm_facts:
+                fqdn: pe3.********.lab.********.lab
+                hostname: pe3.********.lab
+                interface_list:
+                - GigabitEthernet1
+                - GigabitEthernet2
+                - GigabitEthernet3
+                - GigabitEthernet4
+                - Loopback0
+                model: CSR1000V
+                os_version: CSR1000V Software (X86_64_LINUX_IOSD-UNIVERSALK9-M), Version
+                    15.5(2)S2, RELEASE SOFTWARE (fc1)
+                serial_number: 912O4AAEJ6I
+                uptime: 2730660
+                vendor: Cisco
+            napalm_fqdn: pe3.********.lab.********.lab
+            napalm_hostname: pe3.********.lab
+            napalm_interface_list:
+            - GigabitEthernet1
+            - GigabitEthernet2
+            - GigabitEthernet3
+            - GigabitEthernet4
+            - Loopback0
+            napalm_interfaces:
+                GigabitEthernet1:
+                    description: ''
+                    is_enabled: true
+                    is_up: true
+                    last_flapped: -1.0
+                    mac_address: '50:00:00:03:00:00'
+                    mtu: 1500
+                    speed: 1000
+                GigabitEthernet2:
+                    description: ''
+                    is_enabled: true
+                    is_up: true
+                    last_flapped: -1.0
+                    mac_address: '50:00:00:03:00:01'
+                    mtu: 1500
+                    speed: 1000
+                GigabitEthernet3:
+                    description: ''
+                    is_enabled: true
+                    is_up: true
+                    last_flapped: -1.0
+                    mac_address: '50:00:00:03:00:02'
+                    mtu: 1500
+                    speed: 1000
+                GigabitEthernet4:
+                    description: 'WAN L3VPN service for ACME site: SITE_C'
+                    is_enabled: true
+                    is_up: true
+                    last_flapped: -1.0
+                    mac_address: '50:00:00:03:00:03'
+                    mtu: 1500
+                    speed: 1000
+                Loopback0:
+                    description: ''
+                    is_enabled: true
+                    is_up: true
+                    last_flapped: -1.0
+                    mac_address: ''
+                    mtu: 1514
+                    speed: 8000
+            napalm_interfaces_ip:
+                GigabitEthernet1:
+                    ipv4:
+                        10.0.0.53:
+                            prefix_length: 24
+                GigabitEthernet2:
+                    ipv4:
+                        10.0.1.3:
+                            prefix_length: 31
+                GigabitEthernet3:
+                    ipv4:
+                        10.0.1.6:
+                            prefix_length: 31
+                GigabitEthernet4:
+                    ipv4:
+                        10.0.3.10:
+                            prefix_length: 30
+                Loopback0:
+                    ipv4:
+                        10.10.10.3:
+                            prefix_length: 32
+            napalm_model: CSR1000V
+            napalm_os_version: CSR1000V Software (X86_64_LINUX_IOSD-UNIVERSALK9-M),
+                Version 15.5(2)S2, RELEASE SOFTWARE (fc1)
+            napalm_serial_number: 912O4AAEJ6I
+            napalm_uptime: 2730660
+            napalm_vendor: Cisco
+        ansible_forks: 5
+        ansible_host: 10.0.0.53
+        ansible_inventory_sources:
+        - /home/pk/net-auto-sol/inventory/hosts
+        ansible_network_os: ios
+        ansible_playbook_python: /usr/bin/python3
+        ansible_run_tags:
+        - all
+        ansible_skip_tags: []
+        ansible_ssh_pass: pk
+        ansible_user: pk
+        ansible_verbosity: 0
+        ansible_version:
+            full: 2.8.5
+            major: 2
+            minor: 8
+            revision: 5
+            string: 2.8.5
+        dns:
+        -   domain: pk.lab
+        group_names:
+        - coreedge
+        - iospe
+        - mpls
+        groups:
+            all:
+            - cpe1.pk.lab
+            - cpe2.pk.lab
+            - cpe3.pk.lab
+            - p1.pk.lab
+            - pe2.pk.lab
+            - pe3.pk.lab
+            - pe1.pk.lab
+            coreedge:
+            - p1.pk.lab
+            - pe2.pk.lab
+            - pe3.pk.lab
+            - pe1.pk.lab
+            cpe:
+            - cpe1.pk.lab
+            - cpe2.pk.lab
+            - cpe3.pk.lab
+            ios_cpe:
+            - cpe1.pk.lab
+            - cpe2.pk.lab
+            - cpe3.pk.lab
+            ioscpe:
+            - cpe1.pk.lab
+            - cpe2.pk.lab
+            - cpe3.pk.lab
+            iosp:
+            - p1.pk.lab
+            iospe:
+            - pe2.pk.lab
+            - pe3.pk.lab
+            mpls:
+            - cpe1.pk.lab
+            - cpe2.pk.lab
+            - cpe3.pk.lab
+            - p1.pk.lab
+            - pe2.pk.lab
+            - pe3.pk.lab
+            - pe1.pk.lab
+            xrpe:
+            - pe1.pk.lab
+        inventory_dir: /home/pk/net-auto-sol/inventory
+        inventory_file: /home/pk/net-auto-sol/inventory/hosts
+        inventory_hostname: pe3.pk.lab
+        inventory_hostname_short: pe3
+        napalm_bgp_neighbors:
+            VRF_ACME:
+                peers:
+                    10.0.3.9:
+                        address_family:
+                            vpnv4 unicast:
+                                accepted_prefixes: -1
+                                received_prefixes: -1
+                                sent_prefixes: -1
+                        description: 'WAN L3VPN service for ACME site: SITE_C'
+                        is_enabled: true
+                        is_up: false
+                        local_as: 65001
+                        remote_as: 65101
+                        remote_id: 0.0.0.0
+                        uptime: -1
+                router_id: 10.10.10.3
+            global:
+                peers:
+                    10.10.10.4:
+                        address_family:
+                            ipv4 unicast:
+                                accepted_prefixes: 0
+                                received_prefixes: 0
+                                sent_prefixes: 0
+                            vpnv4 unicast:
+                                accepted_prefixes: 2
+                                received_prefixes: 2
+                                sent_prefixes: 1
+                        description: p1.********.lab
+                        is_enabled: true
+                        is_up: true
+                        local_as: 65001
+                        remote_as: 65001
+                        remote_id: 10.10.10.4
+                        uptime: 2246400
+                router_id: 10.10.10.3
+        napalm_facts:
+            ansible_facts:
+                napalm_bgp_neighbors:
+                    VRF_ACME:
+                        peers:
+                            10.0.3.9:
+                                address_family:
+                                    vpnv4 unicast:
+                                        accepted_prefixes: -1
+                                        received_prefixes: -1
+                                        sent_prefixes: -1
+                                description: 'WAN L3VPN service for ACME site: SITE_C'
+                                is_enabled: true
+                                is_up: false
+                                local_as: 65001
+                                remote_as: 65101
+                                remote_id: 0.0.0.0
+                                uptime: -1
+                        router_id: 10.10.10.3
+                    global:
+                        peers:
+                            10.10.10.4:
+                                address_family:
+                                    ipv4 unicast:
+                                        accepted_prefixes: 0
+                                        received_prefixes: 0
+                                        sent_prefixes: 0
+                                    vpnv4 unicast:
+                                        accepted_prefixes: 2
+                                        received_prefixes: 2
+                                        sent_prefixes: 1
+                                description: p1.********.lab
+                                is_enabled: true
+                                is_up: true
+                                local_as: 65001
+                                remote_as: 65001
+                                remote_id: 10.10.10.4
+                                uptime: 2246400
+                        router_id: 10.10.10.3
+                napalm_facts:
+                    fqdn: pe3.********.lab.********.lab
+                    hostname: pe3.********.lab
+                    interface_list:
+                    - GigabitEthernet1
+                    - GigabitEthernet2
+                    - GigabitEthernet3
+                    - GigabitEthernet4
+                    - Loopback0
+                    model: CSR1000V
+                    os_version: CSR1000V Software (X86_64_LINUX_IOSD-UNIVERSALK9-M),
+                        Version 15.5(2)S2, RELEASE SOFTWARE (fc1)
+                    serial_number: 912O4AAEJ6I
+                    uptime: 2730660
+                    vendor: Cisco
+                napalm_fqdn: pe3.********.lab.********.lab
+                napalm_hostname: pe3.********.lab
+                napalm_interface_list:
+                - GigabitEthernet1
+                - GigabitEthernet2
+                - GigabitEthernet3
+                - GigabitEthernet4
+                - Loopback0
+                napalm_interfaces:
+                    GigabitEthernet1:
+                        description: ''
+                        is_enabled: true
+                        is_up: true
+                        last_flapped: -1.0
+                        mac_address: '50:00:00:03:00:00'
+                        mtu: 1500
+                        speed: 1000
+                    GigabitEthernet2:
+                        description: ''
+                        is_enabled: true
+                        is_up: true
+                        last_flapped: -1.0
+                        mac_address: '50:00:00:03:00:01'
+                        mtu: 1500
+                        speed: 1000
+                    GigabitEthernet3:
+                        description: ''
+                        is_enabled: true
+                        is_up: true
+                        last_flapped: -1.0
+                        mac_address: '50:00:00:03:00:02'
+                        mtu: 1500
+                        speed: 1000
+                    GigabitEthernet4:
+                        description: 'WAN L3VPN service for ACME site: SITE_C'
+                        is_enabled: true
+                        is_up: true
+                        last_flapped: -1.0
+                        mac_address: '50:00:00:03:00:03'
+                        mtu: 1500
+                        speed: 1000
+                    Loopback0:
+                        description: ''
+                        is_enabled: true
+                        is_up: true
+                        last_flapped: -1.0
+                        mac_address: ''
+                        mtu: 1514
+                        speed: 8000
+                napalm_interfaces_ip:
+                    GigabitEthernet1:
+                        ipv4:
+                            10.0.0.53:
+                                prefix_length: 24
+                    GigabitEthernet2:
+                        ipv4:
+                            10.0.1.3:
+                                prefix_length: 31
+                    GigabitEthernet3:
+                        ipv4:
+                            10.0.1.6:
+                                prefix_length: 31
+                    GigabitEthernet4:
+                        ipv4:
+                            10.0.3.10:
+                                prefix_length: 30
+                    Loopback0:
+                        ipv4:
+                            10.10.10.3:
+                                prefix_length: 32
+                napalm_model: CSR1000V
+                napalm_os_version: CSR1000V Software (X86_64_LINUX_IOSD-UNIVERSALK9-M),
+                    Version 15.5(2)S2, RELEASE SOFTWARE (fc1)
+                napalm_serial_number: 912O4AAEJ6I
+                napalm_uptime: 2730660
+                napalm_vendor: Cisco
+            changed: false
+            failed: false
+        napalm_fqdn: pe3.********.lab.********.lab
+        napalm_hostname: pe3.********.lab
+        napalm_interface_list:
+        - GigabitEthernet1
+        - GigabitEthernet2
+        - GigabitEthernet3
+        - GigabitEthernet4
+        - Loopback0
+        napalm_interfaces:
+            GigabitEthernet1:
+                description: ''
+                is_enabled: true
+                is_up: true
+                last_flapped: -1.0
+                mac_address: '50:00:00:03:00:00'
+                mtu: 1500
+                speed: 1000
+            GigabitEthernet2:
+                description: ''
+                is_enabled: true
+                is_up: true
+                last_flapped: -1.0
+                mac_address: '50:00:00:03:00:01'
+                mtu: 1500
+                speed: 1000
+            GigabitEthernet3:
+                description: ''
+                is_enabled: true
+                is_up: true
+                last_flapped: -1.0
+                mac_address: '50:00:00:03:00:02'
+                mtu: 1500
+                speed: 1000
+            GigabitEthernet4:
+                description: 'WAN L3VPN service for ACME site: SITE_C'
+                is_enabled: true
+                is_up: true
+                last_flapped: -1.0
+                mac_address: '50:00:00:03:00:03'
+                mtu: 1500
+                speed: 1000
+            Loopback0:
+                description: ''
+                is_enabled: true
+                is_up: true
+                last_flapped: -1.0
+                mac_address: ''
+                mtu: 1514
+                speed: 8000
+        napalm_interfaces_ip:
+            GigabitEthernet1:
+                ipv4:
+                    10.0.0.53:
+                        prefix_length: 24
+            GigabitEthernet2:
+                ipv4:
+                    10.0.1.3:
+                        prefix_length: 31
+            GigabitEthernet3:
+                ipv4:
+                    10.0.1.6:
+                        prefix_length: 31
+            GigabitEthernet4:
+                ipv4:
+                    10.0.3.10:
+                        prefix_length: 30
+            Loopback0:
+                ipv4:
+                    10.10.10.3:
+                        prefix_length: 32
+        napalm_model: CSR1000V
+        napalm_os_version: CSR1000V Software (X86_64_LINUX_IOSD-UNIVERSALK9-M), Version
+            15.5(2)S2, RELEASE SOFTWARE (fc1)
+        napalm_serial_number: 912O4AAEJ6I
+        napalm_uptime: 2730660
+        napalm_vendor: Cisco
+        ntp-server:
+        -   ip: 192.168.0.1
+        -   ip: 192.168.0.2
+        -   ip: 192.168.1.251
+        omit: __omit_place_holder__e3feaf9fb86b765ea5de3114f8e1812a8d2cc596
+        playbook_dir: /home/pk/net-auto-sol/data-model
+        service_deploy:
+            changed: false
+            failed: false
+            msg: ''
+        snmp-server:
+        -   community: public
+            ip: 192.168.0.3
+        -   community: public
+            ip: 192.168.0.4

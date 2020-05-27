@@ -1,0 +1,40 @@
+#
+# These tasks retrieve and parse VRF names
+# NOTE: pyats parser for 'show vrf all detail' and 'show vrf' did not work
+#
+---
+- name: GET ALL VRF DATA FROM CLI
+  cli_command:
+    command: "show running-config vrf | incl vrf"
+  register: xr_vrf_results
+  tags: [step4, list_vrf]
+- name: DEBUG IOS XR VRF LIST
+  debug:
+    var: xr_vrf_results
+  tags: [step4, list_vrf]  
+- name: PARSE IOS XR VRF INFO
+  set_fact:
+    xr_parsed_vrfs: "{{ xr_vrf_results.stdout_lines | parse_xr_vrf }}"
+    xr_node_vrfs: "{{ nodes[inventory_hostname]['vrfs'].keys() | list}}"
+  tags: [step4, list_vrf]
+- name: REPORT VRF DIFF BETWEEN DATA MODEL AND EXISTING VRF
+  blockinfile:
+    create: yes
+    path: "{{playbook_dir}}/results/reports/{{inventory_hostname}}.vrf"
+    marker: "{mark}"
+    marker_begin: "*** VRF REPORT: {{ lookup('pipe','date') }} "
+    marker_end: "*** END\n"
+    block: |
+      NODE: {{ inventory_hostname }} 
+      -------------------------
+      EXISTING: (on the node)
+      {% for vrf_name in xr_parsed_vrfs %}
+          {{ vrf_name }}
+      {% endfor %}
+      EXPECTED: (in service provisioning file)
+      {% for node_vrf_name in xr_node_vrfs %}
+          {{ node_vrf_name }}
+      {% endfor %}
+      DIFF: 
+          {{ xr_parsed_vrfs | symmetric_difference(xr_node_vrfs) }}
+  tags: [step4, list_vrf]  

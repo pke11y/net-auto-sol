@@ -1,0 +1,162 @@
+#
+# Build base infrastructure configurations and services. 
+# Deploy the full configuration to the nodes.
+# 
+# 
+#
+---
+- name: PLAY TO BUILD CPE FOR L3VPN SERVICE
+  hosts: localhost
+  gather_facts: no
+  vars_files:
+    - ./data_models/nodes.yml
+    - ./data_models/services.yml
+  tasks:
+    - name: BUILD CPE INVENTORY and CONFIGURATION
+      include_role:
+        name: cpe_router
+      tags: [ cpe ]
+    - name: DEPLOY CPE CONFIG TO DEVICES
+      napalm_install_config:
+        hostname: "{{ hostvars[item]['ansible_host'] }}"
+        username: "{{ ansible_user }}"
+        dev_os: "{{ hostvars[item]['ansible_network_os'] }}"
+        password: "{{ ansible_ssh_pass }}"
+        config_file: "{{playbook_dir}}/results/{{item}}.cfg"
+        commit_changes: True
+        replace_config: True
+        get_diffs: False
+        diff_file: 
+      loop: "{{groups['ioscpe']}}"
+      tags: [ cpe ]
+    - name: SET CPE BOOT CONFIG AND RELOAD CPE
+      ios_command:
+        commands:
+          - command: 'copy flash:/candidate_config.txt nvram:startup-config'
+            prompt: '[startup\-config]'
+            answer: "\r"
+          - command: reload
+            check_all: True
+            prompt: 
+              - Save\?
+              - confirm
+            answer: 
+              - n
+              - y
+        provider:
+          host: "{{ hostvars[item]['ansible_host'] }}"
+          username: "{{ ansible_user }}"
+          password: "{{ ansible_ssh_pass }}"
+          timeout: 15
+      loop: "{{groups['ioscpe']}}"   
+      tags: [ cpe, reload ]
+    - name: WAIT 300 seconds FOR CPE REBOOT, DELAY 10 TO SHUTDOWN
+      wait_for:
+        delay: 10
+        timeout: 300
+      tags: [ cpe, reload ]
+
+- name: PLAY TO BUILD PE FOR L3VPN SERVICE
+  hosts: coreedge
+  connection: network_cli  
+  gather_facts: no
+  roles:
+    - ansible-pyats
+  vars_files:
+    - ./data_models/nodes.yml
+    - ./data_models/services.yml
+  tasks:
+    - name: CHECK IF SERVICE CPE DEVICES EXIST IN OTHER VRFs
+      include_tasks: ./tasks/{{ansible_network_os}}_cpe_all_vrf_check_task.yml
+      tags: [step3, check_state]      
+    - name: CREATE SERVICE CONFIG DIRECTORY
+      local_action: file path={{playbook_dir}}/results/service_config state=directory
+      run_once: true
+      check_mode: no          
+    - name: CREATE PE SERVICE CONFIGURATION
+      template: src=./templates/{{ansible_network_os}}_l3vpn_service.j2 dest=./results/service_config/{{inventory_hostname}}_service.cfg
+    - name: CREATE DIFF FILES
+      local_action: file path={{playbook_dir}}/results/service_config/{{inventory_hostname}}_service.diff state=touch
+      check_mode: no
+    - name: DEPLOY PE CONFIG TO DEVICES
+      napalm_install_config:
+        hostname: "{{ inventory_hostname }}"
+        username: "{{ ansible_user }}"
+        dev_os: "{{ ansible_network_os }}"
+        password: "{{ ansible_ssh_pass }}"
+        config_file: "{{playbook_dir}}/results/service_config/{{inventory_hostname}}_service.cfg"
+        commit_changes: True
+        replace_config: False
+        get_diffs: True
+        diff_file: "{{playbook_dir}}/results/service_config/{{inventory_hostname}}_service.diff"
+      register: service_deploy
+    - name:  GET NAPALM FACTS 
+      napalm_get_facts:
+        hostname: "{{ansible_host}}"
+        username: "{{ansible_user}}"
+        dev_os: "{{ansible_network_os}}"
+        password: "{{ ansible_ssh_pass }}"
+        filter: ['facts', 'interfaces', 'interfaces_ip', 'bgp_neighbors']
+      register: napalm_facts       
+    - name: CHECK BGP SERVICE STATUS
+      include_tasks: ./tasks/validate_bgp_task.yml
+      loop: "{{ hostvars[inventory_hostname]['ansible_facts']['napalm_bgp_neighbors'] | dict2items }}"
+      when: not vrf_item.key == 'global' 
+      loop_control:
+        loop_var: vrf_item
+
+- name: PLAY TO TEST IP REACHABILITY FOR L3VPN SERVICE
+  hosts: ioscpe
+  gather_facts: no
+  connection: network_cli  
+  vars_files:
+    - ./data_models/services.yml
+  tasks:
+    - name: CREATE REPORT DIRECTORY
+      local_action: file path={{playbook_dir}}/results/ping_test state=directory
+      run_once: true
+      check_mode: no          # always run
+      tags: [deploy_ping]
+    - name: CREATE REPORT FILE
+      local_action: file path={{playbook_dir}}/results/ping_test/{{inventory_hostname}}.icmp state=touch
+      run_once: true
+      check_mode: no          # always run
+      tags: [deploy_ping]
+    - name: TEST CONNECTIVITY FROM CPE TO ALL PE
+      include_tasks: ./tasks/service_ping_task.yml
+      loop: "{{ services | get_service_test_ip | dict2items }}"
+      loop_control:
+        loop_var: service_test_item
+      tags: [deploy_ping]
+
+- name: PLAY TO REMOVE L3VPN SERVICE DEFINITION
+  hosts: coreedge
+  gather_facts: no
+  connection: network_cli  
+  vars_files:
+    - ./data_models/nodes.yml
+  tasks:
+    - name: CREATE REMOVE CONFIG DIRECTORY
+      local_action: file path={{playbook_dir}}/results/remove_config state=directory
+      run_once: true
+      check_mode: no          
+      tags: [step2, remove_vrf]
+    - name: REMOVE SERVICES
+      include_tasks: ./tasks/{{ansible_network_os}}_remove_vrf_task.yml
+      loop: "{{ nodes[inventory_hostname]['vrfs'] | dict2items }}"
+      when: item.value['state'] == 'absent'
+      tags: [step2, remove_vrf]
+
+- name: PLAY TO REPORT EXTRANEOUS SERVICES
+  hosts: coreedge
+  gather_facts: no
+  connection: network_cli
+  roles:
+    - ansible-pyats
+  vars_files:
+    - ./data_models/services.yml
+    - ./data_models/nodes.yml
+  tasks:
+    - name: REPORT VRF DIFF
+      include_tasks: ./tasks/{{ansible_network_os}}_get_vrf_task.yml
+      tags: [step4, list_vrf]

@@ -1,0 +1,136 @@
+version 15.5
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no platform punt-keepalive disable-kernel-core
+platform console serial
+!
+hostname {{ inventory_hostname }}
+!
+boot-start-marker
+boot-end-marker
+!
+no aaa new-model
+!
+{% for domain_name in common['dns']['domain'] %}
+ip domain name {{ domain_name }}
+{% endfor %}
+!
+subscriber templating
+!
+mpls ip
+mpls label protocol ldp
+{% for hostname, node_dict in nodes.items() %}
+{% if nodes[inventory_hostname]['is_rr'] == true and node_dict['type'] == 'pe' %}
+mpls ldp neighbor {{ node_dict['routerid'] }} password CISCO
+{% elif not nodes[inventory_hostname]['is_rr'] == true and node_dict['type'] == 'p' %}
+mpls ldp neighbor {{ node_dict['routerid'] }} password CISCO
+{% endif %}
+{% endfor %}            
+multilink bundle-name authenticated
+!
+archive
+ path bootflash:/config-archive.cfg
+spanning-tree extend system-id
+!
+{% for username, user_dict in common['users'].items() %}
+username {{username}} privilege {{user_dict['privilege']}} password 0 {{user_dict['password']}}
+{% endfor %}
+!
+redundancy
+!
+ip cef distributed
+!
+interface Loopback0
+ ip address {{nodes[inventory_hostname]['routerid']}} 255.255.255.255
+ ip ospf 1 area 0
+!
+interface GigabitEthernet1
+ ip address {{nodes[inventory_hostname]['mgmt']}} 255.255.255.0
+ negotiation auto
+!
+{% for intf_name, intf_dict in nodes[inventory_hostname]['interfaces'].items() %}
+interface {{ intf_name }}
+ ip address {{ intf_dict['ip'] | ipaddr('address') }} {{ intf_dict['ip'] | ipaddr('netmask') }}
+ ip ospf 1 area 0
+ negotiation auto
+ mpls ip
+!
+{% endfor %}
+router ospf 1
+ network {{ nodes[inventory_hostname]['routerid'] | ipaddr('network') }} {{ nodes[inventory_hostname]['routerid'] | ipaddr('hostmask') }} area 0
+{% for intf_name, intf_dict in nodes[inventory_hostname]['interfaces'].items() %}
+ network {{ intf_dict['ip'] | ipaddr('network') }} {{ intf_dict['ip'] | ipaddr('hostmask') }} area 0
+{% endfor %}
+!
+router bgp {{ nodes[inventory_hostname]['asn'] }}
+ bgp log-neighbor-changes
+{% for hostname, node_dict in nodes.items() %}
+{% if nodes[inventory_hostname]['is_rr'] == true and node_dict['type'] == 'pe' %}
+ neighbor {{ node_dict['routerid'] }} remote-as {{ node_dict['asn'] }}
+ neighbor {{ node_dict['routerid'] }} description {{ hostname }}
+ neighbor {{ node_dict['routerid'] }} update-source Loopback0
+{% elif not nodes[inventory_hostname]['is_rr'] == true and node_dict['type'] == 'p' %}
+ neighbor {{ node_dict['routerid'] }} remote-as {{ node_dict['asn'] }}
+ neighbor {{ node_dict['routerid'] }} description {{ hostname }}
+ neighbor {{ node_dict['routerid'] }} update-source Loopback0
+{% endif %}
+{% endfor %}
+ !
+ address-family ipv4
+{% for hostname, node_dict in nodes.items() %}
+{% if nodes[inventory_hostname]['is_rr'] == true and node_dict['type'] == 'pe' %}
+  neighbor {{ node_dict['routerid'] }} activate
+{% elif not nodes[inventory_hostname]['is_rr'] == true and node_dict['type'] == 'p' %}
+  neighbor {{ node_dict['routerid'] }} activate
+{% endif %}
+{% endfor %}
+ exit-address-family
+ !
+ address-family vpnv4
+{% for hostname, node_dict in nodes.items() %}
+{% if nodes[inventory_hostname]['is_rr'] == true and node_dict['type'] == 'pe' %}
+  neighbor {{ node_dict['routerid'] }} activate
+  neighbor {{ node_dict['routerid'] }} send-community extended
+  neighbor {{ node_dict['routerid'] }} route-reflector-client
+{% elif not nodes[inventory_hostname]['is_rr'] == true and node_dict['type'] == 'p' %}
+  neighbor {{ node_dict['routerid'] }} activate
+  neighbor {{ node_dict['routerid'] }} send-community extended
+{% endif %}
+{% endfor %}
+ exit-address-family
+ !
+!
+!
+virtual-service csr_mgmt
+!
+ip forward-protocol nd
+!
+no ip http server
+no ip http secure-server
+ip route 0.0.0.0 0.0.0.0 10.0.0.253
+ip ssh version 2
+ip scp server enable
+!
+mpls ldp router-id Loopback0
+snmp-server community public RO
+snmp-server location pk.lab
+snmp-server contact pk
+snmp-server enable traps snmp authentication linkdown linkup coldstart warmstart
+{% for host_ip, snmp_dict in common['snmp'].items() %}
+snmp-server host {{ host_ip }} {{ snmp_dict['community'] }}
+{% endfor %}
+!
+!
+control-plane
+!
+!
+line con 0
+ stopbits 1
+line vty 0 4
+ login local
+!
+{% for host_ip in common['ntp'] %}
+ntp server {{ host_ip }}
+{% endfor %}
+!
+end

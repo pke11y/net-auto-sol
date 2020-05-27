@@ -1,0 +1,80 @@
+!! IOS XR Configuration 6.1.2
+!
+hostname {{ inventory_hostname }}
+{% for domain_name in common['dns']['domain'] %}
+domain name {{ domain_name }}
+{% endfor %}
+!
+{% for host_ip, snmp_dict in common['snmp'].items() %}
+snmp-server host {{ host_ip }} traps version 2c {{ snmp_dict['community'] }}
+{% endfor %}    
+snmp-server trap-timeout 3
+snmp-server trap-source Loopback0
+
+interface Loopback0
+ ipv4 address {{ nodes[inventory_hostname]['routerid'] }} 255.255.255.255
+!
+interface MgmtEth0/0/CPU0/0
+ ipv4 address {{ nodes[inventory_hostname]['mgmt'] }} 255.255.255.0
+!
+{% for intf_name, intf_dict in nodes[inventory_hostname]['interfaces'].items() %}
+interface {{ intf_name }}
+ ipv4 address {{ intf_dict['ip'] }}
+!
+{% endfor %}
+route-policy ALLOW-ALL
+  pass
+end-policy
+!
+router static
+ address-family ipv4 unicast
+  0.0.0.0/0 10.0.0.253
+ !
+!
+router ospf 1
+ area 0
+  interface Loopback0
+  !
+{% for intf_name in nodes[inventory_hostname]['interfaces'] %}
+  interface {{ intf_name }}
+  !
+{% endfor %}
+ !
+!
+router bgp {{ nodes[inventory_hostname]['asn'] }}
+ bgp router-id {{ nodes[inventory_hostname]['routerid'] }}
+ address-family ipv4 unicast
+ !
+ address-family vpnv4 unicast
+ !
+{% for hostname, node_dict in nodes.items() %}
+{% if nodes[inventory_hostname]['is_rr'] == true and node_dict['type'] == 'pe' %}
+ neighbor {{ node_dict['routerid'] }}
+  remote-as {{ node_dict['asn'] }}
+  description {{ hostname }}
+  update-source Loopback0
+  !
+{% elif not nodes[inventory_hostname]['is_rr'] == true and node_dict['type'] == 'p' %}
+ neighbor {{ node_dict['routerid'] }}
+  remote-as {{ node_dict['asn'] }}
+  description {{ hostname }}
+  update-source Loopback0
+  !
+{% endif %}
+{% endfor %}
+!
+mpls ldp
+ router-id {{ nodes[inventory_hostname]['routerid'] }}
+ neighbor
+  password encrypted 032772382520
+ !
+{% for intf_name in nodes[inventory_hostname]['interfaces'] %}
+ interface {{ intf_name }}
+ !
+{% endfor %}
+!
+xml agent tty
+ iteration off
+!
+ssh server v2
+end

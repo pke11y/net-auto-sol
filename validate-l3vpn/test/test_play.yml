@@ -1,0 +1,102 @@
+---
+- name: TEST PLAY
+  hosts: localhost
+  gather_facts: no
+  # vars_files:
+  #   - test_facts.yml
+  #   - nodes.yml
+  #   - services.yml
+  tasks:
+    # - name: DEBUG VARIABLES 
+    #   copy:
+    #     content: "{{ vars | to_nice_yaml }}"
+    #     dest: "{{playbook_dir}}/test/test_facts.yml"    
+    # - debug: 
+    #     # var: "{{ hostvars['pe2.pk.lab']['ansible_facts']['napalm_bgp_neighbors'][vrf_item.key]['peers'] }}"
+    #     var=testhostvars['pe2.pk.lab']['ansible_facts']['napalm_bgp_neighbors']
+    # - name: VALIDATE BGP
+    #   include_tasks: test_validate_bgp_task.yml
+    #   loop: "{{ nodes['pe2.pk.lab']['vrfs'] | dict2items }}"
+    #   when: vrf_item.value['state'] == 'touch' 
+    #   loop_control:
+    #     loop_var: vrf_item
+    # - debug:
+    #     msg: "{{ lookup('vars', 'wan_ip_pfx')}}"
+    #     # var: nodes['pe2.pk.lab']['vrfs']
+    #   # loop: "{{ service['l3vpn'] | dict2items }} "
+    - debug:
+        # msg: "{{ item.value['sites'] | map(attribute='links') | list }}"
+        msg: "{{ item.value }}"
+        # msg: "{{ item.value | subelements('sites', skip_missing=True) }}"
+        # msg: "{{ 'touch' | map('extract', item.value, 'sites') | list }}"
+        # msg: "{{ lookup('subelements', item.value['sites'], 'links', {'skip_missing': True}) }}"
+      loop: "{{ services['l3vpn'] | dict2items }} "
+      # loop: "{{ services['l3vpn'].values() | }}"
+
+- name: TEST PYATS PLAY
+  hosts: localhost
+  gather_facts: no
+  roles:
+    - ansible-pyats
+  tasks:
+    - name: SET PYATS OUTPUT VAR
+      set_fact:
+        golden_output: "Mon Sep 18 09:36:51.507 PDT
+        VRF VRF1; RD 200:1; VPN ID not set
+        VRF mode: Regular
+        Description not set
+        Interfaces:
+          GigabitEthernet0/0/0/1
+          GigabitEthernet0/0/0/0.415
+          GigabitEthernet0/0/0/0.420
+          GigabitEthernet0/0/0/1.390
+          GigabitEthernet0/0/0/1.410
+          GigabitEthernet0/0/0/1.415
+          GigabitEthernet0/0/0/1.420
+        Address family IPV4 Unicast
+          Import VPN route-target communities:
+            RT:200:1
+            RT:200:2
+            RT:300:1
+            RT:400:1
+          Export VPN route-target communities:
+            RT:200:1
+          No import route policy
+          No export route policy
+        Address family IPV6 Unicast
+          Import VPN route-target communities:
+            RT:200:1
+            RT:200:2
+            RT:300:1
+            RT:400:1
+          Export VPN route-target communities:
+            RT:200:1
+          No import route policy
+          No export route policy
+        VRF VRF2; RD 200:2; VPN ID not set
+        VRF mode: Regular
+        Description not set
+        Interfaces:
+          GigabitEthernet0/0/0/2
+        Address family IPV4 Unicast
+          Import VPN route-target communities:
+            RT:200:2
+          Export VPN route-target communities:
+            RT:200:2
+          No import route policy
+          No export route policy
+        Address family IPV6 Unicast
+          Import VPN route-target communities:
+            RT:200:2
+          Export VPN route-target communities:
+            RT:200:2
+          No import route policy
+          No export route policy"
+      tags: [pyats1]
+    - name: PARSE VPNV4 ROUTES
+      set_fact:
+        parsed_golden_output: "{{ golden_output | pyats_parser('show vrf all detail', 'iosxr') }}"
+      tags: [pyats1]
+    - debug: var=parsed_golden_output
+      tags: [pyats1]
+        
