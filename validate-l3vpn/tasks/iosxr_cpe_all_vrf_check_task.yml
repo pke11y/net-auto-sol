@@ -8,6 +8,9 @@
     command: "show route vrf all ipv4"
   register: xr_vpnv4_routes
   tags: [step3, check_state]
+- local_action: copy content="{{xr_vpnv4_routes|to_nice_json}}" dest="{{logging_dir}}/{{inventory_hostname}}_vrf_check_{{ '%Y%m%d%H%M%S' | strftime }}.log"
+  when: logging is defined
+  tags: [step3, check_state]
 - name: PARSE VPNV4 ROUTES
   set_fact:
     xr_parsed_vpnv4_routes: "{{ xr_vpnv4_routes.stdout | pyats_parser('show route vrf all ipv4', 'iosxr') }}"

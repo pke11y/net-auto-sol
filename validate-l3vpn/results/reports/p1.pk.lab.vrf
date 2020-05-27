@@ -64,3 +64,14 @@ DIFF:
     ['VRF_ACME', 'VRF_OAM']
 *** END
 
+*** VRF REPORT: Wed May 27 16:01:33 IST 2020 
+NODE: p1.pk.lab 
+-------------------------
+EXISTING: (on the node)
+    VRF_ACME
+EXPECTED: (in service provisioning file)
+    VRF_OAM
+DIFF: 
+    ['VRF_ACME', 'VRF_OAM']
+*** END
+

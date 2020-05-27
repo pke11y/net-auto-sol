@@ -8,10 +8,17 @@
 - name: PLAY TO BUILD CPE FOR L3VPN SERVICE
   hosts: localhost
   gather_facts: no
+  vars:
+    data_model_dir: "data_models"
+    logging_dir: "logging"
   vars_files:
-    - ./data_models/nodes.yml
-    - ./data_models/services.yml
+    - "{{ data_model_dir }}/nodes.yml"
+    - "{{ data_model_dir }}/services.yml"
   tasks:
+    - name: CREATE DEBUG LOGGING DIRECTORY
+      local_action: file path="{{logging_dir}}" state=directory
+      run_once: true
+      when: logging is defined
     - name: BUILD CPE INVENTORY and CONFIGURATION
       include_role:
         name: cpe_router
@@ -22,13 +29,18 @@
         username: "{{ ansible_user }}"
         dev_os: "{{ hostvars[item]['ansible_network_os'] }}"
         password: "{{ ansible_ssh_pass }}"
-        config_file: "{{playbook_dir}}/results/{{item}}.cfg"
+        config_file: "results/cpe/{{item}}.cfg"
         commit_changes: True
         replace_config: True
         get_diffs: False
         diff_file: 
       loop: "{{groups['ioscpe']}}"
+      register: cpe_install
       tags: [ cpe ]
+    - local_action: copy content="{{item['msg'] |to_nice_json}}" dest="{{logging_dir}}/{{item['item']}}_reboot_{{ '%Y%m%d%H%M%S' | strftime }}.log"
+      when: logging is defined
+      loop: "{{ cpe_install.results }}"
+      tags: [ cpe ]      
     - name: SET CPE BOOT CONFIG AND RELOAD CPE
       ios_command:
         commands:
@@ -48,7 +60,12 @@
           username: "{{ ansible_user }}"
           password: "{{ ansible_ssh_pass }}"
           timeout: 15
-      loop: "{{groups['ioscpe']}}"   
+      loop: "{{groups['ioscpe']}}"
+      register: reboot
+      tags: [ cpe, reload ]
+    - local_action: copy content="{{item['stdout'] |to_nice_json}}" dest="{{logging_dir}}/{{item['item']}}_reboot_{{ '%Y%m%d%H%M%S' | strftime }}.log"
+      when: logging is defined
+      loop: "{{ reboot.results }}"
       tags: [ cpe, reload ]
     - name: WAIT 300 seconds FOR CPE REBOOT, DELAY 10 TO SHUTDOWN
       wait_for:
@@ -62,9 +79,12 @@
   gather_facts: no
   roles:
     - ansible-pyats
+  vars:
+    data_model_dir: "data_models"
+    logging_dir: "logging"    
   vars_files:
-    - ./data_models/nodes.yml
-    - ./data_models/services.yml
+    - "{{data_model_dir}}/nodes.yml"
+    - "{{data_model_dir}}/services.yml"
   tasks:
     - name: CHECK IF SERVICE CPE DEVICES EXIST IN OTHER VRFs
       include_tasks: ./tasks/{{ansible_network_os}}_cpe_all_vrf_check_task.yml
@@ -90,6 +110,8 @@
         get_diffs: True
         diff_file: "{{playbook_dir}}/results/service_config/{{inventory_hostname}}_service.diff"
       register: service_deploy
+    - local_action: copy content="{{service_deploy |to_nice_json}}" dest="{{logging_dir}}/{{inventory_hostname}}_service_deploy_{{ '%Y%m%d%H%M%S' | strftime }}.log"
+      when: logging is defined
     - name:  GET NAPALM FACTS 
       napalm_get_facts:
         hostname: "{{ansible_host}}"
@@ -97,7 +119,9 @@
         dev_os: "{{ansible_network_os}}"
         password: "{{ ansible_ssh_pass }}"
         filter: ['facts', 'interfaces', 'interfaces_ip', 'bgp_neighbors']
-      register: napalm_facts       
+      register: napalm_facts
+    - local_action: copy content="{{napalm_facts |to_nice_json}}" dest="{{logging_dir}}/{{inventory_hostname}}_get_facts_{{ '%Y%m%d%H%M%S' | strftime }}.log"
+      when: logging is defined       
     - name: CHECK BGP SERVICE STATUS
       include_tasks: ./tasks/validate_bgp_task.yml
       loop: "{{ hostvars[inventory_hostname]['ansible_facts']['napalm_bgp_neighbors'] | dict2items }}"

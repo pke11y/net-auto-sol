@@ -93,6 +93,12 @@
           No import route policy
           No export route policy"
       tags: [pyats1]
+    - pyats_parse_command:
+        command: show ip route bgp
+      register: output
+
+    - debug:
+        var: output.structured      
     - name: PARSE VPNV4 ROUTES
       set_fact:
         parsed_golden_output: "{{ golden_output | pyats_parser('show vrf all detail', 'iosxr') }}"

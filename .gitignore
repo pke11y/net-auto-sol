@@ -5,3 +5,5 @@ summary-report/filter_plugins/__pycache__/
 summary-report/roles/ansible-pyats
 ping-report/results/
 summary-report/roles/ansible-pyats
+validate-l3vpn/logging
+*.pyc

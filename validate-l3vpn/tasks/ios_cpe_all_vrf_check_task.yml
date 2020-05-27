@@ -8,7 +8,9 @@
     command: "show bgp vpnv4 unicast all"
   register: vpnv4_routes
   tags: [step3, check_state]
-- debug: var=vpnv4_routes
+- local_action: copy content="{{vpnv4_routes|to_nice_json}}" dest="{{logging_dir}}/{{inventory_hostname}}_vrf_check_{{ '%Y%m%d%H%M%S' | strftime }}.log"
+  when: logging is defined
+  tags: [step3, check_state]
 - name: PARSE VPNV4 ROUTES
   set_fact:
     parsed_vpnv4_routes: "{{ vpnv4_routes.stdout | pyats_parser('show bgp vpnv4 unicast all', 'iosxe') }}"
