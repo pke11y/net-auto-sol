@@ -1,8 +1,8 @@
 # Gitlab CI config
 ---
 stages:
-- yamllint
-- data model test
+  - yamllint
+  - data model test
 
 lint:
   stage: yamllint
