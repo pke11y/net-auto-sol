@@ -1,5 +1,8 @@
 # Gitlab CI config
 ---
+before_script:
+  - export PATH=$PATH:/usr/local/bin
+
 stages:
 - yamllint
 - data model test
