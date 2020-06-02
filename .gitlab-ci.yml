@@ -7,7 +7,7 @@ stages:
 lint:
   stage: yamllint
   script:
-    - yamllint validate-l3vpn/data_models/
+    - sudo yamllint validate-l3vpn/data_models/
 
 dm_test:
   stage: data model test
