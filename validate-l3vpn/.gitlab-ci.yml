@@ -1,0 +1,16 @@
+# GitLab CI script
+---
+
+stages:
+- yamllint
+- data model test
+
+lint:
+  stage: yamllint
+  script:
+    - yamllint validate-l3vpn/data_models/
+
+dm_test:
+  stage: data model test
+  script:
+    - cd validate-l3vpn/tests && pytest -s -q input_test.py -v

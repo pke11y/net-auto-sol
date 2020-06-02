@@ -9,7 +9,7 @@ intra_services:
         description: "OOB MGMT VRF"
         state: "started"
         customer: "IP CORE"
-        remote_asn: "65001"        
+        remote_asn: "65001"
         rd: "10"
         rt_import:
           - "65001:10"
@@ -17,7 +17,7 @@ intra_services:
           - "65001:11"
         nodes:
           p1.pk.lab:
-            interface: "GigabitEthernet4" 
+            interface: "GigabitEthernet4"
           pe1.pk.lab:
             interface: "GigabitEthernet0/0/0/2"
           pe2.pk.lab:
@@ -25,4 +25,4 @@ intra_services:
           pe3.pk.lab:
             interface: "GigabitEthernet4"
           bras1.pk.lab:
-            interface: "GigabitEthernet4"          
+            interface: "GigabitEthernet4"

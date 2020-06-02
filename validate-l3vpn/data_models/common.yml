@@ -16,8 +16,6 @@ common:
     servers:
   users:
     pk:
-      privilege: 15 
+      privilege: 15
       password: pk
   oam:
-  
-  
