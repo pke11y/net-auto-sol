@@ -26,20 +26,36 @@ def node_fabric_data(fname):
 def node_fabric_list(fname):
     return [{k:v} for k, v in node_fabric_data(fname).items()]
 
+def fabric_links(fname):
+    import yaml
+    with open(fname) as f:
+        fabric = yaml.load(f, Loader=yaml.FullLoader)
+    return fabric['links']
+
 def pytest_generate_tests(metafunc):
     # called once per each test function
     # funcarglist = metafunc.cls.params[metafunc.function.__name__]
     # print("\nfuncarglist: ",funcarglist)
     # argnames = sorted(funcarglist[0])
     # print("\nargnames: ",argnames)
+    func_arg = metafunc.fixturenames[0]             # get function arg 
     if metafunc.cls.__name__ == 'TestTempFabric':
-        if metafunc.config.getoption("scenario_fail_fabric"):
-            _FABRIC_DM = r'/home/pk/net-auto-sol/validate-l3vpn/test/fabric_scenario1.yml'
+        fabric_dict = {}
+        if metafunc.config.getoption("scenario_fail_fabric_node"):
+            _FABRIC_DM = r'/home/pk/net-auto-sol/validate-l3vpn/test/fabric_fail_node.yml'
+        elif metafunc.config.getoption("scenario_fail_fabric_link"):
+            _FABRIC_DM = r'/home/pk/net-auto-sol/validate-l3vpn/test/fabric_fail_link.yml'
         else:
             _FABRIC_DM = r'/home/pk/net-auto-sol/validate-l3vpn/data_models/fabric.yml'
-        nodedict = node_fabric_list(_FABRIC_DM)
+
+        TestTempFabric.node_file = _FABRIC_DM
+        if func_arg == 'node_dict':
+            fabric_dict = node_fabric_list(_FABRIC_DM)
+        elif func_arg == 'link_dict':
+            fabric_dict = fabric_links(_FABRIC_DM)
+        
         metafunc.parametrize(
-            'node_dict', [node for node in nodedict]
+            func_arg, [element for element in fabric_dict]
         )     
 
     
@@ -65,7 +81,7 @@ class TestTempFabric:
     #     "test_rid": [dict(name='node1', routerid=111), dict(name='node2', routerid=222)],
     #     "test_node": [dict(name='node3', routerid=333), dict(name='node4', routerid=444)],
     # }
-    params = ["nodes", "links"]
+    node_file = ''
 
     def test_rid(self, node_dict):
         node_data = list(node_dict.values())[0]
@@ -73,4 +89,8 @@ class TestTempFabric:
     
     def test_node(self, node_dict):
         node_data = list(node_dict.values())[0]
+        print(TestTempFabric.node_file)
         assert IPv4Address(node_data['mgmt'])
+
+    def test_link_ip_pfx_exists(self, link_dict):
+        assert 'link_ip_pfx' in link_dict
