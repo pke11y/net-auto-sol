@@ -37,7 +37,7 @@
       loop: "{{groups['ioscpe']}}"
       register: cpe_install
       tags: [ cpe ]
-    - local_action: copy content="{{item['msg'] |to_nice_json}}" dest="{{logging_dir}}/{{item['item']}}_reboot_{{ '%Y%m%d%H%M%S' | strftime }}.log"
+    - local_action: copy content="{{item['msg'] |to_nice_json}}" dest="{{logging_dir}}/{{item['item']}}_cpe_install_{{ '%Y%m%d%H%M%S' | strftime }}.log"
       when: logging is defined
       loop: "{{ cpe_install.results }}"
       tags: [ cpe ]      
@@ -63,7 +63,7 @@
       loop: "{{groups['ioscpe']}}"
       register: reboot
       tags: [ cpe, reload ]
-    - local_action: copy content="{{item['stdout'] |to_nice_json}}" dest="{{logging_dir}}/{{item['item']}}_reboot_{{ '%Y%m%d%H%M%S' | strftime }}.log"
+    - local_action: copy content="{{item['stdout'] |to_nice_json}}" dest="{{logging_dir}}/{{item['item']}}_cpe_reboot_{{ '%Y%m%d%H%M%S' | strftime }}.log"
       when: logging is defined
       loop: "{{ reboot.results }}"
       tags: [ cpe, reload ]
@@ -110,7 +110,7 @@
         get_diffs: True
         diff_file: "{{playbook_dir}}/results/service_config/{{inventory_hostname}}_service.diff"
       register: service_deploy
-    - local_action: copy content="{{service_deploy |to_nice_json}}" dest="{{logging_dir}}/{{inventory_hostname}}_service_deploy_{{ '%Y%m%d%H%M%S' | strftime }}.log"
+    - local_action: copy content="{{service_deploy |to_nice_json}}" dest="{{logging_dir}}/{{inventory_hostname}}_pe_service_deploy_{{ '%Y%m%d%H%M%S' | strftime }}.log"
       when: logging is defined
     - name:  GET NAPALM FACTS 
       napalm_get_facts:
@@ -120,14 +120,26 @@
         password: "{{ ansible_ssh_pass }}"
         filter: ['facts', 'interfaces', 'interfaces_ip', 'bgp_neighbors']
       register: napalm_facts
-    - local_action: copy content="{{napalm_facts |to_nice_json}}" dest="{{logging_dir}}/{{inventory_hostname}}_get_facts_{{ '%Y%m%d%H%M%S' | strftime }}.log"
+    - local_action: copy content="{{napalm_facts |to_nice_json}}" dest="{{logging_dir}}/{{inventory_hostname}}_pe_get_facts_{{ '%Y%m%d%H%M%S' | strftime }}.log"
       when: logging is defined       
-    - name: CHECK BGP SERVICE STATUS
-      include_tasks: ./tasks/validate_bgp_task.yml
-      loop: "{{ hostvars[inventory_hostname]['ansible_facts']['napalm_bgp_neighbors'] | dict2items }}"
-      when: not vrf_item.key == 'global' 
-      loop_control:
-        loop_var: vrf_item
+    # - name: CHECK BGP SERVICE STATUS
+    #   include_tasks: ./tasks/validate_bgp_task.yml
+    #   loop: "{{ hostvars[inventory_hostname]['ansible_facts']['napalm_bgp_neighbors'] | dict2items }}"
+    #   when: not vrf_item.key == 'global' 
+    #   loop_control:
+    #     loop_var: vrf_item
+      - name: CREATE SERVICE VALIDATION FILES
+        template: src=./templates/validate_{{ item }}.j2 dest=./results/service_config/{{inventory_hostname}}_validation.yml
+        loop: ['interfaces', 'bgp']
+    # - name: CHECK BGP SERVICE STATUS
+    #   napalm_validate:
+    #     hostname: "{{ansible_host}}"
+    #     username: "{{ansible_user}}"
+    #     dev_os: "{{ansible_network_os}}"
+    #     password: "{{ ansible_ssh_pass }}"
+    #     validation_file: "{{ role_path }}/files/{{ inventory_hostname }}/validate_{{ item }}.yaml"
+    #   register: napalm_facts
+    #   loop: ['interfaces', 'bgp']
 
 - name: PLAY TO TEST IP REACHABILITY FOR L3VPN SERVICE
   hosts: ioscpe
