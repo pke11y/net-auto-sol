@@ -1,0 +1,22 @@
+---
+- get_bgp_neighbors:
+    global:
+      router_id: 10.10.10.3
+      peers:
+        _mode: strict
+        10.10.10.4:
+          is_up: True
+          address_family:
+            vpnv4:
+              received_prefixes: 3
+              sent_prefixes: 3
+    VRF_ACME:
+      router_id: 10.10.10.3
+      peers:
+        _mode: strict
+        10.0.3.9:
+          is_up: True
+          address_family:
+            vpnv4:
+              received_prefixes: 3
+              sent_prefixes: 3

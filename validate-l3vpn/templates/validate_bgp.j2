@@ -1,17 +1,20 @@
 ---
 - get_bgp_neighbors:
-{% for vrf_name, peers_data in hostvars[inventory_hostname]['ansible_facts']['napalm_bgp_neighbors'].items() %}
-    {{ vrf_name }}:
-      router_id: peers_data['router_id']
+{% for instance_name, peers_data in hostvars[inventory_hostname]['ansible_facts']['napalm_bgp_neighbors'].items() %}
+{% if not instance_name == 'global' %}
+    {{ instance_name }}:
+      router_id: {{ peers_data['router_id'] }}
       peers:
         _mode: strict
-{%     for peer_ip, peer_data in peers_data['peers'].items() %}        
+{% for peer_ip, peer_data in peers_data['peers'].items() %}
         {{ peer_ip }}:
-          is_up: peer_data['is_up']
+          is_up: {{ peer_data['is_up'] }}
+{% if peer_data['address_family']['vpnv4 unicast'] is defined %}
           address_family:
             vpnv4:
-              received_prefixes: peer_data['address_family']['vpnv4 unicast']['received_prefixes']
-              sent_prefixes: peer_data['address_family']['vpnv4 unicast']['sent_prefixes']
-{%     endfor %}
-{%   endfor %}
+              received_prefixes: {{ peer_data['address_family']['vpnv4 unicast']['received_prefixes'] }}
+              sent_prefixes: {{ peer_data['address_family']['vpnv4 unicast']['sent_prefixes'] }}
+{% endif %}
+{% endfor %}
+{% endif %}
 {% endfor %}

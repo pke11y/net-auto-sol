@@ -128,18 +128,19 @@
     #   when: not vrf_item.key == 'global' 
     #   loop_control:
     #     loop_var: vrf_item
-      - name: CREATE SERVICE VALIDATION FILES
-        template: src=./templates/validate_{{ item }}.j2 dest=./results/service_config/{{inventory_hostname}}_validation.yml
-        loop: ['interfaces', 'bgp']
-    # - name: CHECK BGP SERVICE STATUS
-    #   napalm_validate:
-    #     hostname: "{{ansible_host}}"
-    #     username: "{{ansible_user}}"
-    #     dev_os: "{{ansible_network_os}}"
-    #     password: "{{ ansible_ssh_pass }}"
-    #     validation_file: "{{ role_path }}/files/{{ inventory_hostname }}/validate_{{ item }}.yaml"
-    #   register: napalm_facts
-    #   loop: ['interfaces', 'bgp']
+    - name: CREATE SERVICE VALIDATION FILES
+      template: src=./templates/validate_{{ item }}.j2 dest=./results/service_config/{{inventory_hostname}}_{{ item }}_validation.yml
+      loop: ['interfaces', 'bgp']
+    - name: VALIDATE SERVICE DEPLOYMENT
+      napalm_validate:
+        hostname: "{{ansible_host}}"
+        username: "{{ansible_user}}"
+        dev_os: "{{ansible_network_os}}"
+        password: "{{ ansible_ssh_pass }}"
+        validation_file: "./results/service_config/{{inventory_hostname}}_{{ item }}_validation.yml"
+      register: service_validation
+      loop: ['interfaces', 'bgp']
+    - debug: var=service_validation
 
 - name: PLAY TO TEST IP REACHABILITY FOR L3VPN SERVICE
   hosts: ioscpe
