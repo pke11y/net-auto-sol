@@ -7,7 +7,7 @@ stages:
 lint:
   stage: yamllint
   script:
-    - bash lint.sh
+    - bash validate-l3vpn/tests/lint.sh
 
 dm_test:
   stage: data model test
