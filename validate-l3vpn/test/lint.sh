@@ -1,0 +1,1 @@
+yamllint validate-l3vpn/data_models/
