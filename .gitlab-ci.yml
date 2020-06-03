@@ -7,9 +7,9 @@ stages:
 lint:
   stage: yamllint
   script:
-    - bash validate-l3vpn/tests/lint.sh
+    - bash validate-l3vpn/test/lint.sh
 
 dm_test:
   stage: data model test
   script:
-    - cd validate-l3vpn/tests && pytest -s -q input_test.py -v
+    - cd validate-l3vpn/test && pytest -s -q input_test.py -v
