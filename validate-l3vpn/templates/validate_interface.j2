@@ -1,0 +1,8 @@
+---
+- get_interfaces_ip:
+{% for interface in interfaces %}
+  {{ interface.name }}:      
+    ipv6:
+      {{ interface.ip_address.split("/")[0] }}:          
+        prefix_length: {{ interface.ip_address.split("/")[1] }}
+{%endfor%}
