@@ -12,4 +12,5 @@ lint:
 dm_test:
   stage: data model test
   script:
-    - bash validate-l3vpn/test/dm_test.sh
+     - pytest -s -q validate-l3vpn/test/input_test.py
+#    - bash validate-l3vpn/test/dm_test.sh
