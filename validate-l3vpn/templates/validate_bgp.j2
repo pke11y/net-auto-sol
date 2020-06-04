@@ -1,0 +1,25 @@
+---
+- get_bgp_neighbors:
+{% for instance_name, peers_data in hostvars[inventory_hostname]['ansible_facts']['napalm_bgp_neighbors'].items() %}
+{% if not instance_name == 'global' %}
+    {{ instance_name }}:
+      router_id: {{ peers_data['router_id'] }}
+      peers:
+        _mode: strict
+{% for peer_ip, peer_data in peers_data['peers'].items() %}
+        {{ peer_ip }}:
+          is_up: yes
+          address_family:
+{% if peer_data['address_family']['vpnv4 unicast'] is defined %}
+            vpnv4 unicast:
+              received_prefixes: '>0'
+              sent_prefixes: '>0'
+{% endif %}
+{% if peer_data['address_family']['ipv4'] is defined %}          
+            ipv4:
+              received_prefixes: '>0'
+              sent_prefixes: '>0'
+{% endif %}
+{% endfor %}
+{% endif %}
+{% endfor %}

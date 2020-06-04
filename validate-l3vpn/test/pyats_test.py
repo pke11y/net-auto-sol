@@ -10,8 +10,7 @@ from pyats.topology import Device
 from genie.libs.parser.iosxr.show_vrf import ShowVrfAllDetail
 
 # Metaparser
-from genie.metaparser.util.exceptions import SchemaEmptyParserError
-
+from genie.metaparser.util import exceptions 
  
 # =====================================
 #  Unit test for 'show vrf all detail'
@@ -171,7 +170,7 @@ class test_show_vrf_all_detail(unittest.TestCase):
     def test_empty(self):
         self.device = Mock(**self.empty_output)
         obj = ShowVrfAllDetail(device=self.device)
-        with self.assertRaises(SchemaEmptyParserError):
+        with self.assertRaises(exceptions.SchemaEmptyParserError):
             parsed_output = obj.parse()
 
 

@@ -52,47 +52,10 @@ interface {{ link['b_end_intf'] }}
 {% endfor %}
 {% endfor %}
 {#--------END VRF INTERFACES-------------#}
-{#----------------BGP VRF----------------#}
+{#----------------BGP VRF NEIGHBOR----------------#}
 router bgp {{ nodes[inventory_hostname]['asn'] }}
  address-family vpnv4 unicast
  !
-{% for service_type, service_vrfs in vpn_data.items() %}
-{% for vrf in service_vrfs %}
-{% if service_type == 'wan' %}
-{% for site in vrf['sites'] %}
-{% for link in site['links'] %}
-{% if link['b_end'] == inventory_hostname %}
-  neighbor {{ link['wan_ip_pfx'] | ipaddr('1') | ipaddr('address') }}
-   description WAN L3VPN service for {{ vrf['customer'] }} site: {{ site['site_name'] }} 
-   remote-as {{ vrf['remote_asn'] }}
-   update-source {{ link['b_end_intf'] }}
-   address-family ipv4 unicast
-    route-policy ALLOW-ALL in
-    route-policy ALLOW-ALL out
-{% endif %}
-{% endfor %}
-{% endfor %}
- !
-{% elif service_type == 'internet' %}
-{% for site in vrf['sites'] %}
-{% for link in site['links'] %}
-{% if link['b_end'] == inventory_hostname %}
-  neighbor {{ link['wan_ip_pfx'] | ipaddr('1') | ipaddr('address') }}
-   description Internet L3VPN service for {{ site['customer'] }} site: {{ site['site_name'] }} 
-   remote-as {{ site['asn'] }}
-   update-source {{ link['b_end_intf'] }}
-   address-family ipv4 unicast
-    route-policy ALLOW-ALL in
-    route-policy ALLOW-ALL out   
- !
-{% endif %}
-{% endfor %}
-{% endfor %}
-{% endif %}
-{% endfor %}
-{% endfor %}
-{#--------- END BGP NEIGHBOR--------------#}
-{#--------- DEFINE VRF--------------#}
 {% for service_type, service_vrfs in vpn_data.items() %}
 {% for vrf in service_vrfs %}
 {% for site in vrf['sites'] %}
@@ -102,12 +65,30 @@ router bgp {{ nodes[inventory_hostname]['asn'] }}
   rd {{ nodes[inventory_hostname]['routerid'] }}:{{ vrf['rd'] }}
   address-family ipv4 unicast
    redistribute connected
+  !
+{% if service_type == 'wan' %}
+  neighbor {{ link['wan_ip_pfx'] | ipaddr('1') | ipaddr('address') }}
+   description WAN L3VPN service for {{ vrf['customer'] }} site: {{ site['site_name'] }} 
+   remote-as {{ vrf['remote_asn'] }}
+   update-source {{ link['b_end_intf'] }}
+   address-family ipv4 unicast
+    route-policy ALLOW-ALL in
+    route-policy ALLOW-ALL out
+{% elif service_type == 'internet' %}
+  neighbor {{ link['wan_ip_pfx'] | ipaddr('1') | ipaddr('address') }}
+   description Internet L3VPN service for {{ site['customer'] }} site: {{ site['site_name'] }} 
+   remote-as {{ site['asn'] }}
+   update-source {{ link['b_end_intf'] }}
+   address-family ipv4 unicast
+    route-policy ALLOW-ALL in
+    route-policy ALLOW-ALL out
+{% endif %}
 {% endif %}
 {% endfor %}
 {% endfor %}
  !
 {% endfor %}
 {% endfor %}
-{#------------END BGP VRF ----------------#}
+{#------------END BGP VRF NEIGHBOR ----------------#}
 {% endif %}
 {% endfor %}
