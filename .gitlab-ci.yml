@@ -12,6 +12,6 @@ lint:
 dm_test:
   stage: data model test
   script:
-    - /home/pk/.local/bin/pytest
+    - cd /home/pk/net-auto-sol/validate-l3vpn/ && pytest
     #  - pytest -s -q validate-l3vpn/test/input_test.py
 #    - bash validate-l3vpn/test/dm_test.sh
