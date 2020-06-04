@@ -75,3 +75,80 @@ DIFF:
     ['VRF_ACME', 'VRF_OAM']
 *** END
 
+*** VRF REPORT: Wed Jun  3 23:41:49 IST 2020 
+NODE: p1.pk.lab 
+-------------------------
+EXISTING: (on the node)
+    VRF_ACME
+EXPECTED: (in service provisioning file)
+    VRF_OAM
+DIFF: 
+    ['VRF_ACME', 'VRF_OAM']
+*** END
+
+*** VRF REPORT: Wed Jun  3 23:53:29 IST 2020 
+NODE: p1.pk.lab 
+-------------------------
+EXISTING: (on the node)
+    VRF_ACME
+EXPECTED: (in service provisioning file)
+    VRF_OAM
+DIFF: 
+    ['VRF_ACME', 'VRF_OAM']
+*** END
+
+*** VRF REPORT: Thu Jun  4 00:02:05 IST 2020 
+NODE: p1.pk.lab 
+-------------------------
+EXISTING: (on the node)
+    VRF_ACME
+EXPECTED: (in service provisioning file)
+    VRF_OAM
+DIFF: 
+    ['VRF_ACME', 'VRF_OAM']
+*** END
+
+*** VRF REPORT: Thu Jun  4 00:09:17 IST 2020 
+NODE: p1.pk.lab 
+-------------------------
+EXISTING: (on the node)
+    VRF_ACME
+EXPECTED: (in service provisioning file)
+    VRF_OAM
+DIFF: 
+    ['VRF_ACME', 'VRF_OAM']
+*** END
+
+*** VRF REPORT: Thu Jun  4 11:58:22 IST 2020 
+NODE: p1.pk.lab 
+-------------------------
+EXISTING: (on the node)
+    VRF_ACME
+EXPECTED: (in service provisioning file)
+    VRF_OAM
+DIFF: 
+    ['VRF_ACME', 'VRF_OAM']
+*** END
+
+*** VRF REPORT: Thu Jun  4 12:05:48 IST 2020 
+NODE: p1.pk.lab 
+-------------------------
+EXISTING: (on the node)
+    VRF_ACME
+EXPECTED: (in service provisioning file)
+    VRF_OAM
+DIFF: 
+    ['VRF_ACME', 'VRF_OAM']
+*** END
+
+*** VRF REPORT: Thu Jun  4 12:46:08 IST 2020 
+NODE: p1.pk.lab 
+-------------------------
+EXISTING: (on the node)
+    VRF_ACME
+EXPECTED: (in service provisioning file)
+    VRF_OAM
+DIFF: 
+    ['VRF_ACME', 'VRF_OAM']
+*** END
+

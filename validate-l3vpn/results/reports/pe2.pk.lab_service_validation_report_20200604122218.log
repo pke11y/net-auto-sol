@@ -1,0 +1,139 @@
+{
+    "changed": false,
+    "failed": true,
+    "msg": "All items completed",
+    "results": [
+        {
+            "ansible_loop_var": "item",
+            "changed": false,
+            "compliance_report": {
+                "complies": true,
+                "get_interfaces_ip": {
+                    "complies": true,
+                    "extra": [],
+                    "missing": [],
+                    "present": {
+                        "GigabitEthernet3": {
+                            "complies": true,
+                            "nested": true
+                        }
+                    }
+                },
+                "skipped": []
+            },
+            "failed": false,
+            "invocation": {
+                "module_args": {
+                    "data": null,
+                    "dev_os": "ios",
+                    "hostname": "10.0.0.52",
+                    "models": null,
+                    "optional_args": null,
+                    "password": "VALUE_SPECIFIED_IN_NO_LOG_PARAMETER",
+                    "provider": {
+                        "dev_os": "ios",
+                        "hostname": "10.0.0.52",
+                        "password": "VALUE_SPECIFIED_IN_NO_LOG_PARAMETER",
+                        "timeout": 60,
+                        "username": null
+                    },
+                    "timeout": 60,
+                    "username": "VALUE_SPECIFIED_IN_NO_LOG_PARAMETER",
+                    "validation_file": "./results/service_validation/pe2.********.lab_interfaces_validation.yml"
+                }
+            },
+            "item": "interfaces"
+        },
+        {
+            "ansible_loop_var": "item",
+            "changed": false,
+            "compliance_report": {
+                "complies": false,
+                "get_bgp_neighbors": {
+                    "complies": false,
+                    "extra": [],
+                    "missing": [],
+                    "present": {
+                        "VRF_ACME": {
+                            "complies": false,
+                            "diff": {
+                                "complies": false,
+                                "extra": [],
+                                "missing": [],
+                                "present": {
+                                    "peers": {
+                                        "complies": false,
+                                        "diff": {
+                                            "complies": false,
+                                            "extra": [],
+                                            "missing": [],
+                                            "present": {
+                                                "10.0.3.5": {
+                                                    "complies": false,
+                                                    "diff": {
+                                                        "complies": false,
+                                                        "extra": [],
+                                                        "missing": [],
+                                                        "present": {
+                                                            "address_family": {
+                                                                "complies": false,
+                                                                "diff": {
+                                                                    "complies": false,
+                                                                    "extra": [],
+                                                                    "missing": [
+                                                                        "vpnv4"
+                                                                    ],
+                                                                    "present": {}
+                                                                },
+                                                                "nested": true
+                                                            },
+                                                            "is_up": {
+                                                                "complies": true,
+                                                                "nested": false
+                                                            }
+                                                        }
+                                                    },
+                                                    "nested": true
+                                                }
+                                            }
+                                        },
+                                        "nested": true
+                                    },
+                                    "router_id": {
+                                        "complies": true,
+                                        "nested": false
+                                    }
+                                }
+                            },
+                            "nested": true
+                        }
+                    }
+                },
+                "skipped": []
+            },
+            "failed": true,
+            "invocation": {
+                "module_args": {
+                    "data": null,
+                    "dev_os": "ios",
+                    "hostname": "10.0.0.52",
+                    "models": null,
+                    "optional_args": null,
+                    "password": "VALUE_SPECIFIED_IN_NO_LOG_PARAMETER",
+                    "provider": {
+                        "dev_os": "ios",
+                        "hostname": "10.0.0.52",
+                        "password": "VALUE_SPECIFIED_IN_NO_LOG_PARAMETER",
+                        "timeout": 60,
+                        "username": null
+                    },
+                    "timeout": 60,
+                    "username": "VALUE_SPECIFIED_IN_NO_LOG_PARAMETER",
+                    "validation_file": "./results/service_validation/pe2.********.lab_bgp_validation.yml"
+                }
+            },
+            "item": "bgp",
+            "msg": "Device does not comply with policy"
+        }
+    ]
+}

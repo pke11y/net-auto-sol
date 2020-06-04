@@ -50,3 +50,107 @@ DIFF:
     ['VRF_OAM', 'VRF_INTERNET']
 *** END
 
+*** VRF REPORT: Wed Jun  3 22:53:40 IST 2020 
+NODE: pe1.pk.lab 
+-------------------------
+EXISTING: (on the node)
+    VRF_ACME
+EXPECTED: (in service provisioning file)
+    VRF_OAM
+    VRF_ACME
+    VRF_INTERNET
+DIFF: 
+    ['VRF_OAM', 'VRF_INTERNET']
+*** END
+
+*** VRF REPORT: Wed Jun  3 23:41:56 IST 2020 
+NODE: pe1.pk.lab 
+-------------------------
+EXISTING: (on the node)
+    VRF_ACME
+EXPECTED: (in service provisioning file)
+    VRF_OAM
+    VRF_ACME
+    VRF_INTERNET
+DIFF: 
+    ['VRF_OAM', 'VRF_INTERNET']
+*** END
+
+*** VRF REPORT: Wed Jun  3 23:53:36 IST 2020 
+NODE: pe1.pk.lab 
+-------------------------
+EXISTING: (on the node)
+    VRF_ACME
+EXPECTED: (in service provisioning file)
+    VRF_OAM
+    VRF_ACME
+    VRF_INTERNET
+DIFF: 
+    ['VRF_OAM', 'VRF_INTERNET']
+*** END
+
+*** VRF REPORT: Thu Jun  4 00:02:12 IST 2020 
+NODE: pe1.pk.lab 
+-------------------------
+EXISTING: (on the node)
+    VRF_ACME
+EXPECTED: (in service provisioning file)
+    VRF_OAM
+    VRF_ACME
+    VRF_INTERNET
+DIFF: 
+    ['VRF_OAM', 'VRF_INTERNET']
+*** END
+
+*** VRF REPORT: Thu Jun  4 00:09:25 IST 2020 
+NODE: pe1.pk.lab 
+-------------------------
+EXISTING: (on the node)
+    VRF_ACME
+EXPECTED: (in service provisioning file)
+    VRF_OAM
+    VRF_ACME
+    VRF_INTERNET
+DIFF: 
+    ['VRF_OAM', 'VRF_INTERNET']
+*** END
+
+*** VRF REPORT: Thu Jun  4 11:58:28 IST 2020 
+NODE: pe1.pk.lab 
+-------------------------
+EXISTING: (on the node)
+    VRF_ACME
+EXPECTED: (in service provisioning file)
+    VRF_OAM
+    VRF_ACME
+    VRF_INTERNET
+DIFF: 
+    ['VRF_OAM', 'VRF_INTERNET']
+*** END
+
+*** VRF REPORT: Thu Jun  4 12:05:56 IST 2020 
+NODE: pe1.pk.lab 
+-------------------------
+EXISTING: (on the node)
+    VRF_ACME
+EXPECTED: (in service provisioning file)
+    VRF_OAM
+    VRF_ACME
+    VRF_INTERNET
+DIFF: 
+    ['VRF_OAM', 'VRF_INTERNET']
+*** END
+
+*** VRF REPORT: Thu Jun  4 12:46:14 IST 2020 
+NODE: pe1.pk.lab 
+-------------------------
+EXISTING: (on the node)
+    VRF_ACME
+EXPECTED: (in service provisioning file)
+    VRF_OAM
+    VRF_ACME
+    VRF_INTERNET
+DIFF: 
+    ['VRF_OAM', 'VRF_INTERNET']
+*** END
+

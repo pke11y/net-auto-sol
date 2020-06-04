@@ -8,7 +8,7 @@
     {{link['b_end_intf']}}:
       ipv4:
         {{link['wan_ip_pfx'] | ipaddr('2') | ipaddr('address')}}:
-          prefix_length: 31
+          prefix_length: 30
 {% endif %}
 {% endfor %}
 {% endfor %}
