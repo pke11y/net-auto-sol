@@ -3,7 +3,7 @@
 These playbooks are submissions for exercise 5 as part of the Building Network Automation Solutions course on ipspace.net. They build on the data model developed during exercise 3 and 4.
 
 ## Overview
-The overall objective of the playbooks is to deploy MPLS infrastructure and internal services onto a service provider IP/MPLS core network to provision and deploy enterprise L3VPN services. 
+The overall objective of this set of playbooks is to deploy MPLS infrastructure and internal services onto a service provider IP/MPLS core network to provision and deploy enterprise L3VPN services. 
 
 ---
 ## Logging 
