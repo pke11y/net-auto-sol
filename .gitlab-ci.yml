@@ -2,17 +2,14 @@
 ---
 stages:
   - yamllint
-  # - data model test
+  - data model test
 
 lint:
   stage: yamllint
   script:
     - bash validate-l3vpn/test/lint.sh
-    - cd validate-l3vpn/test && pytest
 
-# dm_test:
-#   stage: data model test
-#   script:
-#     - cd validate-l3vpn/test && pytest
-#     #  - pytest -s -q validate-l3vpn/test/input_test.py
-# #    - bash validate-l3vpn/test/dm_test.sh
+dm_test:
+  stage: data model test
+  script:
+    - cd validate-l3vpn/test && pytest -s -q input_test.py
