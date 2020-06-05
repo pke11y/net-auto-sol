@@ -22,5 +22,5 @@ auto_test:
   script:
     - cd validate-l3vpn/test && pytest -s -q input_test.py --scenario_fail_fabric_link
     - cd validate-l3vpn/test && pytest -s -q input_test.py --scenario_fail_fabric_node
-    only:
+  only:
     - merge_request
