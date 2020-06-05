@@ -7,3 +7,5 @@ ping-report/results/
 summary-report/roles/ansible-pyats
 validate-l3vpn/logging
 *.pyc
+builds
+logging
