@@ -14,8 +14,6 @@ dm_test:
   stage: data model test
   script:
     - cd validate-l3vpn/test && pytest -s -q input_test.py
-  only:
-    - merge_request
 
 auto_test:
   stage: automation test
@@ -23,5 +21,3 @@ auto_test:
     - cd validate-l3vpn/test 
     - pytest -s -q input_test.py --scenario_fail_fabric_link
     - pytest -s -q input_test.py --scenario_fail_fabric_node
-  only:
-    - merge_request
