@@ -52,9 +52,9 @@ All configuration outputs are stored in the **results** folder.
 
 ---
 ## Learnings
-- Need to split P and PE routers into separate groups in the inventory fileto avoid conditional checks for service deployment.
+- Need to split P and PE routers into separate groups in the inventory file to avoid conditional checks for service deployment.
 - unit tests could be more specific with more time e.g. regex check against hostnames, link ip prefix valid IPv4Network, management and routerid's within specific subnet etc. 
-- pytest parametrize and fixture features look like the can solve a lot of unit testing requirements. However, I had to resort to a custom paramterize innvocation using pytest_generate_tests. It provided the control I needed to allow me to run the valid and invalid tests using the same test cases, but different test data. I'm sure there is an easier way to do it, but under the time constraints pytest_generate_tests was sufficient. 
+- pytest parametrize and fixture features look like the can solve a lot of unit testing requirements. However, I had to resort to a custom paramterize innvocation using `pytest_generate_tests` special function.. It provided the control I needed to allow me to run the valid and invalid tests using the same test cases, but different test data. I'm sure there is an easier way to do it, but under the time constraints pytest_generate_tests was sufficient. 
 - Running failed tests in Ansible removes the node from subsequent plays. Napalm validation reports is better for that type of failure than assert
 - Failed tests for invalid scenarios in GitLab causes the CI execution to stop. Steps following the failure are lost. Need a better way to run tests with expected failure results.
 - Gitlab-runner is executed as root and command execution can be different for user installed applications e.g. pytest. Needed to install pytest as root to ensure the runner was successful `sudo pip3 install pytest`. The `gitlab-runner exec shell <CMD>` was a good troubleshooting tool.
