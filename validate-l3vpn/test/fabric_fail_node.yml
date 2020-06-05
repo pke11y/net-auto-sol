@@ -1,5 +1,7 @@
 #
 # Infrastructure Fabric definition
+# Issue 1: 'pe2.pk.lab' has invalid routerid
+# Issue 2: 'pe3.pk.lab' has no 'asn'
 #
 ---
 nodes:
@@ -8,8 +10,8 @@ nodes:
         routerid: 10.10.10.1
         mgmt: 10.0.0.51
         asn: 65001
-    pp2.pk.lab: 
-        routerid: 10.10.10.2
+    pe2.pk.lab: 
+        routerid: 10.10.10.x
         mgmt: 10.0.0.52
         asn: 65001
     pe3.pk.lab: 

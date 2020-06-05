@@ -1,6 +1,9 @@
 #
 # Infrastructure Fabric definition
 #
+# Issue 1: No 'link_ip_pfx' in first link
+# Issue 2: Node 'random_node' does not exist in the nodes data
+#
 ---
 nodes:
   pe:
@@ -15,6 +18,7 @@ nodes:
     pe3.pk.lab: 
         routerid: 10.10.10.3
         mgmt: 10.0.0.53
+        asn: 65001
   p:
     p1.pk.lab: 
         routerid: 10.10.10.4
@@ -25,7 +29,6 @@ links:
     a_end_intf: GigabitEthernet2
     b_end: pe1.pk.lab
     b_end_intf: GigabitEthernet0/0/0/0
-    link_ip_pfx: 10.0.1.0/31
     cost: 5
   - a_end: p1.pk.lab
     a_end_intf: GigabitEthernet4
