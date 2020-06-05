@@ -1,5 +1,5 @@
 
-# Deploy MPLS/VPN Services
+# Validate and Test MPLS/VPN Services
 These playbooks are submissions for exercise 5 as part of the Building Network Automation Solutions course on ipspace.net. They build on the data model developed during exercise 3 and 4.
 
 ## Overview
