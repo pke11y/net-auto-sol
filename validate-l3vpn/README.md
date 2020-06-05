@@ -14,21 +14,20 @@ Capability to enable debug logging of facts and results returned from network co
 ## Testing 
 Unit testing was developed using pytest for the main data models (**node.yml**, **fabric.yml**, **services.yml**).
 
-Failure scenarios were created to test the automation system. These scenarios will load the invalid data models below.
+Failure scenarios were created to test the automation system. These scenarios will load the invalid data models from the **test** folder.
 
 - **fabric_fail_link.yml**: defines the IP/MPLS core infrastructure parameters. 
-- **fabric_fail_link.yml**: defines the internal OAM L3VPN service parameters.
-
+  - Issue 1: No `link_ip_pfx` in first link
+  - Issue 2: Node 'random_node' does not exist in the nodes data
+- **fabric_fail_node.yml**: defines the internal OAM L3VPN service parameters.
+  - Issue 1: `pe2.pk.lab` has an invalid routerid
+  - Issue 2: `pe3.pk.lab` has no `asn` 
+  
 Execution of the valid and invalid data models is achieved with the pytest custom commands:
 
 - `pytest -s -q input_test.py`: unit test valid data models 
 - `pytest -s -q input_test.py --scenario_fail_fabric_link`: unit test invalid fabric link data model
-  - Issue 1: No `link_ip_pfx` in first link
-  - Issue 2: Node 'random_node' does not exist in the nodes data
 - `pytest -s -q input_test.py --scenario_fail_fabric_node`: unit test invalid fabric node data model
-  - Issue 1: `pe2.pk.lab` has an invalid routerid
-  - Issue 2: `pe3.pk.lab` has no `asn` 
-
 
 ## Validation
 Napalm_validate was used to validate service deployment instead of the assert modules originally used in ex 3/4, as recommended by Ivan. New templates were created for the BGP and interface IP validation files. 
@@ -45,14 +44,13 @@ All jinja2 templates are stored in the **templates** folder
 - `validate_bgp.j2`: transformation template to create napalm_validation files for BGP neighbours depliyed as part of the L3VPN service
 - `validate_interfaces.j2`: transformation template to create napalm_validation files for L3VPN interfaces
 
-
 ## Results
 All configuration outputs are stored in the **results** folder.
 
 - **service_validation**: per node napalm_validate files
 - **reports**: added napalm compliance validation reports 
 
-
+---
 ## Learnings
 - Need to split P and PE routers into separate groups in the inventory fileto avoid conditional checks for service deployment.
 - unit tests could be more specific with more time e.g. regex check against hostnames, link ip prefix valid IPv4Network, management and routerid's within specific subnet etc. 
@@ -60,6 +58,6 @@ All configuration outputs are stored in the **results** folder.
 - Running failed tests in Ansible removes the node from subsequent plays. Napalm validation reports is better for that type of failure than assert
 - Failed tests for invalid scenarios in GitLab causes the CI execution to stop. Steps following the failure are lost. Need a better way to run tests with expected failure results.
 - Gitlab-runner is executed as root and command execution can be different for user installed applications e.g. pytest. Needed to install pytest as root to ensure the runner was successful `sudo pip3 install pytest`. The `gitlab-runner exec shell <CMD>` was a good troubleshooting tool.
-- GitLab integration required a lot of Unix/Linux skills which may be lacking!
-- GitLab repository mirroring of GitHub repository was used to monitor for any commits. Testing was conducted by manually refreshing the mirrored repository, which initiated the pipeline job execution. A better solution is needed here, such as running the CI when a branch is merged into master.
+- GitLab integration required a lot of Unix/Linux skills.
+- GitLab mirroring repository was used to monitor for any commits in a GitHub repository. Testing was conducted by manually refreshing the mirrored repository, which initiated the pipeline job execution. A better solution is needed here, such as running the CI when a branch is merged into master.
 
